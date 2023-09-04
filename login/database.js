@@ -5,16 +5,12 @@ const fs = require('fs');
 const pool = mysql.createPool({
   host: 'localhost',
   user: 'root',
-  password: 'system',
+  password: 'dbms',
   database: 'ibadah',
   waitForConnections: true,
   connectionLimit: 10,
   queueLimit: 0,
 });
-
-
-
-
 
 function checkCredentials(name, password) {
     var sql = `SELECT USER_ID FROM credentials WHERE USER_NAME = ${pool.escape(name)} and PASSWORD_HASH = SHA2(${pool.escape(password)},256);`;
@@ -37,19 +33,21 @@ function checkCredentials(name, password) {
     });
 }
 
-function verifyMail(email) {
+function verifyMail(email, callback) {
     var sql = `SELECT USER_ID FROM credentials WHERE USER_NAME = ${pool.escape(email)};`;
     pool.query(sql, (err, results, fields) => {
         if (err) {
-            console.log(err);
+            console.log(err.sqlMessage + '\n' + err.sql);
             return;
         }
         if(results.length) {
-            console.log('Email already used');
+            callback(0); //failure
+            // console.log('Email already used');
         }
         else {
-            console.log('Email not found');
+            // console.log('Email not found');
             console.log(results);
+            callback(1); //success
         }
     });
 }
@@ -59,10 +57,10 @@ function insertUser(name, password, email, callback) {
     SHA2(${pool.escape(password)}, 256), ${pool.escape(email)})`;
     pool.query(sql, (err, results, fields) => {
         if (err) {
-            console.log(err);
-            callback(0);
+            console.log(err.sqlMessage + '\n' + err.sql);
+            callback(0); //faulure
         }
-        else callback(1);
+        else callback(1); //success
     });
 }
 

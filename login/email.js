@@ -17,7 +17,7 @@ function createOTP()
     return otpGenerator.generate(6, {lowerCaseAlphabets: false, specialChars: false});
 }
 
-function createMailOptions(recieverEmail)
+function createMailOptions(recieverEmail, otp)
 {
     var mailOptions = {
         from: 'phoenixmailer3@gmail.com',
@@ -35,7 +35,7 @@ function createMailOptions(recieverEmail)
                 <div
                     style="border:1.5px solid teal;text-align:center;font-size:2em;color:teal;
                     border-radius:3px;display:inline-block;padding:3px 30px">
-                    ${createOTP()}
+                    ${otp}
                 </div>
             </div>
             <p style="padding-bottom: 0px">If you didn't request this, you can ignore this email.</p>
@@ -47,19 +47,19 @@ function createMailOptions(recieverEmail)
     return mailOptions;
 }
 
-function sendMailTo(receiverEmail)
+function sendMailTo(receiverEmail, callback)
 {
-    transporter.sendMail(createMailOptions(receiverEmail), function(error, info) {
+  otp = createOTP();
+    transporter.sendMail(createMailOptions(receiverEmail, otp), function(error, info) {
         if (error) {
           console.log(error);
+          callback("");
         } else {
           console.log('Email sent: ' + info.response);
+          callback(otp);
         }
       });
 }
 
-
-
-//sendMailTo('abeshahsan@iut-dhaka.edu');
 
 module.exports = {sendMailTo};
