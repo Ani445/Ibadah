@@ -18,12 +18,12 @@ var sentOTP, _username = "", _email = "",  _password = "", _userLoggedIN = false
 // Route to Homepage
 app.get('/', (req, res) => {
   // res.sendFile(__dirname + '/static/index.html');
-  res.redirect('/login');
+  res.redirect('/signup');
   //res.sendFile(__dirname + '/client.js');
 });
 
 // Route to Login Page
-app.get('/login', (req, res) => {
+app.get('/signup', (req, res) => {
   res.sendFile(__dirname + '/static/signup.html');
   if(_userLoggedIN) {
     res.redirect('/home');
@@ -32,7 +32,7 @@ app.get('/login', (req, res) => {
 
 app.get('/home', (req, res) => {
   if(!_userLoggedIN) {
-    res.redirect('/login');
+    res.redirect('/signup');
   }
   else {
     res.sendFile(__dirname + '/static/index.html');
@@ -41,7 +41,7 @@ app.get('/home', (req, res) => {
 
 app.get('/otp', (req, res) => {
   if(!_userLoggedIN && _username === "") {
-    res.redirect('/login');
+    res.redirect('/signup');
   }
   else if(!_userLoggedIN) {
     res.sendFile(__dirname + '/static/otp.html');
@@ -66,7 +66,7 @@ app.post('/otp', (req, res) => {
   });
 });
 
-app.post('/login', (req, res) => {
+app.post('/signup', (req, res) => {
   // Insert Login Code Here
   _username = req.body.username;
   _password = req.body.password;
@@ -75,11 +75,13 @@ app.post('/login', (req, res) => {
   database.verifyMail(_username, (isSuccess) => {
     //console.log(callback);
 
-    emailSender.sendMailTo(_email, generatedOTP => {
-      sentOTP = generatedOTP;
-      httpMsgs.sendJSON(req, res, {
-        success: isSuccess,
+    if(isSuccess) {
+      emailSender.sendMailTo(_email, generatedOTP => {
+        sentOTP = generatedOTP;
       });
+    }
+    httpMsgs.sendJSON(req, res, {
+      success: isSuccess,
     });
   });
 

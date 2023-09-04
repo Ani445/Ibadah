@@ -40,7 +40,7 @@ function verifyMail(email, callback) {
             console.log(err.sqlMessage + '\n' + err.sql);
             return;
         }
-        if(results.length) {
+        if(!results.length) {
             callback(0); //failure
             // console.log('Email already used');
         }

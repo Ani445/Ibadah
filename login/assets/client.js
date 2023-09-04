@@ -1,4 +1,3 @@
-var x;
 
 $("#otpform").validate({
     rules:{
@@ -61,7 +60,6 @@ $("#form").validate({
         }
     },
     submitHandler: function(form){
-        window.location.href = '/otp';
         $.ajax({
             type: $(form).attr('method'),
             url: $(form).attr('action'),
@@ -70,9 +68,9 @@ $("#form").validate({
         })
         .done(function (response) {
             if (response.success == 1) {    //success            
-                alert('Email');
+                window.location.href = '/otp';
             } else {
-                alert('Email');
+                alert('An account with this email already exists');
             }
             console.log(response.otp);
         });
