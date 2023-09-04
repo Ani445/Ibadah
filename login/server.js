@@ -56,7 +56,7 @@ app.post('/otp', (req, res) => {
   if(otp == sentOTP) {
     isSuccess = 1;
     _userLoggedIN = true;
-    database.insertUser(_username, _password, _password, ()=>{});
+    database.insertUser(_username, _password, _email, ()=>{});
   }
   else {
     isSuccess = 0;
