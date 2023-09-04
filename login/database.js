@@ -52,15 +52,13 @@ function verifyMail(email, callback) {
     });
 }
 
-function insertUser(name, password, email, callback) {
+function insertUser(name, password, email) {
     var sql = `INSERT INTO credentials ( USER_NAME, PASSWORD_HASH, EMAIL) VALUES(${pool.escape(name)}, 
     SHA2(${pool.escape(password)}, 256), ${pool.escape(email)})`;
     pool.query(sql, (err, results, fields) => {
         if (err) {
             console.log(err.sqlMessage + '\n' + err.sql);
-            callback(0); //faulure
         }
-        else callback(1); //success
     });
 }
 
