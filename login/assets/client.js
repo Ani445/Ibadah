@@ -107,5 +107,9 @@ $("#signin-form").validate({
             }
         });
         return false; // required to block normal submit since you used ajax
-    }
+    },
 });
+
+$(document).on('click', '#go_signup_button', ()=>{
+    window.location.href = "/signup";
+})

@@ -2,42 +2,46 @@
 <html>
 
 <head>
-    <title>Sign In</title>
-    <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/additional-methods.min.js"></script>
+	<title>Sign In</title>
+	<script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/additional-methods.min.js"></script>
 </head>
 
 <body>
-    <form id="signin-form" name="signin-form" action="" method="post">
-        <div class="container">
-            <h1>Sign In - Productive Muslim</h1>
-            <hr>
+	<form id="signin-form" name="signin-form" action="" method="post">
+		<div class="container">
+			<h1>Sign In - Productive Muslim</h1>
+			<hr>
 
-            <div>
-                <br>
-                <label for="email"><b>Email</b></label>
-                <input type="text" id="email" placeholder="Email" name="email" required>
-                <label id="email_error" class="error" for="email"></label>
-            </div>
-                <br>
+			<div>
+				<br>
+				<label for="email"><b>Email</b></label>
+				<input type="text" id="email" placeholder="Email" name="email" required>
+				<label id="email_error" class="error" for="email"></label>
+			</div>
+			<br>
 
-                <label for="password"><b>Password</b></label>
-                <input type="password" id="password" placeholder="Password" name="password" required>
+			<label for="password"><b>Password</b></label>
+			<input type="password" id="password" placeholder="Password" name="password" required>
 
-            </div>
-            <div class="clearfix">
-                <br>
-                <!-- <button type="cancel" id = "cancel_button" class="cancelbtn">Cancel</button>
+		</div>
+		<div class="clearfix">
+			<br>
+			<!-- <button type="cancel" id = "cancel_button" class="cancelbtn">Cancel</button>
           <button type="submit" id = "submit_button" class="signupbtn">Sign Up</button> -->
-                <input type="submit" id="submit_button" class="signinbtn" value="Sign IN"></button>
-            </div>
-
-        </div>
-    </form>
-    <script src="client.js"></script>
-    <script src="event.js"></script>
-    <link href="style.css" rel="stylesheet">
+			<input type="submit" id="signin_button" class="signinbtn" value="Sign IN"></button>
+		</div>
+		<div>
+			<br>
+			Don't have an account?
+			<input type="button" id="go_signup_button" class="button" name="go_signup_button" value="Sign Up"
+				style="background-color: transparent; border-color: transparent; color: rgb(46, 31, 88);"></button>
+		</div>
+	</form>
+	<script src="client.js"></script>
+	<script src="event.js"></script>
+	<link href="style.css" rel="stylesheet">
 
 </body>
 

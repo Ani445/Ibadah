@@ -5,3 +5,7 @@ label.error
     color: #f00;
     font-size: 14px;
 }
+
+.button:hover{
+    cursor: pointer;
+}
