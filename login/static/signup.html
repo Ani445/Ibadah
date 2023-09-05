@@ -1,70 +1,65 @@
 <!DOCTYPE html>
 <html>
-  
-  <head>
-    <title>Sign Up</title>
-    <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/additional-methods.min.js"></script>
-  </head>
-  
-  <body>
-    <form id="form" name="form" action="" method="post">
-      <div class="container">
+
+<head>
+  <title>Sign Up</title>
+  <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/additional-methods.min.js"></script>
+</head>
+
+<body>
+  <form id="form" name="form" action="" method="post">
+    <div class="container">
       <h1>Sign Up - Productive Muslim</h1>
       <p>Please fill in this form to create an account.</p>
       <hr>
-      
+
       <div>
         <br>
         <label for="username"><b>User Name</b></label>
         <input type="text" id="username" placeholder="Name*" name="username" required>
-        <label  id="username_error" class="error" for="username"></label>
+        <label id="username_error" class="error" for="username"></label>
       </div>
-      
+
       <div>
         <br>
-        
+
         <label for="email"><b>E-mail</b></label>
         <input type="text" id="email" placeholder="E-mail*" name="email" required>
       </div>
       <div>
         <br>
-        
+
         <label for="password"><b>Password</b></label>
         <input type="password" id="password" placeholder="Password*" name="password" required>
-        
+
       </div>
       <div>
-        
+
         <br>
         <label for="confirm_password"><b>Repeat Password</b></label>
         <input type="password" id="confirm_password" placeholder="Repeat Password*" name="confirm_password" required>
-       
+
       </div>
       <div class="clearfix">
         <br>
         <!-- <button type="cancel" id = "cancel_button" class="cancelbtn">Cancel</button>
           <button type="submit" id = "submit_button" class="signupbtn">Sign Up</button> -->
-          <input type="submit" id = "submit_button" class="signupbtn" value="Sign Up"></button>
-        </div>
-        
+        <input type="submit" id="submit_button" class="signupbtn" value="Sign Up"></button>
       </div>
-    </form>
-    <!-- <script>
-      console.log('Client-side code running');
-      const button = document.getElementById('submit_button');
-      button.click(function(){
-        button.post('/login');
-      });
-      
-    </script> -->
-    
-    
-    <script src="client.js"></script>
-    <script src="event.js"></script>
-    <link href="style.css" rel="stylesheet">
+      <div>
+        <br>
+        Already have an account?
+        <input type="button" id="go_signin_button" class="button" name="go_signin_button" value="Sign In"
+          style="background-color: transparent; border-color: transparent; color: rgb(46, 31, 88);"></button>
+      </div>
+    </div>
+  </form>
+  <script src="client.js"></script>
+  <script src="event.js"></script>
+  <link href="style.css" rel="stylesheet">
 
-  </body>
-  
-  </html>
+</body>
+
+</html>

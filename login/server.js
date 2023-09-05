@@ -80,6 +80,10 @@ app.post('/otp', (req, res) => {
   });
 });
 
+app.get('/mailverify', (req, res) => {
+  res.sendFile(__dirname + '/static/mailverify.html');
+});
+
 app.post('/signup', (req, res) => {
   // Insert Login Code Here
   _username = req.body.username;
