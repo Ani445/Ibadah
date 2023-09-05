@@ -13,47 +13,61 @@ app.use(express.static(path.join(__dirname, '/assets/css')))
 
 var database = require('./database');
 
-var sentOTP, _username = "", _email = "",  _password = "", _userLoggedIN = false;
+var sentOTP, _username = "", _email = "", _password = "", _userLoggedIN = false;
 
 // Route to Homepage
 app.get('/', (req, res) => {
   // res.sendFile(__dirname + '/static/index.html');
-  res.redirect('/signup');
+  res.redirect('/signin');
   //res.sendFile(__dirname + '/client.js');
 });
+
+
+app.get('/signin', (req, res) => {
+  res.sendFile(__dirname + '/static/signin.html');
+});
+
+
+app.post('/signin', (req, res) => {
+  var email = req.body.email;
+  var password = req.body.password;
+
+  database.checkCredentials(email, password, (results) => {
+    //console.log(callback);
+    var isSuccess;
+
+    if (!results.length) {
+      isSuccess = 0;
+    }
+    else {
+      isSuccess = 1;
+      _username = results.username;
+      _email = results.email;
+    }
+    httpMsgs.sendJSON(req, res, {
+      success: isSuccess,
+    });
+  });
+});
+
+
 
 // Route to Login Page
 app.get('/signup', (req, res) => {
   res.sendFile(__dirname + '/static/signup.html');
-  if(_userLoggedIN) {
-    res.redirect('/home');
-  }
 });
 
 app.get('/home', (req, res) => {
-  if(!_userLoggedIN) {
-    res.redirect('/signup');
-  }
-  else {
-    res.sendFile(__dirname + '/static/index.html');
-  }
+  res.sendFile(__dirname + '/static/index.html');
 });
 
 app.get('/otp', (req, res) => {
-  if(!_userLoggedIN && _username === "") {
-    res.redirect('/signup');
-  }
-  else if(!_userLoggedIN) {
-    res.sendFile(__dirname + '/static/otp.html');
-  }
-  else {
-    res.redirect('/home');
-  }
+  res.sendFile(__dirname + '/static/otp.html');
 });
 
 app.post('/otp', (req, res) => {
   let otp = req.body.otp;
-  if(otp == sentOTP) {
+  if (otp == sentOTP) {
     isSuccess = 1;
     _userLoggedIN = true;
     database.insertUser(_username, _password, _email);
@@ -75,7 +89,7 @@ app.post('/signup', (req, res) => {
   database.verifyMail(_username, (isSuccess) => {
     //console.log(callback);
 
-    if(isSuccess) {
+    if (isSuccess) {
       emailSender.sendMailTo(_email, generatedOTP => {
         sentOTP = generatedOTP;
       });

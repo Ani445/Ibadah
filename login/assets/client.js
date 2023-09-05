@@ -77,3 +77,35 @@ $("#form").validate({
         return false; // required to block normal submit since you used ajax
     }
 });
+
+
+$("#signin-form").validate({
+    rules:{
+        
+    },
+    messages: {
+        email: {
+            required: "Please enter your email"
+
+        },
+        password:{
+            required: "Please your a password"
+        },
+    },
+    submitHandler: function(form){
+        $.ajax({
+            type: $(form).attr('method'),
+            url: $(form).attr('action'),
+            data: $(form).serialize(),
+            dataType : 'json'
+        })
+        .done(function (response) {
+            if (response.success == 1) {    //success            
+                window.location.href = '/home';
+            } else {
+                alert('Wrong email or password');
+            }
+        });
+        return false; // required to block normal submit since you used ajax
+    }
+});

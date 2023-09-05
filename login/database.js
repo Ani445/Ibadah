@@ -12,24 +12,14 @@ const pool = mysql.createPool({
   queueLimit: 0,
 });
 
-function checkCredentials(name, password) {
-    var sql = `SELECT USER_ID FROM credentials WHERE USER_NAME = ${pool.escape(name)} and PASSWORD_HASH = SHA2(${pool.escape(password)},256);`;
+function checkCredentials(email, password, callback) {
+    var sql = `SELECT * FROM credentials WHERE EMAIL = ${pool.escape(email)} and PASSWORD_HASH = SHA2(${pool.escape(password)},256);`;
     pool.query(sql, (err, results, fields) => { 
         if (err) {
-            console.log(err);
+            console.log(err.sql);
             return;
         }
-        if(results.length) {
-            fs.writeFile('./user.json', JSON.stringify(results[0]), (err) => {
-                if(err) {
-                    console.log('error writing in file');
-                }
-            });
-            console.log('login successful');
-        }
-        else {
-            console.log('Invalid username or password');
-        }
+        callback(results);
     });
 }
 
