@@ -24,36 +24,50 @@ function checkCredentials(email, password, callback) {
 }
 
 function verifyMail(email, callback) {
-    var sql = `SELECT USER_ID FROM credentials WHERE USER_NAME = ${pool.escape(email)};`;
+    var sql = `SELECT USER_ID FROM credentials WHERE EMAIL = ${pool.escape(email)};`;
     pool.query(sql, (err, results, fields) => {
         if (err) {
             console.log(err.sqlMessage + '\n' + err.sql);
-            return;
+            return ;
         }
         if(!results.length) {
-            callback(0); //failure
-            // console.log('Email already used');
+            console.log('Email already used');
+            callback(0, 1); //failure
         }
         else {
             // console.log('Email not found');
             console.log(results);
-            callback(1); //success
+            callback(results[0].USER_ID, 0); //success
         }
     });
 }
 
-function insertUser(name, password, email) {
+function insertUser(name, password, email, callback) {
     var sql = `INSERT INTO credentials ( USER_NAME, PASSWORD_HASH, EMAIL) VALUES(${pool.escape(name)}, 
     SHA2(${pool.escape(password)}, 256), ${pool.escape(email)})`;
     pool.query(sql, (err, results, fields) => {
         if (err) {
             console.log(err.sqlMessage + '\n' + err.sql);
         }
+        callback(results);
+    });
+}
+
+function updatePassword(user_id, password, callback) {
+    var sql = `UPDATE CREDENTIALS SET PASSWORD_HASH = SHA2(${pool.escape(password)}, 256) 
+        WHERE USER_ID = ${pool.escape(user_id)}`;
+    pool.query(sql, (err, results, fields) => {
+        if (err) {
+            console.log(err.sqlMessage + '\n' + err.sql);
+            callback(0);
+        }
+        callback(1);
     });
 }
 
 module.exports = {
     checkCredentials,
     insertUser,
-    verifyMail
+    verifyMail,
+    updatePassword
 }

@@ -13,7 +13,7 @@ app.use(express.static(path.join(__dirname, '/assets/css')))
 
 var database = require('./database');
 
-var sentOTP, _username = "", _email = "", _password = "", _userLoggedIN = false;
+var sentOTP, _userid = 0, _username = "", _email = "", _password = "", _userLoggedIN = false;
 
 // Route to Homepage
 app.get('/', (req, res) => {
@@ -25,6 +25,11 @@ app.get('/', (req, res) => {
 
 app.get('/signin', (req, res) => {
   res.sendFile(__dirname + '/static/signin.html');
+});
+
+
+app.get('/forgotpassotp', (req, res) => {
+  res.sendFile(__dirname + '/static/forgotpassotp.html');
 });
 
 
@@ -41,6 +46,7 @@ app.post('/signin', (req, res) => {
     }
     else {
       isSuccess = 1;
+      _userid = results.username;
       _username = results.username;
       _email = results.email;
     }
@@ -49,7 +55,6 @@ app.post('/signin', (req, res) => {
     });
   });
 });
-
 
 
 // Route to Login Page
@@ -70,7 +75,9 @@ app.post('/otp', (req, res) => {
   if (otp == sentOTP) {
     isSuccess = 1;
     _userLoggedIN = true;
-    database.insertUser(_username, _password, _email);
+    database.insertUser(_username, _password, _email, (results) => {
+      // _userid = results.inertedID;
+    });
   }
   else {
     isSuccess = 0;
@@ -80,8 +87,40 @@ app.post('/otp', (req, res) => {
   });
 });
 
+app.post('/forgotpassotp', (req, res) => {
+  let otp = req.body.otp;
+  if (otp == sentOTP) {
+    isSuccess = 1;
+  }
+  else {
+    isSuccess = 0;
+  }
+  httpMsgs.sendJSON(req, res, {
+    success: isSuccess,
+  });
+});
+
+
+app.post('/changepass', (req, res) => {
+  let new_password = req.body.new_password;
+
+  database.updatePassword(_userid, new_password, (isSuccess) => {
+    httpMsgs.sendJSON(req, res, {
+      success: isSuccess,
+    });
+  });
+});
+
+app.get('/changepass', (req, res) => {
+  res.sendFile(__dirname + '/static/changepass.html');
+});
+
 app.get('/mailverify', (req, res) => {
   res.sendFile(__dirname + '/static/mailverify.html');
+});
+
+app.get('/forgotpassotp', (req, res) => {
+  res.sendFile(__dirname + '/static/forgotpassotp.html');
 });
 
 app.post('/signup', (req, res) => {
@@ -90,7 +129,7 @@ app.post('/signup', (req, res) => {
   _password = req.body.password;
   _email = req.body.email;
 
-  database.verifyMail(_username, (isSuccess) => {
+  database.verifyMail(_email, (x, isSuccess) => {
     //console.log(callback);
 
     if (isSuccess) {
@@ -102,7 +141,26 @@ app.post('/signup', (req, res) => {
       success: isSuccess,
     });
   });
+});
 
+
+app.post('/mailverify', (req, res) => {
+  // Insert Login Code Here
+  _email = req.body.email;
+
+  database.verifyMail(_email, (user_id, found) => {
+    //console.log(callback);
+    if (found) {
+      _userid = user_id;
+      console.log(_userid);
+      emailSender.sendMailTo(_email, generatedOTP => {
+        sentOTP = generatedOTP;
+      });
+    }
+    httpMsgs.sendJSON(req, res, {
+      success: found,
+    });
+  });
 });
 
 const port = 3000 // Port we will listen on
