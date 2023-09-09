@@ -3,18 +3,18 @@ const mysql = require('mysql');
 const fs = require('fs');
 
 const pool = mysql.createPool({
-  host: 'localhost',
-  user: 'root',
-  password: 'dbms',
-  database: 'ibadah',
-  waitForConnections: true,
-  connectionLimit: 10,
-  queueLimit: 0,
+    host: 'localhost',
+    user: 'root',
+    password: 'dbms',
+    database: 'ibadah',
+    waitForConnections: true,
+    connectionLimit: 10,
+    queueLimit: 0,
 });
 
 function checkCredentials(email, password, callback) {
     var sql = `SELECT * FROM credentials WHERE EMAIL = ${pool.escape(email)} and PASSWORD_HASH = SHA2(${pool.escape(password)},256);`;
-    pool.query(sql, (err, results, fields) => { 
+    pool.query(sql, (err, results, fields) => {
         if (err) {
             console.log(err.sql);
             return;
@@ -28,16 +28,13 @@ function verifyMail(email, callback) {
     pool.query(sql, (err, results, fields) => {
         if (err) {
             console.log(err.sqlMessage + '\n' + err.sql);
-            return ;
+            return;
         }
-        if(!results.length) {
-            console.log('Email already used');
-            callback(0, 1); //failure
+        if (!results.length) {//mail not found
+            callback(1);
         }
-        else {
-            // console.log('Email not found');
-            console.log(results);
-            callback(results[0].USER_ID, 0); //success
+        else { //mail found
+            callback(0); 
         }
     });
 }
@@ -53,9 +50,9 @@ function insertUser(name, password, email, callback) {
     });
 }
 
-function updatePassword(user_id, password, callback) {
+function updatePassword(email, password, callback) {
     var sql = `UPDATE CREDENTIALS SET PASSWORD_HASH = SHA2(${pool.escape(password)}, 256) 
-        WHERE USER_ID = ${pool.escape(user_id)}`;
+        WHERE EMAIL = ${pool.escape(email)}`;
     pool.query(sql, (err, results, fields) => {
         if (err) {
             console.log(err.sqlMessage + '\n' + err.sql);

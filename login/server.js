@@ -5,11 +5,22 @@ const app = express(); // Create an ExpressJS app
 const httpMsgs = require("http-msgs");
 const emailSender = require("./email");
 
+const session = require("express-session");
+
 const bodyParser = require('body-parser'); // middleware
+
+
 app.use(bodyParser.urlencoded({ extended: false }));
-//app.use(express.static("assets"));
 app.use(express.static(path.join(__dirname, '/assets')))
 app.use(express.static(path.join(__dirname, '/assets/css')))
+
+app.use(session(
+  {
+    secret: "Shh, its a secret!",
+    resave: true,
+    saveUninitialized: true,
+  }
+));
 
 var database = require('./database');
 
@@ -17,57 +28,103 @@ var sentOTP, _userid = 0, _username = "", _email = "", _password = "", _userLogg
 
 // Route to Homepage
 app.get('/', (req, res) => {
-  // res.sendFile(__dirname + '/static/index.html');
-  res.redirect('/signin');
-  //res.sendFile(__dirname + '/client.js');
+  if (req.session.user) {
+    res.redirect('/home');
+  }
+  else {
+    res.redirect('/signin');
+  }
 });
 
 
 app.get('/signin', (req, res) => {
-  res.sendFile(__dirname + '/static/signin.html');
+  if (req.session.user) {
+    res.redirect('/home');
+  }
+  else {
+    res.sendFile(__dirname + '/static/signin.html');
+  }
 });
 
 
 app.get('/forgotpassotp', (req, res) => {
-  res.sendFile(__dirname + '/static/forgotpassotp.html');
-});
-
-
-app.post('/signin', (req, res) => {
-  var email = req.body.email;
-  var password = req.body.password;
-
-  database.checkCredentials(email, password, (results) => {
-    //console.log(callback);
-    var isSuccess;
-
-    if (!results.length) {
-      isSuccess = 0;
-    }
-    else {
-      isSuccess = 1;
-      _userid = results.username;
-      _username = results.username;
-      _email = results.email;
-    }
-    httpMsgs.sendJSON(req, res, {
-      success: isSuccess,
-    });
-  });
+  if (req.session.user) {
+    res.redirect('/home');
+  }
+  else if (req.session.redirected) {
+    res.sendFile(__dirname + '/static/forgotpassotp.html');
+    delete req.session.redirected;
+  }
+  else {
+    res.redirect('/signin');
+  }
 });
 
 
 // Route to Login Page
 app.get('/signup', (req, res) => {
-  res.sendFile(__dirname + '/static/signup.html');
+  if (req.session.user) {
+    res.redirect('/home');
+  }
+  else {
+    res.sendFile(__dirname + '/static/signup.html');
+  }
 });
 
 app.get('/home', (req, res) => {
-  res.sendFile(__dirname + '/static/index.html');
+  if (req.session.user) {
+    res.sendFile(__dirname + '/static/index.html');
+  }
+  else {
+    res.redirect('/signin');
+  }
 });
 
 app.get('/otp', (req, res) => {
-  res.sendFile(__dirname + '/static/otp.html');
+  if (req.session.user) {
+    res.redirect('/home');
+  }
+  else if (req.session.redirected) {
+    res.sendFile(__dirname + '/static/otp.html');
+    delete req.session.redirected;
+  }
+  else {
+    res.redirect('/signin');
+  }
+});
+
+
+app.get('/changepass', (req, res) => {
+  if (req.session.user) {
+    res.redirect('/home');
+  }
+  else if (req.session.redirected) {
+    res.sendFile(__dirname + '/static/changepass.html');
+  }
+  else {
+    res.redirect('/signin');
+  }
+});
+
+app.get('/mailverify', (req, res) => {
+  if (req.session.user) {
+    res.redirect('/home');
+  }
+  else {
+    res.sendFile(__dirname + '/static/mailverify.html');
+  }
+});
+
+app.get('/forgotpassotp', (req, res) => {
+  if (req.session.user) {
+    res.redirect('/home');
+  }
+  else if (req.session.redirected) {
+    res.sendFile(__dirname + '/static/forgotpassotp.html');
+  }
+  else {
+    res.redirect('/signin');
+  }
 });
 
 app.post('/otp', (req, res) => {
@@ -90,6 +147,8 @@ app.post('/otp', (req, res) => {
 app.post('/forgotpassotp', (req, res) => {
   let otp = req.body.otp;
   if (otp == sentOTP) {
+    //From here, the user will be redirected to '/changepass' route
+    req.session.redirected = true;
     isSuccess = 1;
   }
   else {
@@ -100,27 +159,14 @@ app.post('/forgotpassotp', (req, res) => {
   });
 });
 
-
 app.post('/changepass', (req, res) => {
   let new_password = req.body.new_password;
-
-  database.updatePassword(_userid, new_password, (isSuccess) => {
+  
+  database.updatePassword(_email, new_password, (isSuccess) => {
     httpMsgs.sendJSON(req, res, {
       success: isSuccess,
     });
   });
-});
-
-app.get('/changepass', (req, res) => {
-  res.sendFile(__dirname + '/static/changepass.html');
-});
-
-app.get('/mailverify', (req, res) => {
-  res.sendFile(__dirname + '/static/mailverify.html');
-});
-
-app.get('/forgotpassotp', (req, res) => {
-  res.sendFile(__dirname + '/static/forgotpassotp.html');
 });
 
 app.post('/signup', (req, res) => {
@@ -128,11 +174,13 @@ app.post('/signup', (req, res) => {
   _username = req.body.username;
   _password = req.body.password;
   _email = req.body.email;
-
-  database.verifyMail(_email, (x, isSuccess) => {
+  
+  database.verifyMail(_email, (isSuccess) => {
     //console.log(callback);
-
+    
     if (isSuccess) {
+      //From here, the user will be redirected to '/otp' route
+      req.session.redirected = true;
       emailSender.sendMailTo(_email, generatedOTP => {
         sentOTP = generatedOTP;
       });
@@ -143,22 +191,50 @@ app.post('/signup', (req, res) => {
   });
 });
 
-
 app.post('/mailverify', (req, res) => {
   // Insert Login Code Here
   _email = req.body.email;
 
-  database.verifyMail(_email, (user_id, found) => {
+  database.verifyMail(_email, (found) => {
     //console.log(callback);
-    if (found) {
-      _userid = user_id;
-      console.log(_userid);
+    console.log(found);
+    if (!found) {
+       //From here, the user will be redirected to '/forgotpassotp' route
+      req.session.redirected = true;
+      
       emailSender.sendMailTo(_email, generatedOTP => {
         sentOTP = generatedOTP;
       });
     }
     httpMsgs.sendJSON(req, res, {
-      success: found,
+      success: !found,
+    });
+  });
+});
+
+app.post('/signin', (req, res) => {
+  console.log(req.session.user);
+
+  var email = req.body.email;
+  var password = req.body.password;
+
+  database.checkCredentials(email, password, (results) => {
+    var isSuccess;
+
+    if (!results.length) {
+      isSuccess = 0;
+    }
+    else {
+      isSuccess = 1;
+
+      req.session.user = {
+        email: req.body.email,
+        user_id: results.user_id,
+        username: results.username
+      }
+    }
+    httpMsgs.sendJSON(req, res, {
+      success: isSuccess,
     });
   });
 });
@@ -167,3 +243,5 @@ const port = 3000 // Port we will listen on
 
 // Function to listen on the port
 app.listen(port, () => console.log(`This app is listening on http://localhost:${port}`));
+
+// http://localhost:3000
