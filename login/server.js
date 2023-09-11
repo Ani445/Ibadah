@@ -4,6 +4,7 @@ const app = express(); // Create an ExpressJS app
 
 const httpMsgs = require("http-msgs");
 const emailSender = require("./email");
+const {getClassAppearance} = require('./utility');
 
 const session = require("express-session");
 
@@ -13,6 +14,8 @@ const bodyParser = require('body-parser'); // middleware
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, '/assets')))
 app.use(express.static(path.join(__dirname, '/assets/css')))
+
+app.set('view engine', 'ejs');
 
 app.use(session(
   {
@@ -126,6 +129,22 @@ app.get('/forgotpassotp', (req, res) => {
     res.redirect('/signin');
   }
 });
+
+
+app.get('/classes', (req, res) => {
+  res.render('ClassAppearance', {data: 'Abesh'});
+});
+
+app.get('/load-classes', (req, res) => {
+
+  var list = ``;
+
+  list += getClassAppearance();
+
+  res.send(list);
+});
+
+
 
 app.post('/otp', (req, res) => {
   let otp = req.body.otp;

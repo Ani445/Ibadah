@@ -232,6 +232,16 @@ $("#change_pass_form").validate({
     },
 });
 
+$(document).ready(() => {
+    $.ajax({
+        url: '/load-classes',
+        method: 'get',
+        success: function(data) {
+            $("#class_list").html(data);
+        }
+    })
+});
+
 $(document).on('click', '#go_signup_button', ()=>{
     window.location.href = "/signup";
 })
