@@ -101,7 +101,7 @@ body{
 .wrapper{
     position: relative;
     width: 400px;
-    height: 620px;
+    height: 520px;
     /* background: transparent; */
     background-color: white;
     border: 2px solid rgba(255, 255, 255, .5);
@@ -163,7 +163,7 @@ body{
     transform:translateX(0px);
 }
 
-/* .wrapper span.icon-close{
+.wrapper span.icon-close{
     position: absolute;
     top: 0;
     right: 0;
@@ -178,7 +178,7 @@ body{
     border-bottom-left-radius: 20px;
     cursor: pointer;
     z-index: 1;
-} */
+}
 
 
 .form-box h2{
@@ -193,7 +193,7 @@ body{
     width: 100%;
     height: 50px;
     border-bottom: 2px solid #162938;
-    margin: 40px 0;
+    margin: 30px 0;
 }
 .input-box label{
     position: absolute;
@@ -206,14 +206,14 @@ body{
 
 .input-box input{
     width: 100%;
-    height: auto;
+    height: 150%;
     background: transparent;
     border: none;
     outline: none;
     font-size: 1em;
     color: #162938;
     font-weight: 600;
-    padding: 25px 35px 0 5px; 
+    padding: 0 35px 0 5px; 
 }
 
 .input-box span{
@@ -236,16 +236,12 @@ body{
     accent-color: #162938;
     margin-right: 3px;
 } */
-.forgot input{
+.forgot a{
     color: #162938;
     text-decoration: none;
-    border: none;
-    background: transparent;
-    font-size: 15px;
 }
-.forgot input:hover{
+.forgot a:hover{
     text-decoration: underline;
-    cursor: pointer;
 }
 
 
@@ -270,29 +266,13 @@ body{
     font-weight: 500;
     margin: 25px 0 10px;
 }
-.login-register p input{
-    color: #520bbe;
-    text-decoration: none;
-    /* font-weight: 150; */
-    border: none;
-    background: transparent;
-    font-size: 15px;
-}
 .login-register p a{
-    color: #520bbe;
+    color: #9f5fff;
     text-decoration: none;
-    /* font-weight: 150; */
-    border: none;
-    background: transparent;
-    font-size: 15px;
+    font-weight: 600;
 }
-.login-register p input:hover{
-    text-decoration: underline;
-    cursor: pointer;
-} 
 .login-register p a:hover{
     text-decoration: underline;
-    cursor: pointer;
 } 
 
 span.icon{
@@ -301,8 +281,8 @@ span.icon{
 
 label.error
 {
-    font-weight:400;
+    font-weight:700;
     display: block;
     color: #f00;
-    font-size: 13px;
+    font-size: 14px;
 }

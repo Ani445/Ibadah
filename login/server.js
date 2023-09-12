@@ -4,7 +4,7 @@ const app = express(); // Create an ExpressJS app
 
 const httpMsgs = require("http-msgs");
 const emailSender = require("./email");
-const {getClassAppearance} = require('./utility');
+// const {getClassAppearance} = require('./utility');
 
 const session = require("express-session");
 
@@ -70,7 +70,7 @@ app.get('/signup', (req, res) => {
     res.redirect('/home');
   }
   else {
-    res.sendFile(__dirname + '/static/signup.html');
+    res.sendFile(__dirname + '/static/signin.html');
   }
 });
 
@@ -135,14 +135,14 @@ app.get('/classes', (req, res) => {
   res.render('ClassAppearance', {data: 'Abesh'});
 });
 
-app.get('/load-classes', (req, res) => {
+// app.get('/load-classes', (req, res) => {
 
-  var list = ``;
+//   var list = ``;
 
-  list += getClassAppearance();
+//   list += getClassAppearance();
 
-  res.send(list);
-});
+//   res.send(list);
+// });
 
 
 
@@ -196,7 +196,7 @@ app.post('/signup', (req, res) => {
   
   database.verifyMail(_email, (isSuccess) => {
     //console.log(callback);
-    
+    console.log("trying to signup");
     if (isSuccess) {
       //From here, the user will be redirected to '/otp' route
       req.session.redirected = true;
@@ -216,7 +216,7 @@ app.post('/mailverify', (req, res) => {
 
   database.verifyMail(_email, (found) => {
     //console.log(callback);
-    console.log(found);
+    // console.log(found);
     if (!found) {
        //From here, the user will be redirected to '/forgotpassotp' route
       req.session.redirected = true;
