@@ -1,6 +1,5 @@
 const { response } = require('express');
 const mysql = require('mysql');
-const fs = require('fs');
 
 const pool = mysql.createPool({
     host: 'localhost',
@@ -14,7 +13,7 @@ const pool = mysql.createPool({
 
 function checkCredentials(email, password, callback) {
     var sql = `SELECT * FROM credentials WHERE EMAIL = ${pool.escape(email)} and PASSWORD_HASH = SHA2(${pool.escape(password)},256);`;
-    pool.query(sql, (err, results, fields) => {
+    pool.query(sql, (err, results) => {
         if (err) {
             console.log(err.sql);
             return;
@@ -25,7 +24,7 @@ function checkCredentials(email, password, callback) {
 
 function verifyMail(email, callback) {
     var sql = `SELECT USER_ID FROM credentials WHERE EMAIL = ${pool.escape(email)};`;
-    pool.query(sql, (err, results, fields) => {
+    pool.query(sql, (err, results) => {
         if (err) {
             console.log(err.sqlMessage + '\n' + err.sql);
             return;
@@ -42,7 +41,7 @@ function verifyMail(email, callback) {
 function insertUser(name, password, email, callback) {
     var sql = `INSERT INTO credentials ( USER_NAME, PASSWORD_HASH, EMAIL) VALUES(${pool.escape(name)}, 
     SHA2(${pool.escape(password)}, 256), ${pool.escape(email)})`;
-    pool.query(sql, (err, results, fields) => {
+    pool.query(sql, (err, results) => {
         if (err) {
             console.log(err.sqlMessage + '\n' + err.sql);
         }
@@ -53,7 +52,7 @@ function insertUser(name, password, email, callback) {
 function updatePassword(email, password, callback) {
     var sql = `UPDATE CREDENTIALS SET PASSWORD_HASH = SHA2(${pool.escape(password)}, 256) 
         WHERE EMAIL = ${pool.escape(email)}`;
-    pool.query(sql, (err, results, fields) => {
+    pool.query(sql, (err) => {
         if (err) {
             console.log(err.sqlMessage + '\n' + err.sql);
             callback(0);
@@ -62,9 +61,21 @@ function updatePassword(email, password, callback) {
     });
 }
 
+function loadClasses(callback) {
+    var sql = `SELECT post_id, topic, teacher, DATE_FORMAT(date,'%y-%m-%d') as date, time, online, address FROM classes;`;
+    pool.query(sql, (err, results) => {
+        if (err) {
+            console.log(err.sqlMessage + '\n' + err.sql);
+            callback(0);
+        }
+        callback(results);
+    });
+}
+
 module.exports = {
     checkCredentials,
     insertUser,
     verifyMail,
-    updatePassword
+    updatePassword,
+    loadClasses
 }
