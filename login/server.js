@@ -15,6 +15,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, '/assets')))
 app.use(express.static(path.join(__dirname, '/assets/css')))
 
+app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
 
 app.use(session(
@@ -137,17 +138,6 @@ app.get('/classes', (req, res) => {
     res.render('ClassAppearance', {data: results});
   })
 });
-
-app.get('/load-classes', (req, res) => {
-
-  var list = ``;
-
-  list += getClassAppearance();
-
-  res.send(list);
-});
-
-
 
 app.post('/otp', (req, res) => {
   let otp = req.body.otp;
