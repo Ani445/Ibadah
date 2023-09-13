@@ -135,16 +135,6 @@ app.get('/classes', (req, res) => {
   res.render('ClassAppearance', {data: 'Abesh'});
 });
 
-// app.get('/load-classes', (req, res) => {
-
-//   var list = ``;
-
-//   list += getClassAppearance();
-
-//   res.send(list);
-// });
-
-
 
 app.post('/otp', (req, res) => {
   let otp = req.body.otp;

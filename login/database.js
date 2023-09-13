@@ -5,7 +5,7 @@ const fs = require('fs');
 const pool = mysql.createPool({
     host: 'localhost',
     user: 'root',
-    password: 'system',
+    password: 'dbms',
     database: 'ibadah',
     waitForConnections: true,
     connectionLimit: 10,

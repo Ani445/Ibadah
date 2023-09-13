@@ -1,28 +1,24 @@
 const wrapper=document.querySelector('.wrapper');
 const loginLink=document.querySelector('.login-link');
+
 const registerLink=document.querySelector('.register-link');
 // const signup_form = document.querySelector('.form-box signup');
 
-registerLink.addEventListener('click',()=>{
-    wrapper.classList.add('active');
-});
+if(registerLink) {
+    registerLink.addEventListener('click',()=>{
+        wrapper.classList.add('active');
+    });
+}
 
-loginLink.addEventListener('click',()=>{
-    wrapper.classList.remove('active');
-});
+if(loginLink) {
+    loginLink.addEventListener('click',()=>{
+        wrapper.classList.remove('active');
+    });
+}
 
 $(document).on('click', '#forgot_pass_button', ()=>{
     window.location.href = "/mailverify";
 })
-// $(document).ready(() => {
-//     $.ajax({
-//         url: '/load-classes',
-//         method: 'get',
-//         success: function(data) {
-//             $("#class_list").html(data);
-//         }
-//     })
-// });
 
 $(document).ready(() => {
     console.log(window.location.href);
@@ -32,21 +28,6 @@ $(document).ready(() => {
         // console.log( $(wrapper).attr('height'))
     }
 });
-
-// jquery(function(){
-//     $(window).on('load', function () {
-//         // console.log(window.location.href);
-//         // if(window.location.href=='/signin#signup')wrapper.classList.add('active');
-//         $.ajax({
-//             url: '/load-classes',
-//             method: 'get',
-//             success: function(data) {
-//                 $("#class_list").html(data);
-//             }
-//         })
-//     });
-// })
-
 
 
 $("#otpform").validate({
@@ -152,34 +133,9 @@ $("#signin_form").validate({
     },
 });
 
-// $("#signin_form").validate({
-//     rules:{
-        
-//     },
-//     messages: {
-
-//     },
-//     submitHandler: function(form){
-//         $.ajax({
-//             type: $(form).attr('method'),
-//             url: $(form).attr('action'),
-//             data: $(form).serialize(),
-//             dataType : 'json'
-//         })
-//         .done(function (response) {
-//             if (response.success == 1) {    //success            
-//                 window.location.href = '/home';
-//             } else {
-//                 alert('Wrong email or password');
-//             }
-//         });
-//         return false; // required to block normal submit since you used ajax
-//     },
-// });
-
 $("#mail_forgotpass_form").validate({
     rules:{
-        
+        email: true
     },
     messages: {
         email: {
@@ -266,22 +222,3 @@ $("#change_pass_form").validate({
         return false; // required to block normal submit since you used ajax
     },
 });
-
-
-// $(document).on('click', '#go_signup_button', ()=>{
-//     window.location.href = "/signup";
-// })
-
-// $(document).on('click', '#go_signin_button', ()=>{
-//     window.location.href = "/signin";
-// })
-
-// $(document).on('click', '#forgot_pass_button', ()=>{
-//     window.location.href = "/mailverify";
-// })
-
-// $(document).on('click', '#enter_email_button', ()=>{
-//     window.location.href = "/mailverify";
-// })
-
-// for newly mapped html
