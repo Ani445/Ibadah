@@ -76,7 +76,7 @@ app.get('/signup', (req, res) => {
 
 app.get('/home', (req, res) => {
   if (req.session.user) {
-    res.sendFile(__dirname + '/static/index.html');
+    res.sendFile(__dirname + '/static/dash.html');
   }
   else {
     res.redirect('/signin');
@@ -248,6 +248,27 @@ app.post('/signin', (req, res) => {
   });
 });
 
+app.post('/signup', (req, res) => {
+  // Insert Login Code Here
+  _username = req.body.username;
+  _password = req.body.password;
+  _email = req.body.email;
+  
+  database.verifyMail(_email, (isSuccess) => {
+    //console.log(callback);
+    console.log("trying to signup");
+    if (isSuccess) {
+      //From here, the user will be redirected to '/otp' route
+      req.session.redirected = true;
+      emailSender.sendMailTo(_email, generatedOTP => {
+        sentOTP = generatedOTP;
+      });
+    }
+    httpMsgs.sendJSON(req, res, {
+      success: isSuccess,
+    });
+  });
+});
 const port = 3000 // Port we will listen on
 
 // Function to listen on the port
