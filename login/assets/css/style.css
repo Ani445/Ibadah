@@ -224,7 +224,7 @@ body{
     padding: 25px 35px 0 5px; 
 }
 
-.input-box input[id="class-date"]{
+.input-box input[id="class_date"]{
     width: calc(115%);
     height: auto;
     background: transparent;
@@ -236,7 +236,7 @@ body{
     padding: 25px 35px 0 5px; 
 }
 
-.input-box input[id="class-time"]{
+.input-box input[id="class_time"]{
     width: calc(115%);
     height: auto;
     background: transparent;

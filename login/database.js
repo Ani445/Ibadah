@@ -5,7 +5,7 @@ const fs = require('fs');
 const pool = mysql.createPool({
     host: 'localhost',
     user: 'root',
-    password: 'dbms',
+    password: 'system',
     database: 'ibadah',
     waitForConnections: true,
     connectionLimit: 10,
@@ -34,7 +34,7 @@ function verifyMail(email, callback) {
             callback(1);
         }
         else { //mail found
-            callback(0); 
+            callback(0);
         }
     });
 }
@@ -62,9 +62,68 @@ function updatePassword(email, password, callback) {
     });
 }
 
+function loadClasses(callback) {
+    var sql = `SELECT post_id, topic, teacher, DATE_FORMAT(date,'%M %d, %Y') as date, 
+                TIME_FORMAT(time,'%h:%i %p') as time, online, address FROM classes;`;
+
+
+    pool.query(sql, (err, results) => {
+        if (err) {
+            console.log(err.sqlMessage + '\n' + err.sql);
+            callback(0);
+        }
+        callback(results);
+    });
+}
+
+function insertNewClasses(topic, teacher, medium, address, date, time, callback) {
+
+    if(medium == "Online") medium = 1;
+    else medium = 0;
+
+    var sql = `INSERT INTO classes(topic, teacher, online, address, date, time) 
+                VALUES (${pool.escape(topic)}, ${pool.escape(teacher)}, ${pool.escape(medium)}, 
+                        ${pool.escape(address)}, ${pool.escape(date)}, ${pool.escape(time)})`;
+    pool.query(sql, (err, results) => {
+        if (err) {
+            console.log(err.sqlMessage + '\n' + err.sql);
+            callback(0);
+        }
+        callback(1);
+    });
+}
+
+function myDateFormatter(mysqlDate)
+{
+    console.log(mysqlDate.split('-'));
+    var [year, month, date] = mysqlDate.split('-');
+    var dateString = `${monthNames[month - 1]} ${date}, ${year}`;
+    return dateString;
+}
+
 module.exports = {
     checkCredentials,
     insertUser,
     verifyMail,
-    updatePassword
+    updatePassword,
+    loadClasses,
+    insertNewClasses
 }
+
+
+
+
+const monthNames = [
+    "January", 
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December"
+];
