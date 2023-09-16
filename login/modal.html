@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta chjarset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width,initial-scale=1.0">
+	<title>Classes</title>
+	<script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/additional-methods.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="modal.css">
+	<link rel="stylesheet" type="text/css" href="assets/css/style.css">
+</head>
+
+<body>
+	<button id="openModalBtn">Open Modal</button>
+
+	<div id="overlay-in-new-class" class="modal-overlay"></div>
+
+	<div id="new-class" class="modal">
+		<span id="close">&times;</span>
+		<div id="new-class-content">
+			<h2>Post a new class</h2>
+			<form id="new-class-form" name="new-class-form" action="/classes" method="post">
+				<div class="input-box">
+					<input type="text" id="topic" name="topic" required>
+					<label>Topic</label>
+					<label class="error" for="topic"></label>
+				</div>
+				<div class="input-box">
+					<input type="text" id="teacher" name="teacher" required>
+					<label>Teacher</label>
+					<label class="error" for="teacher"></label>
+				</div>
+				<div class="input-box">
+					<select id="class-type" name="class-type" required>
+						<option value="">--Select One--</option>
+						<option value="Online">Online</option>
+						<option value="Offline">Offline</option>
+					</select>
+					<label>Type</label>
+					<label class="error" for="class-type"></label>
+				</div>
+				<div class="input-box">
+					<label for="address-link">Address/Link</label>
+					<input type="text" id="address-link" name="address-link" required></>
+					<label class="error" for="address-link"></label>
+				</div>				
+				<div class="input-box">
+					<label>Date</label>
+					<input type="date" id="class-date" name="class-date" required>
+					<label class="error" for="class-date"></label>
+				</div>
+				<div class="input-box">
+					<label>Time</label>
+					<input type="time" id="class-time" name="class-time" required>
+					<label class="error" for="class-date"></label>
+				</div>
+				<button type="submit" id="new-class-submit-button" class="btn">Done</button>
+			</form>
+		</div>
+	</div>
+
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script src="client.js"></script>
+	<script src="modal.js"></script>
+</body>
+
+</html>

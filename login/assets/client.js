@@ -115,7 +115,6 @@ $("#signin_form").validate({
        
     },
     submitHandler: function(form){
-        // window.location.href = '/forgotpassotp';
         $.ajax({
             type: $(form).attr('method'),
             url: $(form).attr('action'),
