@@ -133,7 +133,10 @@ app.get('/forgotpassotp', (req, res) => {
 
 
 app.get('/classes', (req, res) => {
-  res.render('ClassAppearance', {data: 'Abesh'});
+  database.loadClasses((results)=>{
+    console.log(results);
+    res.render('ClassAppearance', {data: results});
+  })
 });
 
 
