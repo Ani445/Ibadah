@@ -1,3 +1,34 @@
+const wrapper=document.querySelector('.wrapper');
+const loginLink=document.querySelector('.login-link');
+
+const registerLink=document.querySelector('.register-link');
+// const signup_form = document.querySelector('.form-box signup');
+
+if(registerLink) {
+    registerLink.addEventListener('click',()=>{
+        wrapper.classList.add('active');
+    });
+}
+
+if(loginLink) {
+    loginLink.addEventListener('click',()=>{
+        wrapper.classList.remove('active');
+    });
+}
+
+$(document).on('click', '#forgot_pass_button', ()=>{
+    window.location.href = "/mailverify";
+})
+
+$(document).ready(() => {
+    console.log(window.location.href);
+    if(window.location.pathname=='/signup'){
+        wrapper.classList.add('active');
+        // $(signup_form).attr('transition','none');
+        // console.log( $(wrapper).attr('height'))
+    }
+});
+
 
 $("#otpform").validate({
     rules:{
@@ -26,7 +57,7 @@ $("#otpform").validate({
     }
 });
 
-$("#form").validate({
+$("#signup_form").validate({
     rules:{
         username:{
             minlength: 2
@@ -38,24 +69,21 @@ $("#form").validate({
             minlength: 8
         },
         confirm_password:{
-            equalTo: "#password"
+            equalTo: "#signup-password"
         }
     },
     messages: {
         username: {
-            required: "Please enter a username",
             minlength: "Username should be at least 2 characters"//also taken username
         },
-        email: {
-            required: "Please enter your email"
+        email: {            
 
         },
         password:{
-            required: "Please enter a password",
+           
             minlength: "Password should be at least 8 characters"
         },
         confirm_password:{
-            required: "Please enter a password",
             equalTo: "Password didn't match"
         }
     },
@@ -72,57 +100,19 @@ $("#form").validate({
             } else {
                 alert('An account with this email already exists');
             }
-            console.log(response.otp);
+            // console.log(response.otp);
         });
         return false; // required to block normal submit since you used ajax
     }
 });
 
 
-$("#signin-form").validate({
+$("#signin_form").validate({
     rules:{
         
     },
     messages: {
-        email: {
-            required: "Please enter your email"
-
-        },
-        password:{
-            required: "Please your a password"
-        },
-    },
-    submitHandler: function(form){
-        // window.location.href = '/forgotpassotp';
-        $.ajax({
-            type: $(form).attr('method'),
-            url: $(form).attr('action'),
-            data: $(form).serialize(),
-            dataType : 'json'
-        })
-        .done(function (response) {
-            if (response.success == 1) {    //success            
-                window.location.href = '/home';
-            } else {
-                alert('Wrong email or password');
-            }
-        });
-        return false; // required to block normal submit since you used ajax
-    },
-});
-
-$("#signin-form").validate({
-    rules:{
-        
-    },
-    messages: {
-        email: {
-            required: "Please enter your email"
-
-        },
-        password:{
-            required: "Please your a password"
-        }
+       
     },
     submitHandler: function(form){
         $.ajax({
@@ -144,7 +134,7 @@ $("#signin-form").validate({
 
 $("#mail_forgotpass_form").validate({
     rules:{
-        
+        email: true
     },
     messages: {
         email: {
@@ -231,29 +221,3 @@ $("#change_pass_form").validate({
         return false; // required to block normal submit since you used ajax
     },
 });
-
-$(document).ready(() => {
-    $.ajax({
-        url: '/load-classes',
-        method: 'get',
-        success: function(data) {
-            $("#class_list").html(data);
-        }
-    })
-});
-
-$(document).on('click', '#go_signup_button', ()=>{
-    window.location.href = "/signup";
-})
-
-$(document).on('click', '#go_signin_button', ()=>{
-    window.location.href = "/signin";
-})
-
-$(document).on('click', '#forgot_pass_button', ()=>{
-    window.location.href = "/mailverify";
-})
-
-// $(document).on('click', '#enter_email_button', ()=>{
-//     window.location.href = "/mailverify";
-// })

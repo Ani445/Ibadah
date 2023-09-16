@@ -2,49 +2,175 @@
 <html>
 
 <head>
+	<meta chjarset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width,initial-scale=1.0">
 	<title>Sign In</title>
 	<script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/additional-methods.min.js"></script>
+
+	<link href="style.css" rel="stylesheet">
+
 </head>
 
 <body>
-	<form id="signin-form" name="signin-form" action="" method="post">
-		<div class="container">
-			<h1>Sign In - Productive Muslim</h1>
-			<hr>
 
-			<div>
-				<br>
-				<label for="email"><b>Email</b></label>
-				<input type="text" id="email" placeholder="Email" name="email" required>
-				<label id="email_error" class="error" for="email"></label>
-			</div>
-			<br>
+	<header>
+		<h2 class="productivemuslim">Productive Muslim</h2>
+	</header>
+	<div class="salat-time">
+		<style type="text/css">
+			.tg {
+				border-collapse: collapse;
+				border-spacing: 0;
+			}
 
-			<label for="password"><b>Password</b></label>
-			<input type="password" id="password" placeholder="Password" name="password" required>
+			.tg td {
+				border-color: black;
+				border-style: solid;
+				border-width: 1px;
+				font-family: Arial, sans-serif;
+				font-size: 14px;
+				overflow: hidden;
+				padding: 10px 5px;
+				word-break: normal;
+			}
 
+			.tg th {
+				border-color: black;
+				border-style: solid;
+				border-width: 1px;
+				font-family: Arial, sans-serif;
+				font-size: 14px;
+				font-weight: normal;
+				overflow: hidden;
+				padding: 10px 5px;
+				word-break: normal;
+			}
+
+			.tg .tg-0lax {
+				text-align: center;
+				vertical-align: top;
+				background-color: transparent;
+			}
+		</style>
+		<table class="tg">
+			<tr>
+				<th class="tg-0lax">Salah</th>
+				<th class="tg-0lax">Waqt</th>
+				<th class="tg-0lax">Time to start</th>
+			</tr>
+			<tr>
+				<td class="tg-0lax">Fazr</td>
+				<td class="tg-0lax">Maria Anders</td>
+				<td class="tg-0lax">asd</td>
+			</tr>
+			<tr>
+				<td class="tg-0lax">Sunrise</td>
+				<td class="tg-0lax">Maria Anders</td>
+				<td class="tg-0lax">asd</td>
+			</tr>
+			<tr>
+				<td class="tg-0lax">Zuhr</td>
+				<td class="tg-0lax">Maria Anders</td>
+				<td class="tg-0lax">asd</td>
+			</tr>
+			<tr>
+				<td class="tg-0lax">Asr</td>
+				<td class="tg-0lax">Maria Anders</td>
+				<td class="tg-0lax">asd</td>
+			</tr>
+			<tr>
+				<td class="tg-0lax">Magrib</td>
+				<td class="tg-0lax">Maria Anders</td>
+				<td class="tg-0lax">asd</td>
+			</tr>
+			<tr>
+				<td class="tg-0lax">Isha</td>
+				<td class="tg-0lax">Maria Anders</td>
+				<td class="tg-0lax">asd</td>
+			</tr>
+		</table>
+	</div>
+	<div class="wrapper">
+		<!-- <span class="icon-close"><ion-icon name="close"></ion-icon></span> -->
+
+		<div class="form-box login">
+			<h2>Login</h2>
+			<form id="signin_form" name="signin_form" action="/signin" method="post">
+				<div class="input-box">
+					<span class="icon"><ion-icon name="mail"></ion-icon>
+					</span>
+					<input type="email" id="signin-email" name="email" required>
+					<label>Email</label>
+					<label class="error"></label>
+				</div>
+				<div class="input-box">
+					<span class="icon"><ion-icon name="lock-closed"></ion-icon>
+					</span>
+					<input type="password" id="signin-password" name="password" required>
+					<label>Password</label>
+				</div>
+				<div class="forgot">
+					<input type="button" id="forgot_pass_button" class="forgot_pass_button" name="forgot_pass_button"
+						value="Forgot password"></button>
+				</div>
+				<input type="submit" id="signin_button" class="btn" value="Sign In"></button>
+				<div class="login-register">
+					<p> Don't have an account?
+						<!-- <a href="#signup_form" class="register-link">Register
+                        </a> -->
+						<input type="button" id="register-link" class="register-link" name="register-link"
+							value="Register"></button>
+					</p>
+				</div>
+			</form>
 		</div>
-		<div class="clearfix">
-			<br>
-			<!-- <button type="cancel" id = "cancel_button" class="cancelbtn">Cancel</button>
-          <button type="submit" id = "submit_button" class="signupbtn">Sign Up</button> -->
-			<input type="submit" id="signin_button" class="button" value="Sign In"></button>
-			<br>
-			<input type="button" id="forgot_pass_button" class="button" name="forgot_pass_button" value="Forgot password?"
-			style="background-color: transparent; border-color: transparent; color: rgb(62, 5, 220); font-size: 11px"></button>
+		<div class="form-box signup">
+			<h2>Signup</h2>
+			<form id="signup_form" name="signup_form" action="/signup" method="post">
+				<div class="input-box">
+					<span class="icon"><ion-icon name="person"></ion-icon>
+					</span>
+					<input type="text" required>
+					<label>Username</label>
+				</div>
+				<div class="input-box">
+					<span class="icon"><ion-icon name="mail"></ion-icon>
+					</span>
+					<input type="email" id="signup-email" name="email" required>
+					<label>Email</label>
+				</div>
+				<div class="input-box">
+					<span class="icon"><ion-icon name="lock-closed"></ion-icon>
+					</span>
+					<input type="password" required id="signup-password" name="password">
+					<label>Password</label>
+				</div>
+				<div class="input-box">
+					<span class="icon"><ion-icon name="lock-closed"></ion-icon>
+					</span>
+					<input type="password" required id="confirm_password" name="confirm_password" required>
+					<label>Repeat Password</label>
+				</div>
+				<input type="submit" id="signup_button" class="btn" value="SignUp"></button>
+				<div class="login-register">
+					<p> Already have an account?
+						<!-- <a href="/signin#signin_form" class="login-link">Login
+		 				</a> -->
+						<input type="button" id="login-link" class="login-link" name="login-link"
+							value="Login"></button>
+					</p>
+				</div>
+			</form>
 		</div>
-		<div>
-			<br>
-			Don't have an account?
-			<input type="button" id="go_signup_button" class="button" name="go_signup_button" value="Sign Up"
-				style="background-color: transparent; border-color: transparent; color: rgb(46, 31, 88);"></button>
-		</div>
-	</form>
+
+	</div>
 	<script src="client.js"></script>
-	<script src="event.js"></script>
-	<link href="style.css" rel="stylesheet">
+	<script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+	<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+
 
 </body>
 

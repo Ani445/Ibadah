@@ -1,23 +1,8 @@
-<ul style="list-style: none;">
-    <% data.forEach(element=> { %>
-        <li>
-            <div>
-                <p>
-                    Topic: <%= element.topic %>
-                    <br>
-                    Teacher: <%= element.teacher %>
-                    <br>
-                    Date: <%= element.date %>
-                     <br>
-                    Time: <%= element.time %>
-                    <br>
-                    Medium: <% if (element.online===1) { %>
-                        <%= 'Online' %>
-                            <% } else { %>
-                                <%= 'Offline' %>
-                                    <%}%>
-                                        <%})%>
-                </p>
-            </div>
-        </li>
-</ul>
+<div>
+    Topic: something <br>
+    Teacher: <%=data%> <br>
+    Date: ${date} <br>
+    Time: ${time} <br>
+    <br>
+    <button type="button" name="set_reminder" id="set_reminder" class="button">Set Rerminder</button>
+</div>

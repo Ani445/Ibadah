@@ -4,7 +4,7 @@ const app = express(); // Create an ExpressJS app
 
 const httpMsgs = require("http-msgs");
 const emailSender = require("./email");
-const {getClassAppearance} = require('./utility');
+// const {getClassAppearance} = require('./utility');
 
 const session = require("express-session");
 
@@ -67,17 +67,17 @@ app.get('/forgotpassotp', (req, res) => {
 
 // Route to Login Page
 app.get('/signup', (req, res) => {
-  if (req.session.user) {
-    res.redirect('/home');
-  }
-  else {
-    res.sendFile(__dirname + '/static/signup.html');
-  }
+  // if (req.session.user) {
+  // }
+  // else {
+  //   res.sendFile(__dirname + '/static/signin.html');
+  // }
+  res.redirect('/signin');
 });
 
 app.get('/home', (req, res) => {
   if (req.session.user) {
-    res.sendFile(__dirname + '/static/index.html');
+    res.sendFile(__dirname + '/static/dash.html');
   }
   else {
     res.redirect('/signin');
@@ -133,11 +133,22 @@ app.get('/forgotpassotp', (req, res) => {
 
 
 app.get('/classes', (req, res) => {
-  database.loadClasses((results)=>{
+  if (!req.session.user) {
+    return res.redirect('/signin');
+  }
+  database.loadClasses((results) => {
     console.log(results);
-    res.render('ClassAppearance', {data: results});
+    res.render('classes', { data: results });
   })
 });
+
+app.get('/logout', (req, res) => {
+  if (req.session.user) {
+    delete req.session.user;
+  }
+  res.redirect('/signin');
+});
+
 
 app.post('/otp', (req, res) => {
   let otp = req.body.otp;
@@ -173,7 +184,7 @@ app.post('/forgotpassotp', (req, res) => {
 
 app.post('/changepass', (req, res) => {
   let new_password = req.body.new_password;
-  
+
   database.updatePassword(_email, new_password, (isSuccess) => {
     httpMsgs.sendJSON(req, res, {
       success: isSuccess,
@@ -181,15 +192,26 @@ app.post('/changepass', (req, res) => {
   });
 });
 
+
+app.post('/new-class', (req, res) => {
+  database.insertNewClasses(req.body.topic, req.body.teacher, req.body.medium, 
+                          req.body.address_link,req.body.class_date, req.body.class_time, (isSuccess) => {
+    httpMsgs.sendJSON(req, res, {
+      success: isSuccess,
+    });
+  });
+});
+
+
 app.post('/signup', (req, res) => {
   // Insert Login Code Here
   _username = req.body.username;
   _password = req.body.password;
   _email = req.body.email;
-  
+
   database.verifyMail(_email, (isSuccess) => {
     //console.log(callback);
-    
+    console.log("trying to signup");
     if (isSuccess) {
       //From here, the user will be redirected to '/otp' route
       req.session.redirected = true;
@@ -209,11 +231,11 @@ app.post('/mailverify', (req, res) => {
 
   database.verifyMail(_email, (found) => {
     //console.log(callback);
-    console.log(found);
+    // console.log(found);
     if (!found) {
-       //From here, the user will be redirected to '/forgotpassotp' route
+      //From here, the user will be redirected to '/forgotpassotp' route
       req.session.redirected = true;
-      
+
       emailSender.sendMailTo(_email, generatedOTP => {
         sentOTP = generatedOTP;
       });
@@ -250,6 +272,31 @@ app.post('/signin', (req, res) => {
     });
   });
 });
+
+app.post('/signup', (req, res) => {
+  // Insert Login Code Here
+  _username = req.body.username;
+  _password = req.body.password;
+  _email = req.body.email;
+
+  database.verifyMail(_email, (isSuccess) => {
+    //console.log(callback);
+    console.log("trying to signup");
+    if (isSuccess) {
+      //From here, the user will be redirected to '/otp' route
+      req.session.redirected = true;
+      emailSender.sendMailTo(_email, generatedOTP => {
+        sentOTP = generatedOTP;
+      });
+    }
+    httpMsgs.sendJSON(req, res, {
+      success: isSuccess,
+    });
+  });
+});
+
+
+
 
 const port = 3000 // Port we will listen on
 

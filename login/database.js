@@ -4,7 +4,7 @@ const mysql = require('mysql');
 const pool = mysql.createPool({
     host: 'localhost',
     user: 'root',
-    password: 'dbms',
+    password: 'system',
     database: 'ibadah',
     waitForConnections: true,
     connectionLimit: 10,
@@ -12,7 +12,7 @@ const pool = mysql.createPool({
 });
 
 function checkCredentials(email, password, callback) {
-    var sql = `SELECT * FROM credentials WHERE EMAIL = ${pool.escape(email)} and PASSWORD_HASH = SHA2(${pool.escape(password)},256);`;
+    var sql = `SELECT * FROM credentials WHERE EMAIL = ${pool.escape(email)} and PASSWORD_HASH = SHA2(${pool.escape(password)}, 256);`;
     pool.query(sql, (err, results) => {
         if (err) {
             console.log(err.sql);
@@ -33,7 +33,7 @@ function verifyMail(email, callback) {
             callback(1);
         }
         else { //mail found
-            callback(0); 
+            callback(0);
         }
     });
 }
@@ -62,7 +62,10 @@ function updatePassword(email, password, callback) {
 }
 
 function loadClasses(callback) {
-    var sql = `SELECT post_id, topic, teacher, DATE_FORMAT(date,'%y-%m-%d') as date, time, online, address FROM classes;`;
+    var sql = `SELECT post_id, topic, teacher, DATE_FORMAT(date,'%M %d, %Y') as date, 
+                TIME_FORMAT(time,'%h:%i %p') as time, online, address FROM classes;`;
+
+
     pool.query(sql, (err, results) => {
         if (err) {
             console.log(err.sqlMessage + '\n' + err.sql);
@@ -72,10 +75,27 @@ function loadClasses(callback) {
     });
 }
 
+function insertNewClasses(topic, teacher, medium, address, date, time, callback) {
+    if(medium == "Online") medium = 1;
+    else medium = 0;
+
+    var sql = `INSERT INTO classes(topic, teacher, online, address, date, time) 
+                VALUES (${pool.escape(topic)}, ${pool.escape(teacher)}, ${pool.escape(medium)}, 
+                        ${pool.escape(address)}, ${pool.escape(date)}, ${pool.escape(time)})`;
+    pool.query(sql, (err, results) => {
+        if (err) {
+            console.log(err.sqlMessage + '\n' + err.sql);
+            callback(0);
+        }
+        callback(1);
+    });
+}
+
 module.exports = {
     checkCredentials,
     insertUser,
     verifyMail,
     updatePassword,
-    loadClasses
+    loadClasses,
+    insertNewClasses
 }
