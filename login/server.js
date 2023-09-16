@@ -142,6 +142,13 @@ app.get('/classes', (req, res) => {
   })
 });
 
+app.get('/logout', (req, res) => {
+  if (req.session.user) {
+    delete req.session.user;
+  }
+  res.redirect('/signin');
+});
+
 
 app.post('/otp', (req, res) => {
   let otp = req.body.otp;
