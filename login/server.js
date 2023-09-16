@@ -15,6 +15,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, '/assets')))
 app.use(express.static(path.join(__dirname, '/assets/css')))
 
+app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
 
 app.use(session(
@@ -66,12 +67,12 @@ app.get('/forgotpassotp', (req, res) => {
 
 // Route to Login Page
 app.get('/signup', (req, res) => {
-  if (req.session.user) {
-    res.redirect('/home');
-  }
-  else {
-    res.sendFile(__dirname + '/static/signin.html');
-  }
+  // if (req.session.user) {
+    // }
+    // else {
+      //   res.sendFile(__dirname + '/static/signin.html');
+      // }
+    res.redirect('/signin');
 });
 
 app.get('/home', (req, res) => {
