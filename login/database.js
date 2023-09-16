@@ -13,7 +13,7 @@ const pool = mysql.createPool({
 });
 
 function checkCredentials(email, password, callback) {
-    var sql = `SELECT * FROM credentials WHERE EMAIL = ${pool.escape(email)} and PASSWORD_HASH = SHA2(${pool.escape(password)},256);`;
+    var sql = `SELECT * FROM credentials WHERE EMAIL = ${pool.escape(email)} and PASSWORD_HASH = SHA2(${pool.escape(password)}, 256);`;
     pool.query(sql, (err, results, fields) => {
         if (err) {
             console.log(err.sql);
@@ -77,7 +77,6 @@ function loadClasses(callback) {
 }
 
 function insertNewClasses(topic, teacher, medium, address, date, time, callback) {
-
     if(medium == "Online") medium = 1;
     else medium = 0;
 
@@ -93,14 +92,6 @@ function insertNewClasses(topic, teacher, medium, address, date, time, callback)
     });
 }
 
-function myDateFormatter(mysqlDate)
-{
-    console.log(mysqlDate.split('-'));
-    var [year, month, date] = mysqlDate.split('-');
-    var dateString = `${monthNames[month - 1]} ${date}, ${year}`;
-    return dateString;
-}
-
 module.exports = {
     checkCredentials,
     insertUser,
@@ -109,21 +100,3 @@ module.exports = {
     loadClasses,
     insertNewClasses
 }
-
-
-
-
-const monthNames = [
-    "January", 
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December"
-];
