@@ -134,7 +134,7 @@ app.get('/forgotpassotp', (req, res) => {
 
 app.get('/classes', (req, res) => {
   if (!req.session.user) {
-    res.redirect('/signin');
+    return res.redirect('/signin');
   }
   database.loadClasses((results) => {
     console.log(results);
