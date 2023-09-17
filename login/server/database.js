@@ -91,11 +91,34 @@ function insertNewClasses(topic, teacher, medium, address, date, time, callback)
     });
 }
 
+function loadPrayerTimes(location, date, callback) {
+    var sql = `
+            SELECT  local_time(fazr, delta) as Fazr, 
+                    local_time(sunrise, delta) as Sunrise,
+                    local_time(zuhr, delta) as Zuhr,
+                    local_time(asr, delta) as Asr,
+                    local_time(maghrib, delta) as Maghrib,
+                    local_time(isha, delta) as Isha
+                from
+                (select * from dhaka_prayer_times, distric_prayer_time_diff
+                where day_number=DAYOFYEAR(CURRENT_DATE())
+                and UPPER(location)="DHAKA") T;
+    `;
+    pool.query(sql, (err, results) => {
+        if (err) {
+            console.log(err.sqlMessage + '\n' + err.sql);
+            callback(0);
+        }
+        callback(results);
+    });
+}
+
 module.exports = {
     checkCredentials,
     insertUser,
     verifyMail,
     updatePassword,
     loadClasses,
-    insertNewClasses
+    insertNewClasses,
+    loadPrayerTimes
 }

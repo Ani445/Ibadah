@@ -102,6 +102,15 @@ function handleClassesGet(req, res) {
     });
 }
 
+function handlePrayerTimesGet(req, res) {
+    if (!req.session.user) {
+        return res.redirect('/signin');
+    }
+    database.loadPrayerTimes("Dhaka", 1, (results) => {
+        res.render('PrayerTimes', { data: results[0] });
+    });
+}
+
 function handleLogoutGet(req, res) {
     if (req.session.user) {
         delete req.session.user;
@@ -249,5 +258,6 @@ module.exports = {
     handleNewClassPost,
     handleMailVerifyPost,
     handleSignInPost,
-    handleSignUpPost
+    handleSignUpPost,
+    handlePrayerTimesGet
 };

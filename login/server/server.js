@@ -26,7 +26,7 @@ app.use(session(
 const { handleDefaultGet, handleSignInGet, handleSignIUpGet, handleHomeGet,
   handleOTPForgotPassGet, handleOTPGet, handleMailVerifyGet,
   handleChangePassGet, handleClassesGet, handleLogoutGet, handleOTPPost, handleOTPForgotPassPost,
-  handleChangePassPost, handleNewClassPost, handleSignupPost, handleMailVerifyPost, handleSignInPost,
+  handleChangePassPost, handleNewClassPost, handlePrayerTimesGet, handleMailVerifyPost, handleSignInPost,
   handleSignUpPost } = require('./router');
 
 
@@ -77,6 +77,9 @@ app.get('/logout', (req, res) => {
   handleLogoutGet(req, res);
 });
 
+app.get('/prayer-times', (req, res) => {
+  handlePrayerTimesGet(req, res);
+});
 
 app.post('/otp', (req, res) => {
   handleOTPPost(req, res);
