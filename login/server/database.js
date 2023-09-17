@@ -1,4 +1,4 @@
-const { response } = require('express');
+require('express');
 const mysql = require('mysql');
 
 const pool = mysql.createPool({
@@ -76,13 +76,13 @@ function loadClasses(callback) {
 }
 
 function insertNewClasses(topic, teacher, medium, address, date, time, callback) {
-    if(medium == "Online") medium = 1;
+    if (medium == "Online") medium = 1;
     else medium = 0;
 
     var sql = `INSERT INTO classes(topic, teacher, online, address, date, time) 
                 VALUES (${pool.escape(topic)}, ${pool.escape(teacher)}, ${pool.escape(medium)}, 
                         ${pool.escape(address)}, ${pool.escape(date)}, ${pool.escape(time)})`;
-    pool.query(sql, (err, results) => {
+    pool.query(sql, (err) => {
         if (err) {
             console.log(err.sqlMessage + '\n' + err.sql);
             callback(0);

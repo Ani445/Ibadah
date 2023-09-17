@@ -21,7 +21,6 @@ $(document).on('click', '#forgot_pass_button', ()=>{
 })
 
 $(document).ready(() => {
-    console.log(window.location.href);
     if(window.location.pathname=='/signup'){
         wrapper.classList.add('active');
         // $(signup_form).attr('transition','none');

@@ -1,4 +1,14 @@
-/* styles.css */
+#overlay-in-new-class {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 100; /* Make sure the overlay is above everything else */
+}
+
 #new-class {
     display: none;
     position: fixed;
@@ -19,19 +29,51 @@
 
 #close {
     position: absolute;
-    top: 3%;
-    right: 3%;
-    transform: translate(-3%, -3%);
+    top: 10px;
+    right: 10px;
+    font-size: xx-large;
+    padding: 20px, 20px, 20px, 20px;
     cursor: pointer;
 }
 
-#overlay-in-new-class {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.7);
-    z-index: 100; /* Make sure the overlay is above everything else */
+.input-box input[id="class_date"]::-webkit-calendar-picker-indicator {
+    opacity: 1;
+    display: block;
+    width: 20px;
+    height: 20px;
+    border-width: thin;
+    cursor: pointer;
 }
+
+.input-box input[id="class_date"]{
+    width: calc(115%);
+    height: auto;
+    background: transparent;
+    border: none;
+    outline: none;
+    font-size: 1em;
+    color: #162938;
+    font-weight: 600;
+    cursor: text;
+}
+
+.input-box input[id="class_time"]{
+    width: calc(115%);
+    height: auto;
+    background: transparent;
+    border: none;
+    outline: none;
+    font-size: 1em;
+    color: #162938;
+    font-weight: 600;
+    cursor: text;
+}
+
+.input-box input[id="class_time"]::-webkit-calendar-picker-indicator {
+    display: block;
+    width: 20px;
+    height: 20px;
+    border-width: thin;
+    cursor: pointer;
+}
+

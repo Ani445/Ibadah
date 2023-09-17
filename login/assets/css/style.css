@@ -224,30 +224,6 @@ body{
     padding: 25px 35px 0 5px; 
 }
 
-.input-box input[id="class_date"]{
-    width: calc(115%);
-    height: auto;
-    background: transparent;
-    border: none;
-    outline: none;
-    font-size: 1em;
-    color: #162938;
-    font-weight: 600;
-    padding: 25px 35px 0 5px; 
-}
-
-.input-box input[id="class_time"]{
-    width: calc(115%);
-    height: auto;
-    background: transparent;
-    border: none;
-    outline: none;
-    font-size: 1em;
-    color: #162938;
-    font-weight: 600;
-    padding: 25px 35px 0 5px; 
-}
-
 .input-box select{
     width: 100%;
     height: auto;
