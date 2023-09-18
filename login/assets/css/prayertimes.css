@@ -13,6 +13,7 @@
     overflow: hidden;
     padding: 10px 5px;
     word-break: normal;
+    width: 400px;
 }
 
 .tg th {
@@ -26,6 +27,7 @@
     padding: 10px 5px;
     word-break: normal;
     font-weight: bold;
+    width: 400px;
 }
 
 .tg .tg-0lax {
