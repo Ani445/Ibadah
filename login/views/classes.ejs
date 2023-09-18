@@ -17,11 +17,14 @@
 
 <body>
 	<%- include('sidebar.ejs') %>
-		<div class="main--content">
-			<div class="header--wrapper">
-				<div class="header--title">
-					<h2>Classes</h2>
+	<div class="main--content">
+		<div class="header--wrapper">
+			<div class="header--title">
+				<h2>Classes</h2>
+				<div>
+					<button id="add-new-class-button" name="add-new-class-button">Post a new class</button>
 				</div>
+			</div>
 			</div>
 
 			<div class="card--container">
@@ -51,9 +54,6 @@
 							</div>
 						</li>
 				</ul>
-				<div>
-					<button id="add-new-class-button" name="add-new-class-button">Post a new class</button>
-				</div>
 
 				<div id="overlay-in-new-class" class="modal-overlay"></div>
 
