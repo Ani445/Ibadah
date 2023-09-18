@@ -22,7 +22,10 @@ function handleSignInGet(req, res) {
     }
     else {
         // res.sendFile(path.resolve('login/static', 'signin.html'));
-        res.render('signin');
+        // res.render('signin');
+        database.loadPrayerTimes("Dhaka", 1, (results) => {
+        res.render('signin', { data: results[0] });
+        });
     }
 }
 

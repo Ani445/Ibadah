@@ -105,3 +105,9 @@ body{
 .header--title{
     color: rgba(113, 99, 186, 255);
 }
+
+.main--title{
+    color: rgba(113, 99, 186, 255);
+    padding-bottom: 10px;
+    font-size: 15px;
+}
