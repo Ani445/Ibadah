@@ -37,7 +37,7 @@ function handleSignIUpGet(req, res) {
 
 function handleHomeGet(req, res) {
     if (req.session.user) {
-        res.sendFile(path.resolve('login/static', 'dash.html'));
+        res.render('dash');
     }
     else {
         res.redirect('/signin');

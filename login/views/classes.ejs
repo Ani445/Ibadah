@@ -10,90 +10,100 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/additional-methods.min.js"></script>
 	<link rel="stylesheet" type="text/css" href="classes.css">
-	<link rel="stylesheet" type="text/css" href="style.css">
-	<link rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-    />
+	<link rel="stylesheet" href="sidebar.css" />
+	<!-- <link rel="stylesheet" href="style.css" /> -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 </head>
 
 <body>
+	<%- include('sidebar.ejs') %>
+		<div class="main--content">
+			<div class="header--wrapper">
+				<div class="header--title">
+					<h2>Classes</h2>
+				</div>
+			</div>
 
-	<ul style="list-style: none;">
-		<% data.forEach(element=> { %>
-			<li>
+			<div class="card--container">
+
+				<ul style="list-style: none;">
+					<% data.forEach(element=> { %>
+						<li>
+							<div>
+								<p>
+									Topic: <%= element.topic %>
+										<br>
+										Teacher: <%= element.teacher %>
+											<br>
+											Medium: <% if (element.online===1) { %>
+												<%= 'Online' %>
+													<% } else { %>
+														<%= 'Offline' %>
+															<%}%>
+																<br>
+																Address/link: <%= element.address %>
+																	<br>
+																	Date: <%= element.date %>
+																		<br>
+																		Time: <%= element.time %>
+																			<%})%>
+								</p>
+							</div>
+						</li>
+				</ul>
 				<div>
-				  <p>
-				    Topic: <%= element.topic %>
-				    <br>
-				    Teacher: <%= element.teacher %>
-				    <br>
-					Medium: <% if (element.online===1) { %>
-						<%= 'Online' %>
-							<% } else { %>
-								<%= 'Offline' %>
-									<%}%>
-				    <br>
-				    Address/link: <%= element.address %>
-				    <br>
-				    Date: <%= element.date %>
-				    <br>
-				    Time: <%= element.time %>
-														<%})%>
-				  </p>
+					<button id="add-new-class-button" name="add-new-class-button">Post a new class</button>
 				</div>
-			</li>
-	</ul>
 
-	<div>
-		<button id="add-new-class-button" name="add-new-class-button">Post a new class</button>
-	</div>
+				<div id="overlay-in-new-class" class="modal-overlay"></div>
 
-	<div id="overlay-in-new-class" class="modal-overlay"></div>
-
-	<div id="new-class" class="modal">
-		<span id="close">&times;</span>
-		<div id="new-class-content">
-			<h2>Post a new class</h2>
-			<form id="new-class-form" name="new-class-form" action="/new-class" method="post">
-				<div class="input-box">
-					<input type="text" id="topic" name="topic" required>
-					<label>Topic</label>
-					<label class="error" for="topic"></label>
+				<div id="new-class" class="modal">
+					<span id="close">&times;</span>
+					<div id="new-class-content">
+						<h2>Post a new class</h2>
+						<form id="new-class-form" name="new-class-form" action="/new-class" method="post">
+							<div class="input-box">
+								<input type="text" id="topic" name="topic" required>
+								<label>Topic</label>
+								<label class="error" for="topic"></label>
+							</div>
+							<div class="input-box">
+								<input type="text" id="teacher" name="teacher" required>
+								<label>Teacher</label>
+								<label class="error" for="teacher"></label>
+							</div>
+							<div class="input-box">
+								<select id="medium" name="medium" required>
+									<option value="">--Select One--</option>
+									<option value="Online">Online</option>
+									<option value="Offline">Offline</option>
+								</select>
+								<label>Type</label>
+								<label class="error" for="medium"></label>
+							</div>
+							<div class="input-box">
+								<label for="address-link">Address/Link</label>
+								<input type="text" id="address_link" name="address_link" required>
+								<label class="error" for="address_link"></label>
+							</div>
+							<div class="input-box">
+								<label>Date</label>
+								<input type="date" id="class_date" name="class_date" required>
+								<label class="error" for="class_date"></label>
+							</div>
+							<div class="input-box">
+								<label>Time</label>
+								<input type="time" id="class_time" name="class_time" required>
+								<label class="error" for="class_date"></label>
+							</div>
+							<button type="submit" id="new_class_submit_button" name="new_class_submit_button"
+								class="btn">Done</button>
+						</form>
+					</div>
 				</div>
-				<div class="input-box">
-					<input type="text" id="teacher" name="teacher" required>
-					<label>Teacher</label>
-					<label class="error" for="teacher"></label>
-				</div>
-				<div class="input-box">
-					<select id="medium" name="medium" required>
-						<option value="">--Select One--</option>
-						<option value="Online">Online</option>
-						<option value="Offline">Offline</option>
-					</select>
-					<label>Type</label>
-					<label class="error" for="medium"></label>
-				</div>
-				<div class="input-box">
-					<label for="address-link">Address/Link</label>
-					<input type="text" id="address_link" name="address_link" required>
-					<label class="error" for="address_link"></label>
-				</div>				
-				<div class="input-box">
-					<label>Date</label>
-					<input type="date" id="class_date" name="class_date" required>
-					<label class="error" for="class_date"></label>
-				</div>
-				<div class="input-box">
-					<label>Time</label>
-					<input type="time" id="class_time" name="class_time" required>
-					<label class="error" for="class_date"></label>
-				</div>
-				<button type="submit" id="new_class_submit_button" name="new_class_submit_button" class="btn">Done</button>
-			</form>
+			</div>
 		</div>
-	</div>
-	<script src="classes.js"></script>
+		<script src="classes.js"></script>
 </body>
 
 </html>
