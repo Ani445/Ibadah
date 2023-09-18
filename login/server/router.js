@@ -21,7 +21,8 @@ function handleSignInGet(req, res) {
         res.redirect('/home');
     }
     else {
-        res.sendFile(path.resolve('login/static', 'signin.html'));
+        // res.sendFile(path.resolve('login/static', 'signin.html'));
+        res.render('signin');
     }
 }
 
