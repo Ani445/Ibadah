@@ -1,7 +1,6 @@
 const express = require('express'); // Include ExpressJS
 const app = express(); // Create an ExpressJS app
 
-
 const path = require('path')
 const bodyParser = require('body-parser'); // middleware
 
