@@ -63,7 +63,8 @@ function updatePassword(email, password, callback) {
 
 function loadClasses(callback) {
     var sql = `SELECT post_id, topic, teacher, DATE_FORMAT(date,'%M %d, %Y') as date, 
-                TIME_FORMAT(time,'%h:%i %p') as time, online, address FROM classes;`;
+                TIME_FORMAT(time,'%h:%i %p') as time, online, address FROM classes 
+                order by post_id desc`;
 
 
     pool.query(sql, (err, results) => {

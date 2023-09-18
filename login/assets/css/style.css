@@ -24,18 +24,17 @@ header{
 } 
 
 .salat-time{
-    opacity: 0.7;
     display: flex;
     /* flex-wrap: wrap; */
     /* gap: 1rem; */
     /* background-image: url('purple2.jpg'); */
     /* border:#162938; */
-    background:white;
+    background-color: rgba(74, 31, 114, 0.6);
     height: 520px;
     width: 800px;
     align-items: center;
     margin: 10px 10px 10px 10px;
-    padding: 100px 100px 100px 100px;
+    padding: 80px 80px 80px 80px;/
 }
 body{
 	display: flex;

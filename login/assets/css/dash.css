@@ -141,10 +141,12 @@ body{
     transform: translateY(-5px);
 }
 .card--detail{
-    font-size: 18px;
-    color: #777777;
+    font-size: 25px;
+    font-weight: bold;
+    color: #3d318a;
     letter-spacing: 2px;
-    font-family: "Courier New", 'Courier New', Courier, monospace;
+    font-family: "Poppins";
+    text-align: center;
 }
 
 .light-purple {
