@@ -14,6 +14,7 @@
     padding: 10px 5px;
     word-break: normal;
     width: 400px;
+    height: 60px;
 }
 
 .tg th {
@@ -28,10 +29,11 @@
     word-break: normal;
     font-weight: bold;
     width: 400px;
+    height: 60px;
 }
 
 .tg .tg-0lax {
     text-align: center;
-    vertical-align: top;
+    vertical-align: middle;
     background-color: transparent;
 }
