@@ -111,3 +111,16 @@ body{
     padding-bottom: 10px;
     font-size: 15px;
 }
+
+
+.card--wrapper{
+    padding: 0 100px 0 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+.card--container{
+    background: #fff;
+    padding: 2rem;
+    border-radius: 10px; 
+}
