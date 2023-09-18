@@ -135,3 +135,20 @@ body{
 .light-blue {
     background: rgb(236, 236, 254);
 }
+.card{
+    /* background: rgb(93, 154, 119); */
+    border-radius: 10px;
+    padding: 1.2rem;
+    width: 500px;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: all 0.5 s ease-in-out;
+    /* cursor: pointer; */
+    margin:0 0 10px 0;
+    align-items: center;
+}
+/* .card:hover{
+    transform: translateY(-5px);
+} */

@@ -10,21 +10,21 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/additional-methods.min.js"></script>
 	<link rel="stylesheet" type="text/css" href="classes.css">
-	<link rel="stylesheet" href="sidebar.css" />
+	<link rel="stylesheet" href="sidebarForClasses.css" />
 	<!-- <link rel="stylesheet" href="style.css" /> -->
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 </head>
 
 <body>
 	<%- include('sidebar.ejs') %>
-	<div class="main--content">
-		<div class="header--wrapper">
-			<div class="header--title">
-				<h2>Classes</h2>
-				<div>
-					<button id="add-new-class-button" name="add-new-class-button">Post a new class</button>
+		<div class="main--content">
+			<div class="header--wrapper">
+				<div class="header--title">
+					<h2>Classes</h2>
+					<div>
+						<button id="add-new-class-button" name="add-new-class-button">Post a new class</button>
+					</div>
 				</div>
-			</div>
 			</div>
 
 			<div class="card--container">
@@ -34,22 +34,48 @@
 						<li>
 							<div>
 								<p>
-									Topic: <%= element.topic %>
-										<br>
-										Teacher: <%= element.teacher %>
-											<br>
-											Medium: <% if (element.online===1) { %>
-												<%= 'Online' %>
-													<% } else { %>
-														<%= 'Offline' %>
+									<div class="card--wrapper">
+										<div class="card light-blue">
+
+											<table>
+												<tr>
+													<td class="Fields">Topic:</td>
+													<td><%= element.topic %></td>
+												</tr>
+												<tr>
+													<td class="Fields">Teacher:</td>
+													<td><%= element.teacher %></td>
+												</tr>
+												<tr>
+													<td class="Fields">Medium:</td>
+													<td>
+														<% if (element.online===1) { %>
+															<%= 'Online' %>
+															<% } else { %>
+															<%= 'Offline' %>
 															<%}%>
-																<br>
-																Address/link: <%= element.address %>
-																	<br>
-																	Date: <%= element.date %>
-																		<br>
-																		Time: <%= element.time %>
-																			<%})%>
+													</td>
+												</tr>
+												<tr>
+													<td class="Fields"><% if (element.online===1) { %>
+														<%= 'Link:' %>
+														<% } else { %>
+														<%= 'Address:' %>
+														<%}%></td>
+													<td><%= element.address %></td>
+												</tr>
+												<tr>
+													<td class="Fields">Date:</td>
+													<td><%= element.date %></td>
+												</tr>
+												<tr>
+													<td class="Fields">Time:</td>
+													<td><%= element.time %></td>
+												</tr>
+											</table>
+										</div>
+									</div>
+									<%})%>
 								</p>
 							</div>
 						</li>
