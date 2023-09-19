@@ -26,7 +26,7 @@ const { handleDefaultGet, handleSignInGet, handleSignIUpGet, handleHomeGet,
   handleOTPForgotPassGet, handleOTPGet, handleMailVerifyGet,
   handleChangePassGet, handleClassesGet, handleLogoutGet, handleOTPPost, handleOTPForgotPassPost,
   handleChangePassPost, handleNewClassPost, handlePrayerTimesGet, handleMailVerifyPost, handleSignInPost,
-  handleSignUpPost } = require('./router');
+  handleSignUpPost, setPrayerTimeSession} = require('./router');
 
 
 // Route to Homepage
@@ -108,6 +108,10 @@ app.post('/mailverify', (req, res) => {
 
 app.post('/signin', (req, res) => {
   handleSignInPost(req, res);
+});
+
+app.post('/setPrayerTimeSession',(req,res)=>{
+  setPrayerTimeSession(req,res);
 });
 
 const port = 3000 // Port we will listen on

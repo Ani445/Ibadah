@@ -23,9 +23,9 @@ function handleSignInGet(req, res) {
     else {
         // res.sendFile(path.resolve('login/static', 'signin.html'));
         // res.render('signin');
-        database.loadPrayerTimes("Dhaka", 1, (results) => {
-        res.render('signin', { data: results[0] });
-        });
+        // database.loadPrayerTimes("Dhaka", 1, (results) => {
+            // });
+        res.render('signin', { data: req.session.prayerTime });
     }
 }
 
@@ -106,13 +106,24 @@ function handleClassesGet(req, res) {
     });
 }
 
+function setPrayerTimeSession(req, res) {
+    req.session.prayerTime = req.body;
+    if(req.session.prayerTime) isSuccess=1;
+    else isSuccess = 0;
+    httpMsgs.sendJSON(req, res, {
+        success: isSuccess,
+    });
+}
+
 function handlePrayerTimesGet(req, res) {
     if (!req.session.user) {
         return res.redirect('/signin');
     }
-    database.loadPrayerTimes("Dhaka", 1, (results) => {
-        res.render('PrayerTimes', { data: results[0] });
-    });
+    // database.loadPrayerTimes("Dhaka", 1, (results) => {
+    // });
+
+    // console.log(req.session.prayerTime);
+    res.render('PrayerTimes', { data: req.session.prayerTime });
 }
 
 function handleLogoutGet(req, res) {
@@ -263,5 +274,6 @@ module.exports = {
     handleMailVerifyPost,
     handleSignInPost,
     handleSignUpPost,
-    handlePrayerTimesGet
+    handlePrayerTimesGet,
+    setPrayerTimeSession
 };

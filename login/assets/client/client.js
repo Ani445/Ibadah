@@ -26,6 +26,35 @@ $(document).ready(() => {
         // $(signup_form).attr('transition','none');
         // console.log( $(wrapper).attr('height'))
     }
+    const settings = {
+        async: true,
+        crossDomain: true,
+        url: 'http://api.aladhan.com/v1/calendarByAddress/2023/9?address=Dhaka,Bangladesh&method=2',
+        method: 'GET'
+        
+    };
+    
+    $.ajax(settings).done(function (response) {
+        //  console.log(response.data[0].timings.Fajr);
+         const prayerTime =
+         {
+             Fajr: response.data[0].timings.Fajr,
+             Dhuhr: response.data[0].timings.Dhuhr,
+             Asr: response.data[0].timings.Asr,
+             Maghrib: response.data[0].timings.Maghrib,
+             Isha: response.data[0].timings.Isha
+         };
+        $.ajax({
+            type: 'POST',
+            url: '/setPrayerTimeSession',
+            data: prayerTime,
+            dataType : 'json'
+        })
+        // console.log(prayerTime);
+        .done(function (response) {
+           console.log('Done');
+        });
+    });
 });
 
 
@@ -220,3 +249,4 @@ $("#change_pass_form").validate({
         return false; // required to block normal submit since you used ajax
     },
 });
+

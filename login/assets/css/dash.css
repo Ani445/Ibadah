@@ -143,7 +143,7 @@ body{
 .card--detail{
     font-size: 25px;
     font-weight: bold;
-    color: #3d318a;
+    color: rgba(113, 99, 186, 255);
     letter-spacing: 2px;
     font-family: "Poppins";
     text-align: center;
