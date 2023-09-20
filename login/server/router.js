@@ -4,6 +4,8 @@ const emailSender = require("./email");
 
 var database = require('./database');
 
+var {time, Time} = require('./utility');
+
 var sentOTP, _username = "", _email = "", _password = "", _userLoggedIN = false;
 
 function handleDefaultGet(req, res) {
@@ -108,10 +110,19 @@ function handleClassesGet(req, res) {
 
 function setPrayerTimeSession(req, res) {
     req.session.prayerTime = req.body;
-    if(req.session.prayerTime) isSuccess=1;
+
+    prayerTime = req.session.prayerTime;
+
+    prayerTime.Fajr = Time.convertTo12(prayerTime.Fajr.slice(0, -6));
+    prayerTime.Dhuhr = Time.convertTo12(prayerTime.Dhuhr.slice(0, -6));
+    prayerTime.Asr = Time.convertTo12(prayerTime.Asr.slice(0, -6));
+    prayerTime.Maghrib = Time.convertTo12(prayerTime.Maghrib.slice(0, -6));
+    prayerTime.Isha = Time.convertTo12(prayerTime.Isha.slice(0, -6));
+
+    if(req.session.prayerTime) isSuccess = 1;
     else isSuccess = 0;
     httpMsgs.sendJSON(req, res, {
-        success: isSuccess,
+        success: isSuccess
     });
 }
 

@@ -2,6 +2,7 @@ const express = require('express'); // Include ExpressJS
 const app = express(); // Create an ExpressJS app
 
 const path = require('path')
+const {time, Time} = require('./utility')
 const bodyParser = require('body-parser'); // middleware
 
 const session = require("express-session");
