@@ -144,6 +144,13 @@ function handleLogoutGet(req, res) {
     res.redirect('/signin');
 }
 
+function handleProfileGet(req, res) {
+    // if (req.session.user) {
+    //     delete req.session.user;
+    // }
+    res.render('profile');
+}
+
 
 function handleOTPPost(req, res) {
     let otp = req.body.otp;
@@ -267,6 +274,24 @@ function handleSignUpPost(req, res) {
     });
 }
 
+function handleEditNamePost(req, res) {
+    httpMsgs.sendJSON(req, res, {
+        success: 1
+    });
+}
+
+function handleEditEmailPost(req, res) {
+    httpMsgs.sendJSON(req, res, {
+        success: 1
+    });
+}
+
+function handleChangeEmailOTPlPost(req, res) {
+    httpMsgs.sendJSON(req, res, {
+        success: 1
+    });
+}
+
 module.exports = {
     handleDefaultGet,
     handleSignInGet,
@@ -286,5 +311,9 @@ module.exports = {
     handleSignInPost,
     handleSignUpPost,
     handlePrayerTimesGet,
-    setPrayerTimeSession
+    setPrayerTimeSession,
+    handleProfileGet,
+    handleEditNamePost,
+    handleEditEmailPost,
+    handleChangeEmailOTPlPost
 };

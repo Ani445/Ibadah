@@ -11,6 +11,10 @@
 }
 
 #new-class {
+    max-height:700px;
+    overflow-y:scroll;
+    overflow-x:hidden;
+
     display: none;
     position: fixed;
     top: 50%;
@@ -20,6 +24,14 @@
     z-index: 101; /* Make sure the modal is above the overlay */
     padding: 20px;
     border-radius: 5px;
+}
+
+#new-class::-webkit-scrollbar {
+   width: 8px;
+}
+
+#new-class::-webkit-scrollbar-thumb {
+    background-color: rgb(189, 189, 190);
 }
 
 #new-class-content {
@@ -125,18 +137,26 @@
     padding: 25px 35px 0 5px; 
 }
 
-.input-box textarea {
-    width: 80%; /* Adjust the width as needed */
-    height: 100px; /* Adjust the height as needed */
+/* .input-box #new-class-form-address {
+    width: auto;
+    height: auto;
+    display: flex; flex-direction: column;
+    padding-bottom:50px;
+    clear:both;
+
+
+    resize: none;
     background: transparent;
     border: none;
     outline: none;
     font-size: 1em;
     color: #162938;
     font-weight: 600;
-    padding: 10px; /* Adjust the padding as needed */
-    margin-top: 10px; /* Add margin to separate the label and textarea */
-}
+    /* Adjust the padding as needed */
+    /* padding: 10px;  */
+    /* margin-top: 10px;  */
+    /* Add margin to separate the label and textarea */
+/*} */
 
 .input-box span{
     position: absolute;
@@ -170,9 +190,6 @@ label.error
     color: #fff;
     font-weight: 500;
 }
-
-
-
 
 
 .light-purple {
