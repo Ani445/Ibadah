@@ -1,0 +1,258 @@
+
+#overlay-in-new-class {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 100; /* Make sure the overlay is above everything else */
+}
+
+#new-class {
+    max-height:700px;
+    overflow-y:scroll;
+    overflow-x:hidden;
+
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    z-index: 101; /* Make sure the modal is above the overlay */
+    padding: 20px;
+    border-radius: 5px;
+}
+
+#new-class::-webkit-scrollbar {
+   width: 8px;
+}
+
+#new-class::-webkit-scrollbar-thumb {
+    background-color: rgb(189, 189, 190);
+}
+
+#new-class-content {
+    position: relative;
+    width: 100%;
+    padding: 0px 60px 0px 60px;
+}
+
+#close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: xx-large;
+    padding: 20px, 20px, 20px, 20px;
+    cursor: pointer;
+}
+
+.input-box input[id="class_date"]::-webkit-calendar-picker-indicator {
+    opacity: 1;
+    display: block;
+    width: 20px;
+    height: 20px;
+    border-width: thin;
+    cursor: pointer;
+}
+
+.input-box input[id="class_date"]{
+    width: calc(115%);
+    height: auto;
+    background: transparent;
+    border: none;
+    outline: none;
+    font-size: 1em;
+    color: #162938;
+    font-weight: 600;
+    cursor: text;
+}
+
+.input-box input[id="class_time"]{
+    width: calc(115%);
+    height: auto;
+    background: transparent;
+    border: none;
+    outline: none;
+    font-size: 1em;
+    color: #162938;
+    font-weight: 600;
+    cursor: text;
+}
+
+.input-box input[id="class_time"]::-webkit-calendar-picker-indicator {
+    display: block;
+    width: 20px;
+    height: 20px;
+    border-width: thin;
+    cursor: pointer;
+}
+
+.form-box h2{
+    font-size: 2em;
+    color: #9f5fff;
+    text-align: center;
+
+}
+
+.input-box{
+    position: relative;
+    width: 100%;
+    height: 50px;
+    border-bottom: 2px solid #162938;
+    margin: 30px 0;
+}
+.input-box label{
+    position: absolute;
+    left: 5px;
+    font-size: 1em;
+    color: #162938;
+    font-weight: 500;
+    pointer-events: none;
+}
+
+.input-box input{
+    width: 100%;
+    height: auto;
+    background: transparent;
+    border: none;
+    outline: none;
+    font-size: 1em;
+    color: #162938;
+    font-weight: 600;
+    padding: 25px 35px 0 5px; 
+}
+
+.input-box select{
+    width: 100%;
+    height: auto;
+    background: transparent;
+    border: none;
+    outline: none;
+    font-size: 1em;
+    color: #162938;
+    font-weight: 600;
+    padding: 25px 35px 0 5px; 
+}
+
+/* .input-box #new-class-form-address {
+    width: auto;
+    height: auto;
+    display: flex; flex-direction: column;
+    padding-bottom:50px;
+    clear:both;
+
+
+    resize: none;
+    background: transparent;
+    border: none;
+    outline: none;
+    font-size: 1em;
+    color: #162938;
+    font-weight: 600;
+    /* Adjust the padding as needed */
+    /* padding: 10px;  */
+    /* margin-top: 10px;  */
+    /* Add margin to separate the label and textarea */
+/*} */
+
+.input-box span{
+    position: absolute;
+    right: 8px;
+    font-size: 1.2 em;
+    color: #162938;
+    line-height: 57px ;
+}
+
+span.icon{
+    color: #9f5fff;
+}
+
+label.error
+{
+    font-weight:400;
+    display: block;
+    color: #f00;
+    font-size: 13px;
+}
+
+.btn{
+    width: 100%;
+    height: 45px;
+    background: #9f5fff;
+    border: none;
+    outline: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1em;
+    color: #fff;
+    font-weight: 500;
+}
+
+
+.light-purple {
+    background: rgb(254, 226, 254);
+}
+
+.light-green {
+    background: rgb(235, 254, 235);
+    /* background: #8a00e6; */
+    
+}
+
+.light-red {
+    background: rgb(251, 233, 233);
+}
+
+.light-blue {
+    background: rgb(236, 236, 254);
+}
+.card{
+    /* background: rgb(93, 154, 119); */
+    border-radius: 10px;
+    padding: 1.2rem;
+    width: 500px;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: all 0.5 s ease-in-out;
+    /* cursor: pointer; */
+    margin:0 0 10px 0;
+    align-items: center;
+}
+/* .card:hover{
+    transform: translateY(-5px);
+} */
+
+/* table, th, td {
+    border: 1px solid;
+  } */
+td{
+    width: 50%;
+}
+.Fields{
+    font-weight: 700;
+}
+/* tr:nth-child(even){background-color: rgb(222, 222, 248);} */
+
+/* table, th, td {
+    border: 1px solid white;
+    border-collapse: collapse;
+  } */
+
+
+#add-new-class-button {
+    width: 150px;
+    height: 45px;
+    background: #9f5fff;
+    border: none;
+    outline: none;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 1em;
+    color: #fff;
+    font-weight: 300;
+}

@@ -106,11 +106,12 @@ body{
     color: rgba(113, 99, 186, 255);
 }
 
-.card--container{
-    background: #fff;
-    padding: 2rem;
-    border-radius: 10px; 
+.main--title{
+    color: rgba(113, 99, 186, 255);
+    padding-bottom: 10px;
+    font-size: 15px;
 }
+
 
 .card--wrapper{
     padding: 0 100px 0 0;
@@ -118,51 +119,8 @@ body{
     flex-wrap: wrap;
     gap: 1rem;
 }
-
-.main--title{
-    color: rgba(113, 99, 186, 255);
-    padding-bottom: 10px;
-    font-size: 15px;
-}
-
-.card{
-    /* background: rgb(93, 154, 119); */
-    border-radius: 10px;
-    padding: 1.2rem;
-    width: 400px;
-    height: 300px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    transition: all 0.5 s ease-in-out;
-    cursor: pointer;
-}
-.card:hover{
-    transform: translateY(-5px);
-}
-.card--detail{
-    font-size: 25px;
-    font-weight: bold;
-    color: rgba(113, 99, 186, 255);
-    letter-spacing: 2px;
-    font-family: "Poppins";
-    text-align: center;
-}
-
-.light-purple {
-    background: rgb(254, 226, 254);
-}
-
-.light-green {
-    background: rgb(235, 254, 235);
-    /* background: #8a00e6; */
-    
-}
-
-.light-red {
-    background: rgb(251, 233, 233);
-}
-
-.light-blue {
-    background: rgb(236, 236, 254);
+.card--container{
+    background: #fff;
+    padding: 2rem;
+    border-radius: 10px; 
 }

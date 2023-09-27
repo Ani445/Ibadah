@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta chjarset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width,initial-scale=1.0">
+	<title>Prayer Times</title>
+	<script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/additional-methods.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="prayertimes.css">
+	<link rel="stylesheet" type="text/css" href="sidebar.css">
+	<link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+</head>
+<body>
+	<%- include('sidebar.ejs') %>
+	<div class="main--content">
+        <div class="header--wrapper">
+            <div class="header--title">
+                <h2>Prayer Times</h2>
+            </div>
+        </div>
+
+        <div class="card--container" id = "prayer-time-container">
+			<h3 class="main--title" id="prayer-time-location"><%=data.location%></h3>
+			<%- include('PrayerTable.ejs') %>
+	    </div>
+	</div>
+</body>
+</html>
