@@ -1,0 +1,125 @@
+#overlay-in-new-class {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 100; /* Make sure the overlay is above everything else */
+}
+
+#new-class {
+    max-height:600px;
+    width:450px;
+    overflow-y:scroll;
+    overflow-x:hidden;
+
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    z-index: 101; /* Make sure the modal is above the overlay */
+    padding: 20px;
+    border-radius: 5px;
+}
+
+#new-class::-webkit-scrollbar {
+    width: 8px;
+}
+
+#new-class::-webkit-scrollbar-thumb {
+    background-color: rgb(189, 189, 190);
+}
+
+#new-class-content {
+    position: relative;
+    width: 100%;
+    padding: 0 60px 0 60px;
+}
+
+#new-class-content h2{
+    padding: 15px 0 15px 0;
+    border-bottom: 3px solid #b2b0b0;
+}
+
+:root{
+    --width: 260px;
+    --height: 83px;
+}
+
+.new-class-input {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    /*padding: 10px 0 10px 0;*/
+}
+
+.new-class-input input, select, textarea{
+    border-style: solid;
+    border-width: 2px;
+    border-color: #c0c0c0;
+    border-radius: 5px;
+    width: 100%;
+    height: 42px;
+    font-size: large;
+}
+
+.new-class-input textarea{
+    height: 100%;
+    width: 100%;
+    resize: none;
+    padding: 5px 5px 5px 5px;
+}
+
+.new-class-input label {
+    font-weight: bold;
+}
+
+
+.new-class-input input[id="class-date"] {
+    cursor: text;
+}
+
+.new-class-input input[id="class-time"] {
+    cursor: text;
+}
+
+.new-class-input input[id="class-date"]::-webkit-calendar-picker-indicator {
+    opacity: 1;
+    display: block;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+}
+
+.new-class-input input[id="class-time"]::-webkit-calendar-picker-indicator {
+    display: block;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+}
+
+
+#new-class-submit-button{
+    width: 100%;
+    height: 45px;
+    background: #9f5fff;
+    border: none;
+    outline: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: x-large;
+    color: #fff;
+    font-weight: 300;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+.new-class-input label.error {
+    font-family: Arial, sans-serif;
+    font-size: small;
+    color: red;
+    font-weight: unset;
+}

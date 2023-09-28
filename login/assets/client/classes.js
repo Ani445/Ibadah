@@ -30,33 +30,4 @@ $(document).ready(function () {
         // Prevent clicks within the modal from closing it
         event.stopPropagation();
     });
-
-
-
-    // Handle form submission using AJAX (as shown in previous code)
-    $("#new-class-form").validate({
-        rules:{
-            
-        },
-        messages: {
-           
-        },
-        submitHandler: function(form){
-            $.ajax({
-                type: $(form).attr('method'),
-                url: $(form).attr('action'),
-                data: $(form).serialize(),
-                dataType : 'json'
-            })
-            .done(function (response) {
-                if (response.success === 1) {    //success
-                    window.location.href='/classes'
-                } else {
-                    // window.location.href='/classes'
-                    alert('Something went wrong');
-                }
-            });
-            return false; // required to block normal submit since you used ajax
-        },
-    });
 });

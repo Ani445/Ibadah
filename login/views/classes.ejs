@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
 
 <head>
-	<meta chjarset="UTF-8">
+	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width,initial-scale=1.0">
 	<title>Classes</title>
@@ -10,7 +10,7 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/additional-methods.min.js"></script>
 	<link rel="stylesheet" type="text/css" href="classes.css">
-	<link rel="stylesheet" href="sidebar.css" />
+
 	<!-- <link rel="stylesheet" href="style.css" /> -->
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 </head>
@@ -76,63 +76,8 @@
 							</div>
 						</li>
 				</ul>
-
-				<div id="overlay-in-new-class" class="modal-overlay"></div>
-
-				<div id="new-class" class="modal">
-					<span id="close">&times;</span>
-					<div id="new-class-content">
-						<h2>Post a new class</h2>
-						<form id="new-class-form" name="new-class-form" action="/new-class" method="post">
-							<div class="input-box">
-								<input type="text" id="topic" name="topic" required>
-								<label>Topic</label>
-								<label class="error" for="topic"></label>
-							</div>
-							<div class="input-box">
-								<input type="text" id="teacher" name="teacher" required>
-								<label>Teacher</label>
-								<label class="error" for="teacher"></label>
-							</div>
-							<div class="input-box">
-								<select id="medium" name="medium" required>
-									<option value="">--Select One--</option>
-									<option value="Online">Online</option>
-									<option value="Offline">Offline</option>
-								</select>
-								<label>Type</label>
-								<label class="error" for="medium"></label>
-							</div>
-							<div class="input-box">
-								<label for="address-link">Address/Link</label>
-								<input type="text" id="address_link" name="address_link" required>
-								<label class="error" for="address_link"></label>
-							</div>
-							<div class="input-box">
-								<label>Date</label>
-								<input type="date" id="class_date" name="class_date" required>
-								<label class="error" for="class_date"></label>
-							</div>
-							<div class="input-box">
-								<label>Time</label>
-								<input type="time" id="class_time" name="class_time" required>
-								<label class="error" for="class_time"></label>
-							</div>
-							<label for="address">Address</label>
-							<div id="class-address">
-								<textarea id="address" required></textarea>
-								<label class="error" for="address"></label>
-							</div>
-
-							<div>
-								<button type="submit" id="new_class_submit_button" name="new_class_submit_button" class="btn">
-									Done
-								</button>
-							</div>
-						</form>
-					</div>
-				</div>
 			</div>
+			<%- include("new-class-modal.ejs") %>
 		</div>
 		<script src="classes.js"></script>
 </body>
