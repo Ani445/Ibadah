@@ -49,7 +49,7 @@ $(document).ready(function () {
                 dataType : 'json'
             })
             .done(function (response) {
-                if (response.success == 1) {    //success            
+                if (response.success === 1) {    //success
                     window.location.href='/classes'
                 } else {
                     // window.location.href='/classes'
