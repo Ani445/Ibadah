@@ -27,7 +27,9 @@ const { handleDefaultGet, handleSignInGet, handleSignIUpGet, handleHomeGet,
   handleOTPForgotPassGet, handleOTPGet, handleMailVerifyGet,
   handleChangePassGet, handleClassesGet, handleLogoutGet, handleOTPPost, handleOTPForgotPassPost,
   handleChangePassPost, handleNewClassPost, handlePrayerTimesGet, handleMailVerifyPost, handleSignInPost,
-  handleSignUpPost, setPrayerTimeSession, handleProfileGet, handleEditNamePost, handleEditEmailPost, handleChangeEmailOTPlPost} = require('./router');
+  handleSignUpPost, setPrayerTimeSession, handleProfileGet, handleEditNamePost, handleEditEmailPost,
+  handleChangeEmailOTPlPost, sendUserName} = require('./router');
+const http = require("http");
 
 
 // Route to Homepage
@@ -129,6 +131,10 @@ app.post('/edit-email',(req,res)=>{
 
 app.post('/change-email-otp',(req,res)=>{
   handleChangeEmailOTPlPost(req,res);
+});
+
+app.post('/get-username', (req, res) => {
+  sendUserName(req,res);
 });
 
 const port = 3000 // Port we will listen on

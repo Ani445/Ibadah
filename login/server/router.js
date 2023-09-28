@@ -109,9 +109,10 @@ function handleClassesGet(req, res) {
 }
 
 function setPrayerTimeSession(req, res) {
+    let isSuccess;
     req.session.prayerTime = req.body;
 
-    prayerTime = req.session.prayerTime;
+    let prayerTime = req.session.prayerTime;
 
     prayerTime.Fajr = Time.convertTo12(prayerTime.Fajr.slice(0, -6));
     prayerTime.Dhuhr = Time.convertTo12(prayerTime.Dhuhr.slice(0, -6));
@@ -119,7 +120,9 @@ function setPrayerTimeSession(req, res) {
     prayerTime.Maghrib = Time.convertTo12(prayerTime.Maghrib.slice(0, -6));
     prayerTime.Isha = Time.convertTo12(prayerTime.Isha.slice(0, -6));
 
-    if(req.session.prayerTime) isSuccess = 1;
+    if(req.session.prayerTime) {
+        isSuccess = 1;
+    }
     else isSuccess = 0;
     httpMsgs.sendJSON(req, res, {
         success: isSuccess
@@ -153,8 +156,9 @@ function handleProfileGet(req, res) {
 
 
 function handleOTPPost(req, res) {
+    let isSuccess;
     let otp = req.body.otp;
-    if (otp == sentOTP) {
+    if (otp === sentOTP) {
         isSuccess = 1;
         _userLoggedIN = true;
         database.insertUser(_username, _password, _email, () => {
@@ -228,22 +232,20 @@ function handleMailVerifyPost(req, res) {
 function handleSignInPost(req, res) {
     // console.log(req.session.user);
 
-    var email = req.body.email;
-    var password = req.body.password;
+    const email = req.body.email;
+    const password = req.body.password;
 
     database.checkCredentials(email, password, (results) => {
-        var isSuccess;
+        let isSuccess;
 
         if (!results.length) {
             isSuccess = 0;
         }
         else {
             isSuccess = 1;
-
             req.session.user = {
-                email: req.body.email,
-                user_id: results.user_id,
-                username: results.username
+                email: results[0].EMAIL,
+                username: results[0].USER_NAME
             }
         }
         httpMsgs.sendJSON(req, res, {
@@ -287,8 +289,21 @@ function handleEditEmailPost(req, res) {
 }
 
 function handleChangeEmailOTPlPost(req, res) {
+
+}
+
+function sendUserName(req, res) {
+    let username;
+
+    console.log(req.session)
+
+    if (req.session.user.username) {
+        username = req.session.user.username
+    } else {
+        username = 'User'
+    }
     httpMsgs.sendJSON(req, res, {
-        success: 1
+        username: username
     });
 }
 
@@ -315,5 +330,6 @@ module.exports = {
     handleProfileGet,
     handleEditNamePost,
     handleEditEmailPost,
-    handleChangeEmailOTPlPost
+    handleChangeEmailOTPlPost,
+    sendUserName
 };

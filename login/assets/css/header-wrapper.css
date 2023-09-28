@@ -2,23 +2,24 @@
 
 #profile-button {
     width: auto;
-    height: 40px;
+    height: 35px;
     background-color: transparent;
     cursor: pointer;
     border-style: solid;
     border-width: 1px;
-    border-color: #726c6c;
-    border-radius: 5px;
+    border-color: #b2aeae;
+    border-radius: 4px;
     padding-left: 5px;
     padding-right: 5px;
     max-width: 150px;
+    min-width: 50px;
     vertical-align: center;
     white-space: nowrap;
     overflow: hidden;
 }
 
 #profile-button:hover {
-    box-shadow: 0 0 0 4px #d0cdcc
+    box-shadow: 0 0 0 2px #d0cdcc
 }
 
 #profile-menu{
@@ -26,7 +27,7 @@
     width: 300px;
     height: auto;
     margin-top: 10px;
-    right: 20px
+    right: 20px;
 }
 
 .profile-menu-item{

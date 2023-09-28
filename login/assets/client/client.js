@@ -27,7 +27,7 @@ $(() => { //When Signin Page is ready
         // console.log( $(wrapper).attr('height'))
     }
 
-    getCoordinates(function(city) {
+    getCoordinates(function (city) {
         console.log(city);
 
         const settings = {
@@ -36,18 +36,18 @@ $(() => { //When Signin Page is ready
             url: `http://api.aladhan.com/v1/calendarByAddress/2023/9?address=${city}&method=2`,
             method: 'GET'
         }
-    
+
         $.ajax(settings).done(function (response) {
             //  console.log(response.data[0].timings.Fajr);
             const prayerTime =
-            {
-                location: city,
-                Fajr: response.data[0].timings.Fajr,
-                Dhuhr: response.data[0].timings.Dhuhr,
-                Asr: response.data[0].timings.Asr,
-                Maghrib: response.data[0].timings.Maghrib,
-                Isha: response.data[0].timings.Isha
-            };
+                {
+                    location: city,
+                    Fajr: response.data[0].timings.Fajr,
+                    Dhuhr: response.data[0].timings.Dhuhr,
+                    Asr: response.data[0].timings.Asr,
+                    Maghrib: response.data[0].timings.Maghrib,
+                    Isha: response.data[0].timings.Isha
+                };
             $.ajax({
                 type: 'POST',
                 url: '/setPrayerTimeSession',
@@ -60,13 +60,12 @@ $(() => { //When Signin Page is ready
                 });
         });
     });
-    
+
 });
 
 
 $("#otpform").validate({
-    rules: {
-    },
+    rules: {},
     messages: {
         otp: {
             required: "Please enter the OTP"
@@ -81,7 +80,7 @@ $("#otpform").validate({
             dataType: 'json'
         })
             .done(function (response) {
-                if (response.success == 1) {    //success            
+                if (response.success === 1) {    //success
                     window.location.href = '/home';
                 } else {
                     alert('Wrong OTP');
@@ -110,9 +109,7 @@ $("#signup_form").validate({
         username: {
             minlength: "Username should be at least 2 characters"//also taken username
         },
-        email: {
-
-        },
+        email: {},
         password: {
 
             minlength: "Password should be at least 8 characters"
@@ -129,7 +126,7 @@ $("#signup_form").validate({
             dataType: 'json'
         })
             .done(function (response) {
-                if (response.success == 1) {    //success            
+                if (response.success === 1) {    //success
                     window.location.href = '/otp';
                 } else {
                     alert('An account with this email already exists');
@@ -142,12 +139,8 @@ $("#signup_form").validate({
 
 
 $("#signin_form").validate({
-    rules: {
-
-    },
-    messages: {
-
-    },
+    rules: {},
+    messages: {},
     submitHandler: function (form) {
         $.ajax({
             type: $(form).attr('method'),
@@ -194,9 +187,7 @@ $("#mail_forgotpass_form").validate({
 });
 
 $("#otp_forgotpass_form").validate({
-    rules: {
-
-    },
+    rules: {},
     messages: {
         email: {
             required: "Please enter The OTP"
@@ -270,7 +261,7 @@ function getCoordinates(callback) {
         var lng = crd.longitude.toString();
         var coordinates = [lat, lng];
         // console.log(`Latitude: ${lat}, Longitude: ${lng}`);
-        getCity(coordinates, function(city) {
+        getCity(coordinates, function (city) {
             if (!getCoordinates.called) {
                 callback(city);
                 getCoordinates.called = true;
