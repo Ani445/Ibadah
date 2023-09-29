@@ -1,7 +1,7 @@
 const express = require('express');
 const database = require("../server/database");
 const {Time} = require("../server/utility");
-const httpMsgs = require("http-msgs"); // Include Express.js
+const httpMsg = require("http-msgs"); // Include Express.js
 const router = express.Router(); // Create an Express.js app
 
 router.get('/home', (req, res) => {
@@ -43,18 +43,10 @@ function setPrayerTimeSession(req, res) {
     if (req.session.prayerTime) {
         isSuccess = 1;
     } else isSuccess = 0;
-    httpMsgs.sendJSON(req, res, {
+    httpMsg.sendJSON(req, res, {
         success: isSuccess
     });
 }
-
-router.get('/profile', (req, res) => {
-    if (!req.session.user) {
-        res.redirect('/login')
-    }
-    res.render('profile');
-});
-
 
 router.get('/logout', (req, res) => {
     if (req.session.user) {
@@ -73,7 +65,7 @@ router.post('/new-class', (req, res) => {
 
     database.insertNewClasses(req.body.topic, req.body.teacher, req.body.medium,
         addressOrLink, req.body.classDate, req.body.classTime, (isSuccess) => {
-            httpMsgs.sendJSON(req, res, {
+            httpMsg.sendJSON(req, res, {
                 success: isSuccess,
             });
         });
@@ -83,37 +75,6 @@ router.post('/setPrayerTimeSession', (req, res) => {
     setPrayerTimeSession(req, res);
 });
 
-
-router.post('/edit-name', (req, res) => {
-    httpMsgs.sendJSON(req, res, {
-        success: 1
-    });
-});
-
-router.post('/edit-email', (req, res) => {
-    httpMsgs.sendJSON(req, res, {
-        success: 1
-    });
-});
-
-router.post('/get-username', (req, res) => {
-    let username;
-
-    console.log(req.session)
-
-    if (req.session.user.username) {
-        username = req.session.user.username
-    } else {
-        username = 'User'
-    }
-    httpMsgs.sendJSON(req, res, {
-        username: username
-    });
-});
-
-router.post('/change-email-otp', (req, res) => {
-
-});
 
 //export the router.
 //It will be used in 'app.js'
