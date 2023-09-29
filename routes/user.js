@@ -49,8 +49,8 @@ function setPrayerTimeSession(req, res) {
 }
 
 router.get('/profile', (req, res) => {
-    if (req.session.user) {
-        delete req.session.user;
+    if (!req.session.user) {
+        res.redirect('/login')
     }
     res.render('profile');
 });
