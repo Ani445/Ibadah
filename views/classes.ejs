@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width,initial-scale=1.0">
+	<title>Classes</title>
+	<script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/additional-methods.min.js"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+	<link rel="stylesheet" type="text/css" href="stylesheets/classes.css">
+</head>
+
+<body>
+	<%- include('sidebar.ejs') %>
+		<div class="main--content">
+			<%- include('header-wrapper.ejs') %>
+
+			<div>
+				<button id="add-new-class-button" name="add-new-class-button">Post a new class</button>
+			</div>
+			<div class="card--container">
+
+				<ul style="list-style: none;">
+					<% data.forEach(element=> { %>
+						<li>
+							<div>
+								<p>
+									<div class="card--wrapper">
+										<div class="card light-blue">
+
+											<table>
+												<tr>
+													<td class="Fields">Topic:</td>
+													<td><%= element.topic %></td>
+												</tr>
+												<tr>
+													<td class="Fields">Teacher:</td>
+													<td><%= element.teacher %></td>
+												</tr>
+												<tr>
+													<td class="Fields">Medium:</td>
+													<td>
+														<% if (element.online===1) { %>
+															<%= 'Online' %>
+															<% } else { %>
+															<%= 'Offline' %>
+															<%}%>
+													</td>
+												</tr>
+												<tr>
+													<td class="Fields"><% if (element.online===1) { %>
+														<%= 'Link:' %>
+														<% } else { %>
+														<%= 'Address:' %>
+														<%}%></td>
+													<td><%= element.address %></td>
+												</tr>
+												<tr>
+													<td class="Fields">Date:</td>
+													<td><%= element.date %></td>
+												</tr>
+												<tr>
+													<td class="Fields">Time:</td>
+													<td><%= element.time %></td>
+												</tr>
+											</table>
+										</div>
+									</div>
+									<%})%>
+								</p>
+							</div>
+						</li>
+				</ul>
+			</div>
+			<%- include("new-class-modal.ejs") %>
+		</div>
+		<script src="javascripts/classes.js"></script>
+</body>
+
+</html>
