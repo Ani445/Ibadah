@@ -21,7 +21,7 @@ $(document).on('click', '#forgot_pass_button', () => {
 })
 
 $(() => { //When Signin Page is ready
-    if (window.location.pathname === '/signup') {
+    if (window.location.pathname === '/register') {
         wrapper.classList.add('active');
         // $(signup_form).attr('transition','none');
         // console.log( $(wrapper).attr('height'))
@@ -126,7 +126,7 @@ $("#signup_form").validate({
             dataType: 'json'
         })
             .done(function (response) {
-                if (response.success === 1) {    //success
+                if (response.success === true) {    //success
                     window.location.href = '/otp';
                 } else {
                     alert('An account with this email already exists');
@@ -176,7 +176,7 @@ $("#mail_forgotpass_form").validate({
             dataType: 'json'
         })
             .done(function (response) {
-                if (response.success === 1) {    //success
+                if (response.success === true) {    //success
                     window.location.href = '/forgotpassotp';
                 } else {
                     alert('No account found with this email');

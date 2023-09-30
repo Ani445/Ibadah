@@ -13,13 +13,13 @@ var transporter = nodemailer.createTransport({
 });
 
 function createOTP() {
-    return otpGenerator.generate(6, {lowerCaseAlphabets: false, specialChars: false});
+    return otpGenerator.generate(6, {"lowerCaseAlphabets": false, "specialChars": false});
 }
 
-function createMailOptions(recieverEmail, otp) {
+function createMailOptions(receiverEmail, otp) {
     return {
         from: 'phoenixmailer3@gmail.com',
-        to: recieverEmail,
+        to: receiverEmail,
         subject: 'Mail verification for Productive Muslim',
 
         html:
@@ -44,17 +44,16 @@ function createMailOptions(recieverEmail, otp) {
     };
 }
 
-function sendMailTo(receiverEmail, callback) {
-    let otp = createOTP();
+function sendMailTo(receiverEmail, otp, callback) {
     transporter.sendMail(createMailOptions(receiverEmail, otp), function (error, info) {
         if (error) {
             console.log(error);
         } else {
             console.log('Email sent: ' + info.response);
-            callback(otp);
         }
     });
+    if(callback) callback(otp);
 }
 
 
-module.exports = {sendMailTo};
+module.exports = {createOTP, sendMailTo};

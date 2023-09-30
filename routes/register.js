@@ -1,15 +1,17 @@
 const express = require('express');
 const database = require("../server/database");
-const httpMsg = require("http-msgs");
 const emailSender = require("../server/email");
-const httpMsgs = require("http-msgs"); // Include Express.js
+const httpMsg = require("http-msgs");
+const {createOTP} = require("../server/email"); // Include Express.js
 const router = express.Router(); // Create an Express.js app
 
-router.get('/signup', (req, res) => {
+router.get('/register', (req, res) => {
     res.redirect('/login');
 });
 
 router.get('/otp', (req, res) => {
+    console.log(req.session.temp)
+
     if (req.session.user) {
         res.redirect('/home');
     } else if (req.session.redirected) {
@@ -20,20 +22,12 @@ router.get('/otp', (req, res) => {
     }
 });
 
-router.get('/mailverify', (req, res) => {
-    if (req.session.user) {
-        res.redirect('/home');
-    } else {
-        res.render('mailverify');
-    }
-});
-
 router.post('/otp', (req, res) => {
     let isSuccess;
     let otp = req.body.otp;
-    if (otp === sentOTP) {
+    if (otp === req.session.temp.sentOTP) {
         isSuccess = 1;
-        database.insertUser(_username, _password, _email, (err) => {
+        database.insertUser(req.session.temp.username, req.session.temp.password, req.session.temp.email, (err) => {
             if (err) {
                 isSuccess = 0
             }
@@ -46,41 +40,25 @@ router.post('/otp', (req, res) => {
     });
 });
 
-router.post('/mailverify', (req, res) => {
+router.post('/register', (req, res) => {
     let email = req.body.email;
 
     database.verifyMail(email, (found) => {
-        //console.log(callback);
-        // console.log(found);
-        if (!found) {
-            //From here, the user will be redirected to '/forgotpassotp' route
-            req.session.redirected = true;
+        let generatedOTP= createOTP();
 
-            emailSender.sendMailTo(email, generatedOTP => {
-                sentOTP = generatedOTP;
-            });
+        req.session.temp = {
+            email: email,
+            username: req.body.username,
+            password: req.body.password,
+            sentOTP: generatedOTP
         }
-        httpMsgs.sendJSON(req, res, {
+
+        if (!found) { //If not found, then the user can be registered
+            req.session.redirected = true;
+            emailSender.sendMailTo(email, generatedOTP)
+        }
+        httpMsg.sendJSON(req, res, {
             success: !found,
-        });
-    });
-});
-
-router.post('/signup', (req, res) => {
-    let email = req.body.email;
-
-    database.verifyMail(email, (isSuccess) => {
-        //console.log(callback);
-        // console.log("trying to signup");
-        if (isSuccess) {
-            //From here, the user will be redirected to '/otp' route
-            req.session.redirected = true;
-            emailSender.sendMailTo(email, generatedOTP => {
-                sentOTP = generatedOTP;
-            });
-        }
-        httpMsgs.sendJSON(req, res, {
-            success: isSuccess,
         });
     });
 });

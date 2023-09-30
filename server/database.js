@@ -1,5 +1,6 @@
 
 const mysql = require('mysql');
+const {ER_CANT_REMOVE_ALL_FIELDS} = require("mysql/lib/protocol/constants/errors");
 
 const pool = mysql.createPool({
     host: 'localhost',
@@ -23,18 +24,19 @@ function checkCredentials(email, password, callback) {
 }
 
 function verifyMail(email, callback) {
+
+    let MAIL_HAS_BEEN_FOUND= true
+
     const sql = `SELECT USER_ID FROM credentials WHERE EMAIL = ${pool.escape(email)};`;
     pool.query(sql, (err, results) => {
         if (err) {
             console.log(err.sqlMessage + '\n' + err.sql);
-            return;
+            MAIL_HAS_BEEN_FOUND = false;
         }
         if (!results.length) {//mail not found
-            callback(1);
+            MAIL_HAS_BEEN_FOUND = false;
         }
-        else { //mail found
-            callback(0);
-        }
+        callback(MAIL_HAS_BEEN_FOUND)
     });
 }
 

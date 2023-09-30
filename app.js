@@ -20,11 +20,15 @@ const loginRoutes = require('./routes/login');
 const registerRoutes = require('./routes/register');
 const userRoutes = require('./routes/user');
 const profileRoutes = require('./routes/profile');
+const classesRoutes = require('./routes/classes');
+const prayerTimeRoutes = require('./routes/prayer-times');
 
 app.use('/', loginRoutes);
 app.use('/', registerRoutes);
 app.use('/', userRoutes);
 app.use('/', profileRoutes);
+app.use('/', classesRoutes);
+app.use('/', prayerTimeRoutes);
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');

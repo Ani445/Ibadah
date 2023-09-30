@@ -1,6 +1,10 @@
 const express = require('express');
 const httpMsgs = require("http-msgs");
-const database = require("../server/database"); // Include Express.js
+const database = require("../server/database");
+const emailSender = require("../server/email");
+const httpMsg = require("http-msgs");
+const {del} = require("express/lib/application");
+const {createOTP} = require("../server/email"); // Include Express.js
 const router = express.Router(); // Create an Express.js app
 
 router.get('/', (req, res) => {
@@ -34,9 +38,42 @@ router.post('/login', (req, res) => {
                 email: results[0].EMAIL,
                 username: results[0].USER_NAME
             }
+            delete req.session.temp
         }
         httpMsgs.sendJSON(req, res, {
             success: isSuccess,
+        });
+    });
+});
+
+router.get('/mailverify', (req, res) => {
+    if (req.session.user) {
+        res.redirect('/home');
+    } else {
+        res.render('mailverify');
+    }
+});
+
+router.post('/mailverify', (req, res) => {
+    let email = req.body.email;
+
+    database.verifyMail(email, (found) => {
+        if (found) {
+
+            let generatedOTP = createOTP()
+            req.session.temp = {
+                email: email,
+                sentOTP: generatedOTP
+            }
+
+            //From here, the user will be redirected to '/forgotpassotp' route
+            req.session.redirected = true;
+
+            emailSender.sendMailTo(email, generatedOTP, generatedOTP => {
+            });
+        }
+        httpMsg.sendJSON(req, res, {
+            success: found,
         });
     });
 });
@@ -54,8 +91,11 @@ router.get('/forgotpassotp', (req, res) => {
 
 router.post('/forgotpassotp', (req, res) => {
     let otp = req.body.otp;
+
+    console.log(req.session.temp)
+
     let isSuccess;
-    if (otp === sentOTP) {
+    if (otp === req.session.temp.sentOTP) {
         //From here, the user will be redirected to '/changepass' route
         req.session.redirected = true;
         isSuccess = 1;
@@ -78,9 +118,7 @@ router.get('/changepass', (req, res) => {
 });
 
 router.post('/changepass', (req, res) => {
-    let new_password = req.body.new_password;
-
-    database.updatePassword(_email, new_password, (isSuccess) => {
+    database.updatePassword(req.session.temp.email, req.body.new_password, (isSuccess) => {
         httpMsgs.sendJSON(req, res, {
             success: isSuccess,
         });
