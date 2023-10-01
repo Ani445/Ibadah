@@ -1,17 +1,20 @@
-const express = require('express');
+
+// Create an Express.js Router
+const router = require('express').Router();
+
 const database = require("../server/database");
 const emailSender = require("../server/email");
+
+//To send response to the client for get or post requests
 const httpMsg = require("http-msgs");
-const {createOTP} = require("../server/email"); // Include Express.js
-const router = express.Router(); // Create an Express.js app
+
+const {createOTP} = require("../server/email");
 
 router.get('/register', (req, res) => {
     res.redirect('/login');
 });
 
 router.get('/otp', (req, res) => {
-    console.log(req.session.temp)
-
     if (req.session.user) {
         res.redirect('/home');
     } else if (req.session.redirected) {
@@ -44,13 +47,10 @@ router.post('/register', (req, res) => {
     let email = req.body.email;
 
     database.verifyMail(email, (found) => {
-        let generatedOTP= createOTP();
+        let generatedOTP = createOTP();
 
         req.session.temp = {
-            email: email,
-            username: req.body.username,
-            password: req.body.password,
-            sentOTP: generatedOTP
+            email: email, username: req.body.username, password: req.body.password, sentOTP: generatedOTP
         }
 
         if (!found) { //If not found, then the user can be registered

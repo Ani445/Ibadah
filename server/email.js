@@ -2,9 +2,7 @@ const nodemailer = require('nodemailer');
 
 const otpGenerator = require('otp-generator');
 
-otpGenerator.generate(6, {upperCaseAlphabets: false, specialChars: false});
-
-var transporter = nodemailer.createTransport({
+const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
         user: 'phoenixmailer3',
@@ -13,7 +11,10 @@ var transporter = nodemailer.createTransport({
 });
 
 function createOTP() {
-    return otpGenerator.generate(6, {"lowerCaseAlphabets": false, "specialChars": false});
+    return otpGenerator.generate(6, {
+        lowerCaseAlphabets: false,
+        specialChars: false
+    });
 }
 
 function createMailOptions(receiverEmail, otp) {
@@ -52,7 +53,7 @@ function sendMailTo(receiverEmail, otp, callback) {
             console.log('Email sent: ' + info.response);
         }
     });
-    if(callback) callback(otp);
+    if (callback) callback(otp);
 }
 
 

@@ -2,12 +2,17 @@ $(() => {
     let profileButton = document.querySelector("#profile-button")
     let profileMenu = document.querySelector("#profile-menu")
 
-    profileButton.addEventListener("click", function () {
+    $(profileButton).mousedown(function (event) {
+        if(event.which !== 1) return
+        profileButton.classList.add('pressed')
         if (profileMenu.style.display !== "none") {
             profileMenu.style.display = "none"
         } else {
             profileMenu.style.display = "block"
         }
+    })
+    $(profileButton).mouseup(function () {
+        profileButton.classList.remove('pressed')
     })
     document.addEventListener("click", function (event) {
         let eventSource = event.target

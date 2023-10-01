@@ -1,6 +1,4 @@
-
 const mysql = require('mysql');
-const {ER_CANT_REMOVE_ALL_FIELDS} = require("mysql/lib/protocol/constants/errors");
 
 const pool = mysql.createPool({
     host: 'localhost',

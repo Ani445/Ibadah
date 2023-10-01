@@ -9,6 +9,7 @@ router.get('/classes', (req, res) => {
         return res.redirect('/login');
     }
     database.loadClasses((results) => {
+        console.log(results)
         res.render('classes', {data: results});
     });
 });

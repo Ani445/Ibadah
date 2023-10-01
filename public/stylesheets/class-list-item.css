@@ -1,0 +1,41 @@
+.class-list-item{
+    width: 620px; /* Optional: Set the table width as needed */
+    /*min-width: 600px; !* Optional: Set the table width as needed *!*/
+    /*max-width: 600px;*/
+    border-radius: 15px;
+    background-color: #eae1fa;
+    padding: 10px 10px 10px 10px ;
+    margin: 10px 0 10px 0;
+}
+.class-list-item .info-table {
+    border-collapse: collapse; /* Merge table borders */
+    width: 600px; /* Optional: Set the table width as needed */
+    min-width: 600px; /* Optional: Set the table width as needed */
+    max-width: 600px; /* Optional: Set the table width as needed */
+    font-size: 16px;
+    border: thin solid transparent;
+    border-radius: 10px;
+}
+
+.class-list-item .info-table td {
+    padding: 5px;
+    text-align: center; /* Optional: Center-align the text within cells */
+    vertical-align: top;
+    word-wrap: break-word; /* Allow text to wrap if it overflows */
+    border: thin solid #d0baf8;
+}
+.class-list-item .info-table .key{
+    text-align: right;
+    padding-right: 50px;
+    max-width: 180px; /* Optional: Limit the maximum width of cells */
+    min-width: 180px;
+    width: 180px;
+}
+
+.class-list-item .info-table .value{
+    text-align: left;
+    padding-left: 50px;
+    max-width: 420px; /* Optional: Limit the maximum width of cells */
+    min-width: 420px;
+    width: 420px;
+}

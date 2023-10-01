@@ -3,12 +3,8 @@
 #profile-button {
     width: auto;
     height: 35px;
-    background-color: transparent;
+    background-color: #9f5fff;
     cursor: pointer;
-    border-style: solid;
-    border-width: 1px;
-    border-color: #b2aeae;
-    border-radius: 4px;
     padding-left: 5px;
     padding-right: 5px;
     max-width: 150px;
@@ -16,10 +12,16 @@
     vertical-align: center;
     white-space: nowrap;
     overflow: hidden;
+    border-radius: 5px;
+    color: white;
 }
 
 #profile-button:hover {
-    box-shadow: 0 0 0 2px #d0cdcc
+    box-shadow: 0 0 0 2px #d0cdcc;
+}
+
+#profile-button.pressed {
+    scale: .9555;
 }
 
 #profile-menu{
@@ -28,14 +30,19 @@
     height: auto;
     margin-top: 10px;
     right: 20px;
+    padding: 10px 0 10px 0;
+    border-radius: 10px;
+    box-shadow: -5px 5px 20px 2px #c5c5c5;
 }
 
 .profile-menu-item{
     cursor: pointer;
     text-align: center;
-    padding-top: 5px;
-    padding-bottom: 5px;
+    padding: 5px 5px 5px 0;
+    margin: 0 5px 0 5px;
+    border-radius: 7px;
 }
+
 .profile-menu-item:hover{
-    background-color: #eaeaea;
+    background-color: #e7e4e7;
 }
