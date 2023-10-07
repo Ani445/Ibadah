@@ -16,18 +16,45 @@
 
     <div class="user-profile-container">
         <div class="profile-personal-information" style="margin-left: 30px; margin-bottom: 30px;">
-            <form id="edit-name-form" action="/edit-name" method="post">
+            <form id="edit-personal-info-form" action="/edit-personal-info" method="post">
                 <!--Edit name of the user-->
                 <div class="form-input">
-                    <div>
-                        <label for="full-name">Your Name</label>
+                    <div class="name-area" style="margin: 10px 0 10px 0">
+                        <div>
+                            <label for="full-name">Your Name</label>
+                        </div>
+                        <div>
+                            <input type="text" id="full-name" name="name" disabled required
+                                   value="<%= data.username %>">
+                        </div>
+                        <div>
+                            <label for="full-name" class="error"></label>
+                        </div>
                     </div>
-                    <div>
-                        <input type="text" id="full-name" name="fullName" disabled required
-                               value="<%= data.username %>">
+                    <div class="gender-area" style="margin: 10px 0 10px 0">
+                        <div>
+                            Gender
+                        </div>
+                        <div>
+                            <label class="gender-select-label" for="gender">Male
+                                <input type="radio" class="gender" id="gender-male" value="Male" name="gender" disabled
+                                <% if (data.gender === "Male") { %>
+                                       checked
+                                        <% } %>
+                                >
+                            </label>
+
+                            <label class="gender-select-label" for="gender">Female
+                                <input type="radio" class="gender" id="gender-female" value="Female" name="gender" disabled
+                                <% if (data.gender !== "Male") { %>
+                                       checked
+                                        <% } %>
+                                >
+                            </label>
+                        </div>
                     </div>
-                    <div>
-                        <label for="full-name" class="error"></label>
+                    <div class="gender-area" style="margin: 10px 0 10px 0">
+                        <%- include("country-dropdown.ejs") %>
                     </div>
                     <div id="edit-name">
                         <button type="button" id="edit-name-button" class="edit-button">Edit</button>

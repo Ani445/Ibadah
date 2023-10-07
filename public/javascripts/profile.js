@@ -1,39 +1,44 @@
 $(() => {
-    var fullNameText = document.querySelector("#full-name")
-    var editNameButton = document.querySelector("#edit-name-button")
-    var editName= document.querySelector("#edit-name")
-    var saveName = document.querySelector("#save-name")
-    var nameSavedLabel = document.querySelector("#name-saved-label")
-    var userProfileContainer = document.querySelector(".user-profile-container")
+    let fullNameText = $("#full-name")
+    let editNameButton = $("#edit-name-button")
+    let editName = $("#edit-name")
+    let saveName = $("#save-name")
+    let nameSavedLabel = $("#name-saved-label")
+    let genderSelectRadio = $(".gender")
+    let countrySelect = $("#country")
+    let userProfileContainer = $(".user-profile-container")
 
-    editNameButton.addEventListener('click', () => {
+    $(editNameButton).click(() => {
         enableNameEdit()
     })
-    userProfileContainer.addEventListener('click', () => {
-        var nameSavedLabel = document.querySelector("#name-saved-label")
-        var emailSavedLabel = document.querySelector("#email-saved-label")
-        nameSavedLabel.classList.remove('active')
-        emailSavedLabel.classList.remove('active')
+
+    $(userProfileContainer).click(() => {
+        let nameSavedLabel = $("#name-saved-label")
+        let emailSavedLabel = $("#email-saved-label")
+        $(nameSavedLabel).removeClass('active')
+        $(emailSavedLabel).removeClass('active')
     })
 
     function enableNameEdit() {
-        editName.style.display = "none"
-        saveName.style.display = "block"
-        fullNameText.disabled = false
+        $(editName).css("display", "none")
+        $(saveName).css("display", "block")
+        $(fullNameText).prop("disabled", false)
+        $(genderSelectRadio).prop("disabled", false)
+        $(countrySelect).prop("disabled", false)
     }
 
     function disableNameEdit() {
-        editName.style.display = "inline"
-        saveName.style.display = "none"
-        fullNameText.disabled = true
-        nameSavedLabel.classList.add("active")
+        $(editName).css("display", "inline")
+        $(saveName).css("display", "none")
+        $(fullNameText).prop("disabled", true)
+        $(nameSavedLabel).addClass('active')
+        $(genderSelectRadio).prop("disabled", true)
+        $(countrySelect).prop("disabled", true)
     }
 
-    $("#edit-name-form").validate({
+    $("#edit-personal-info-form").validate({
         rules: {
-            fullName: {
-                
-            }
+            fullName: {}
         },
         messages: {
             fullName: {
@@ -48,10 +53,10 @@ $(() => {
                 dataType: 'json'
             })
                 .done(function (response) {
-                    if (response.success == 1) {    //success            
+                    if (response.success === true) {    //success
                         disableNameEdit()
                     } else {
-                        alert('');
+                        alert('Something went wrong');
                     }
                 });
             return false; // required to block normal submit since you used ajax
@@ -59,46 +64,46 @@ $(() => {
     })
 
 
+    let emailText = $("#email")
+    let editEmailButton = $("#edit-email-button")
+    let editEmail = $("#edit-email")
+    let saveEmail = $("#save-email")
+    let emailSavedLabel = $("#email-saved-label")
+    let changeMailOTPForm = $("#change-email-otp-form")
+    let editEmailForm = $("#edit-email-form")
 
-    var emailText = document.querySelector("#email")
-    var editEmailButton = document.querySelector("#edit-email-button")
-    var editEmail= document.querySelector("#edit-email")
-    var saveEmail = document.querySelector("#save-email")
-    var emailSavedLabel = document.querySelector("#email-saved-label")
-    var otpform = document.querySelector("#change-email-otp-form")
-    var editEmailForm = document.querySelector("#edit-email-form")
 
-
-    editEmailButton.addEventListener('click', () => {
+    $(editEmailButton).click(() => {
         enableEmailEdit()
     })
-   
+
     function enableEmailEdit() {
-        editEmail.style.display = "none"
-        saveEmail.style.display = "block"
-        emailText.disabled = false
+        $(editEmail).css("display", "none")
+        $(saveEmail).css("display", "block")
+        $(emailText).prop("disabled", false)
+        $(emailText).val("")
     }
 
     function displayOTP() {
-        otpform.style.display = "block"
-        editEmailForm.style.display = "none"
+        $(changeMailOTPForm).css("display", "block")
+        $(editEmailForm).css("display", "none")
     }
 
     function disableEmailEdit() {
-        otpform.style.display = "none"
-        editEmailForm.style.display = "block"
+        $(changeMailOTPForm).css("display", "none")
+        $(editEmailForm).css("display", "block")
 
-        editEmail.style.display = "inline"
-        saveEmail.style.display = "none"
-        emailText.disabled = true
-        emailSavedLabel.classList.add("active")
+        $(editEmail).css("display", "inline")
+        $(saveEmail).css("display", "none")
+
+        $(emailText).prop("disabled", true)
+
+        $(emailSavedLabel).addClass("active")
     }
 
-    $("#edit-email-form").validate({
+    $(editEmailForm).validate({
         rules: {
-            fullName: {
-                
-            }
+            fullName: {}
         },
         messages: {
             email: {
@@ -113,10 +118,10 @@ $(() => {
                 dataType: 'json'
             })
                 .done(function (response) {
-                    if (response.success == 1) {    //success            
+                    if (response.success) {    //success
                         displayOTP()
                     } else {
-                        alert('');
+                        alert('Account with this email already exists');
                     }
                 });
             return false; // required to block normal submit since you used ajax
@@ -124,12 +129,7 @@ $(() => {
     })
 
 
-    $("#change-email-otp-form").validate({
-        rules: {
-            otp: {
-                
-            }
-        },
+    $(changeMailOTPForm).validate({
         messages: {
             otp: {
                 required: "Please enter the OTP"
@@ -143,10 +143,13 @@ $(() => {
                 dataType: 'json'
             })
                 .done(function (response) {
-                    if (response.success == 1) {    //success            
+                    if (response.success === true) {    //success
                         disableEmailEdit()
-                    } else {
-                        alert('');
+                    } else if(!response.otpMatched) {
+                        alert('Wrong OTP');
+                    }
+                    else  {
+                        alert('Something went wrong');
                     }
                 });
             return false; // required to block normal submit since you used ajax

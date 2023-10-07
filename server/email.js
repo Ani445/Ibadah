@@ -7,7 +7,7 @@ const transporter = nodemailer.createTransport({
     auth: {
         user: 'phoenixmailer3',
         pass: 'repr akwh oeyg jhno'
-    }
+    },
 });
 
 function createOTP() {
@@ -19,16 +19,16 @@ function createOTP() {
 
 function createMailOptions(receiverEmail, otp) {
     return {
-        from: 'phoenixmailer3@gmail.com',
+        from: `Ibadah <phoenixmailer3@gmail.com>`,
         to: receiverEmail,
-        subject: 'Mail verification for Productive Muslim',
+        subject: 'Mail verification for Ibadah',
 
         html:
             `
         <div style="padding: 20px; background-color: rgb(255, 255, 255); ">
             <div style="color: rgb(0, 0, 0); text-align: left;">
                 <h1 style="margin: 1rem 0">Verification code</h1>
-                <p>Welcome to <b>Productive Muslim.</b> Please use the verification code below to
+                <p>Welcome to <b>Ibadah.</b> Please use the verification code below to
                   verify your email.</p>
                 <div style="text-align:left;">
                     <div
@@ -52,8 +52,8 @@ function sendMailTo(receiverEmail, otp, callback) {
         } else {
             console.log('Email sent: ' + info.response);
         }
+        if (callback) callback(otp);
     });
-    if (callback) callback(otp);
 }
 
 
