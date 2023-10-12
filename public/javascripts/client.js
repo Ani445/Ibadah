@@ -20,47 +20,59 @@ $(document).on('click', '#forgot_pass_button', () => {
     window.location.href = "/mailverify";
 })
 
-$(() => { //When Signin Page is ready
+function getPrayerTimes(location, year, month) {
+    const settings = {
+        async: true,
+        crossDomain: true,
+        url: `http://api.aladhan.com/v1/calendarByAddress/${year}/${month}?address=${location.city},${location.country}&method=2`,
+        method: 'GET'
+    }
+
+    $.ajax(settings).done(function (response) {
+        let timings = response.data[0]["timings"]
+        const prayerTime =
+            {
+                Fajr: timings["Fajr"],
+                Dhuhr: timings["Dhuhr"],
+                Asr: timings["Asr"],
+                Maghrib: timings["Maghrib"],
+                Isha: timings["Isha"]
+            };
+        $.ajax({
+            type: 'POST',
+            url: '/setPrayerTimeSession',
+            data: prayerTime,
+            dataType: 'json'
+        })
+            // console.log(prayerTime);
+            .done(function (response) {
+                console.log('Done');
+            });
+    });
+}
+
+function sendLocationToServer(location) {
+    $.ajax({
+        type: 'post',
+        url: '/set-user-location',
+        data: location,
+        dataType: 'json'
+    })
+}
+
+$(() => { //When Login Page is ready
     if (window.location.pathname === '/register') {
         wrapper.classList.add('active');
         // $(signup_form).attr('transition','none');
         // console.log( $(wrapper).attr('height'))
     }
 
-    getCoordinates(function (city) {
-        console.log(city);
-
-        const settings = {
-            async: true,
-            crossDomain: true,
-            url: `http://api.aladhan.com/v1/calendarByAddress/2023/9?address=${city}&method=2`,
-            method: 'GET'
-        }
-
-        $.ajax(settings).done(function (response) {
-            //  console.log(response.data[0].timings.Fajr);
-            const prayerTime =
-                {
-                    location: city,
-                    Fajr: response.data[0].timings.Fajr,
-                    Dhuhr: response.data[0].timings.Dhuhr,
-                    Asr: response.data[0].timings.Asr,
-                    Maghrib: response.data[0].timings.Maghrib,
-                    Isha: response.data[0].timings.Isha
-                };
-            $.ajax({
-                type: 'POST',
-                url: '/setPrayerTimeSession',
-                data: prayerTime,
-                dataType: 'json'
-            })
-                // console.log(prayerTime);
-                .done(function (response) {
-                    console.log('Done');
-                });
+    if (window.location.pathname === '/login') {
+        getCoordinates(function (location) {
+            sendLocationToServer(location)
+            getPrayerTimes(location, new Date().getFullYear(), new Date().getMonth());
         });
-    });
-
+    }
 });
 
 
@@ -101,8 +113,8 @@ $("#signup_form").validate({
         password: {
             minlength: 8
         },
-        confirm_password: {
-            equalTo: "#signup-password"
+        "confirm-password": {
+            equalTo: "password"
         }
     },
     messages: {
@@ -114,7 +126,7 @@ $("#signup_form").validate({
 
             minlength: "Password should be at least 8 characters"
         },
-        confirm_password: {
+        "confirm-password": {
             equalTo: "Password didn't match"
         }
     },
@@ -131,7 +143,6 @@ $("#signup_form").validate({
                 } else {
                     alert('An account with this email already exists');
                 }
-                // console.log(response.otp);
             });
         return false; // required to block normal submit since you used ajax
     }
@@ -261,10 +272,10 @@ function getCoordinates(callback) {
         let lng = crd.longitude.toString();
         let coordinates = [lat, lng];
         // console.log(`Latitude: ${lat}, Longitude: ${lng}`);
-        getCity(coordinates, function (city) {
+        getCity(coordinates, function (location) {
             if (!getCoordinates.called) {
-                callback(city);
                 getCoordinates.called = true;
+                callback(location)
             }
         });
     }
@@ -278,7 +289,7 @@ function getCoordinates(callback) {
 
 // Step 2: Get city name
 function getCity(coordinates, callback) {
-    let xhr= new XMLHttpRequest();
+    let xhr = new XMLHttpRequest();
     let lat = coordinates[0];
     let lng = coordinates[1];
 
@@ -290,11 +301,17 @@ function getCity(coordinates, callback) {
     xhr.addEventListener("readystatechange", processRequest, false);
 
     function processRequest(e) {
+        let location = {
+            city: "Dhaka",
+            country: "Bangladesh"
+        }
         if (xhr.readyState === 4 && xhr.status === 200) {
             const response = JSON.parse(xhr.responseText);
-            city = response.address.city + "," + response.address.country;
-            // console.log(city);
-            callback(city);
+            location = {
+                city: response.address.city,
+                country: response.address.country
+            }
+            callback(location);
         }
     }
 }

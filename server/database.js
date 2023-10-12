@@ -25,8 +25,8 @@ function checkCredentials(email, password, callback) {
         if (err) {
             return console.log(err.sql);
         }
-        if(!results[0]) {
-            if (callback) return  callback(0);
+        if (!results.length) {
+            if (callback) return callback(0);
         }
         ({USER_ID: user.userID, EMAIL: user.email} = results[0]);
         pool.query(sqlProfile, results[0].USER_ID, (err, results) => {
@@ -75,7 +75,6 @@ function insertUser(name, password, email, callback) {
             console.log(err.sqlMessage + '\n' + err.sql);
             if (callback) return callback(err)
         } else {
-            console.log(results)
             pool.query(sqlProfile, results.insertId, (err) => {
                 if (err) {
                     console.log(err.sqlMessage + '\n' + err.sql);
@@ -173,5 +172,12 @@ function insertNewClasses(topic, teacher, medium, address, date, time, callback)
 }
 
 module.exports = {
-    checkCredentials, insertUser, verifyMail, updatePassword, loadClasses, insertNewClasses, updatePersonalInfo, updateEmail
+    checkCredentials,
+    insertUser,
+    verifyMail,
+    updatePassword,
+    loadClasses,
+    insertNewClasses,
+    updatePersonalInfo,
+    updateEmail
 }

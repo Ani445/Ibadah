@@ -70,8 +70,6 @@ router.post('/change-email-otp', (req, res) => {
 router.post('/get-username', (req, res) => {
     let username;
 
-    // console.log(req.session)
-
     if (req.session.user.username) {
         username = req.session.user.username
     } else {

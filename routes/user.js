@@ -1,5 +1,7 @@
 const express = require('express');
+const http = require("http");
 const router = express.Router(); // Create an Express.js app
+const httpMsg = require('http-msgs')
 
 router.get('/home', (req, res) => {
     if (req.session.user) {
@@ -14,6 +16,16 @@ router.get('/logout', (req, res) => {
         delete req.session.user;
     }
     res.redirect('/login');
+});
+
+router.post('/set-user-location', (req, res) => {
+    req.session.location = {
+        city: req.body.city,
+        country: req.body.country
+    }
+    return httpMsg.sendJSON(req, res, {
+        data: req.session.location
+    })
 });
 
 //export the router.

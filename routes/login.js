@@ -87,8 +87,6 @@ router.get('/forgotpassotp', (req, res) => {
 router.post('/forgotpassotp', (req, res) => {
     let otp = req.body.otp;
 
-    console.log(req.session.temp)
-
     let isSuccess;
     if (otp === req.session.temp.sentOTP) {
         //From here, the user will be redirected to '/changepass' route
