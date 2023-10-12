@@ -3,7 +3,7 @@ const httpMsgs = require("http-msgs");
 const database = require("../server/database");
 const emailSender = require("../server/email");
 const httpMsg = require("http-msgs");
-const {del} = require("express/lib/application");
+const {user} = require('../server/database-objects')
 const {createOTP} = require("../server/email"); // Include Express.js
 const router = express.Router(); // Create an Express.js app
 
@@ -23,21 +23,16 @@ router.get('/login', (req, res) => {
     }
 });
 
+
 router.post('/login', (req, res) => {
     const email = req.body.email;
     const password = req.body.password;
 
-    database.checkCredentials(email, password, (results) => {
-        let isSuccess;
+    database.checkCredentials(email, password, (isSuccess) => {
+        if (isSuccess) {
+            const { userID, userName, email, gender, country, phone } = user;
+            req.session.user = { userID, username: userName, email, gender, country, phone };
 
-        if (!results.length) {
-            isSuccess = 0;
-        } else {
-            isSuccess = 1;
-            req.session.user = {
-                email: results[0].EMAIL,
-                username: results[0].USER_NAME
-            }
             delete req.session.temp
         }
         httpMsgs.sendJSON(req, res, {

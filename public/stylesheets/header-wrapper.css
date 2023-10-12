@@ -32,7 +32,7 @@
     right: 20px;
     padding: 10px 0 10px 0;
     border-radius: 10px;
-    box-shadow: -5px 5px 20px 2px #c5c5c5;
+    box-shadow: 0 0 15px 2px #c5c5c5;
 }
 
 .profile-menu-item{

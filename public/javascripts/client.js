@@ -149,7 +149,7 @@ $("#signin_form").validate({
             dataType: 'json'
         })
             .done(function (response) {
-                if (response.success === 1) {    //success
+                if (response.success) {    //success
                     window.location.href = '/home';
                 } else {
                     alert('Wrong email or password');
