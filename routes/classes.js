@@ -9,21 +9,20 @@ router.get('/classes', (req, res) => {
         return res.redirect('/login');
     }
     database.loadClasses((results) => {
-        console.log(results)
         res.render('classes', {data: results});
     });
 });
 
 router.post('/new-class', (req, res) => {
     let addressOrLink;
-    if (req.body.medium === "Online") {
+    if (req.body["medium"] === "Online") {
         addressOrLink = req.body.link;
     } else {
         addressOrLink = req.body.address;
     }
 
-    database.insertNewClasses(req.body.topic, req.body.teacher, req.body.medium,
-        addressOrLink, req.body.classDate, req.body.classTime, (isSuccess) => {
+    database.insertNewClasses(req.body["topic"], req.body["teacher"], req.body["medium"],
+        addressOrLink, req.body["classDate"], req.body["classTime"], (isSuccess) => {
             httpMsg.sendJSON(req, res, {
                 success: isSuccess,
             });

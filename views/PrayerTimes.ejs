@@ -2,22 +2,27 @@
 <html lang="en">
 
 <head>
-	<title>Prayer Times</title>
-	<%- include('head-include.ejs') %>
-	<link rel="stylesheet" type="text/css" href="stylesheets/prayertimes.css">
+    <title>Prayer Times</title>
+    <%- include('head-include.ejs') %>
+    <link rel="stylesheet" type="text/css" href="stylesheets/prayertimes.css">
 </head>
 
 <body>
-	<%- include('sidebar.ejs') %>
-		<div class="main--content">
-			<%- include('header-wrapper.ejs') %>
-				<div class="card--container" id="prayer-time-container">
-					<h3 class="main--title" id="prayer-time-location">
-						<%=data.location%>
-					</h3>
-					<%- include('PrayerTable.ejs') %>
-				</div>
-		</div>
+<%- include('sidebar.ejs') %>
+<div class="main--content">
+    <%- include('header-wrapper.ejs') %>
+    <div class="card--container" id="prayer-time-container" style="display: flex; flex-direction: row;">
+        <div style="display: flex; flex-direction: column; align-items: center" id="prayer-time-content">
+            <h3 class="main--title" id="prayer-time-location">
+                <%= `${location.city}, ${location.country}` %>
+            </h3>
+            <%- include('PrayerTable.ejs') %>
+        </div>
+        <div style="display: flex; flex-direction: column; align-items: center">
+            <%- include('mini-calendar.ejs') %>
+        </div>
+    </div>
+</div>
 </body>
 
 </html>

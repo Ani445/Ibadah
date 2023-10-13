@@ -13,7 +13,6 @@ $(() => {
         else if(mediumSelect.value === mediumSelect.options[1].value) {
             classLinkDiv.style.display = "none"
             classAddressDiv.style.display = "block"
-            console.log('kire')
         }
     })
 

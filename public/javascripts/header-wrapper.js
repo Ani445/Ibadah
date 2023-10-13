@@ -25,7 +25,8 @@ $(() => {
         type: "POST",
         url: "/get-username",
         dataType: "json"
-    }).done(function (res) {
+    })
+        .done(function (res) {
         profileButton.textContent = res.username
     });
 })
