@@ -28,11 +28,15 @@ body{
     /* background:  #5908d3; */
     background: linear-gradient(to top, #9f5fff 0%, #5908d3 80%);
 }
-
-.sidebar:hover{
+/* .sidebar .open{
     width: 240px;
     transition: 0.5s;
-}
+} */
+
+/* .sidebar:hover{
+    width: 240px;
+    transition: 0.5s;
+} */
 
 .logo{
     height: 80px;
@@ -125,3 +129,11 @@ body{
     padding: 2rem;
     border-radius: 10px; 
 }
+
+.hamburger i{
+    font-size: 1.5rem;
+    height: 80px;
+    padding: 16px;
+    margin: 8px 0px;
+}
+
