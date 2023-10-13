@@ -5,6 +5,11 @@
     <title>Prayer Times</title>
     <%- include('head-include.ejs') %>
     <link rel="stylesheet" type="text/css" href="stylesheets/prayertimes.css">
+
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
 </head>
 
 <body>
@@ -18,11 +23,11 @@
             </h3>
             <%- include('PrayerTable.ejs') %>
         </div>
-        <div style="display: flex; flex-direction: column; align-items: center">
-            <%- include('mini-calendar.ejs') %>
+        <div style = "margin: 200px 30px 30px 200px">
+            <%- include('mini-calendar/mini-calendar.ejs') %>
         </div>
     </div>
 </div>
 </body>
-
+    <script src="javascripts/prayer-times.js"></script>
 </html>
