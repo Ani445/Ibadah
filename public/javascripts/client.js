@@ -115,7 +115,7 @@ $("#signup_form").validate({
             minlength: 8
         },
         "confirm-password": {
-            equalTo: "password"
+            equalTo: "#signup-password"
         }
     },
     messages: {
