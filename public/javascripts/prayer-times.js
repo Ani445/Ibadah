@@ -12,19 +12,19 @@ document.addEventListener('DOMContentLoaded', function () {
     let monthPickerContainer = document.querySelector("#month-picker-container")
     monthButton.value = months[new Date().getMonth()]
     yearButton.value = new Date().getFullYear()
-    month = new Date().getMonth();// setting month number for api req
-    getDays(month, new Date().getFullYear);
+    let month = new Date().getMonth();// setting month number for api req
+    getDays(month.toString(), new Date().getFullYear().toString());
 
 
     let monthValue = document.getElementsByClassName('month-name')
 
     yearUpButton.addEventListener('click', function () {
         yearButton.value++;
-        getDays(month,yearButton.value);
+        getDays(month.toString(), yearButton.value.toString());
     })
     yearDownButton.addEventListener('click', function () {
         yearButton.value--;
-        getDays(month,yearButton.value);
+        getDays(month.toString(),yearButton.value.toString());
     })
 
     for (let i = 0; i < monthValue.length; i++) {

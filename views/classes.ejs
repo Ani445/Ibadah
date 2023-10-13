@@ -42,7 +42,7 @@
                                 <td class="key"><%= element.online === 1 ? "Link" : "Address" %></td>
                                 <td class="value">
                                     <% if (element.online === 1) { %>
-                                        <a href="<%=element.address%>" target="_blank"><%=element.address%></a>
+                                    <a href="<%= element.address %>" target="_blank"><%= element.address %></a>
                                     <% } else { %>
                                         <%= element.address %>
                                     <% } %>
@@ -66,6 +66,7 @@
 </div>
 <script src="javascripts/classes.js"></script>
 <script src="javascripts/class-list-item.js"></script>
+<script src="javascripts/gelocation-and-prayertime.js"></script>
 </body>
 
 </html>
