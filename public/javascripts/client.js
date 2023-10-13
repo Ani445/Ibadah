@@ -73,6 +73,7 @@ $(() => { //When Login Page is ready
             getPrayerTimes(location, new Date().getFullYear(), new Date().getMonth());
         });
     }
+    getDays();
 });
 
 
@@ -314,4 +315,40 @@ function getCity(coordinates, callback) {
             callback(location);
         }
     }
+}
+
+function getDays(month="October", year="2023"){
+   
+    const settings = {
+        async: true,
+        crossDomain: true,
+        url: `http://api.aladhan.com/v1/gToHCalendar/:${month}/:${year}`,
+        method: 'GET'
+    }
+
+    $.ajax(settings).done(function (response) {
+        //  console.log(response.data[0].timings.Fajr);
+      
+        let dates =
+            {
+                GregorianDay: null,
+                GregorianWeekday: null,
+                HijriDay: null,
+                HijriEnglishWeekday: null,
+                HijriArabicWeekday: null
+            };
+            let dateArr=[];
+            for(let i=0;response.data[i]!=null;i++)
+            {
+                data = response.data[i];
+                dates.GregorianDay = data["gregorian"]["day"];
+                dates.GregorianWeekday = data["gregorian"]["weekday"]["en"];
+                dates.HijriDay = data["hijri"]["day"];
+                dates.HijriEnglishWeekday = data["hijri"]["weekday"]["en"];
+                dates.HijriArabicWeekday = data["hijri"]["weekday"]["ar"];
+
+                dateArr.push({...dates});
+            }
+            console.log(dateArr);
+    });
 }

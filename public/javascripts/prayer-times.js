@@ -12,20 +12,25 @@ document.addEventListener('DOMContentLoaded', function () {
     let monthPickerContainer = document.querySelector("#month-picker-container")
     monthButton.value = months[new Date().getMonth()]
     yearButton.value = new Date().getFullYear()
+    month = new Date().getMonth();// setting month number for api req
+    getDays(month, new Date().getFullYear);
 
 
     let monthValue = document.getElementsByClassName('month-name')
 
     yearUpButton.addEventListener('click', function () {
-        yearButton.value++
+        yearButton.value++;
+        getDays(month,yearButton.value);
     })
     yearDownButton.addEventListener('click', function () {
-        yearButton.value--
+        yearButton.value--;
+        getDays(month,yearButton.value);
     })
 
     for (let i = 0; i < monthValue.length; i++) {
         monthValue[i].addEventListener('click', function () {
-            monthButton.value = monthValue[i].textContent
+            monthButton.value = monthValue[i].textContent;
+            month = i; // setting month number for api req
         });
     }
 
@@ -47,4 +52,40 @@ document.addEventListener('DOMContentLoaded', function () {
     function closeMonthPicker() {
         monthPickerContainer.style.display = 'none'
     }
-})
+});
+
+function getDays(month="October", year="2023"){
+   
+    const settings = {
+        async: true,
+        crossDomain: true,
+        url: `http://api.aladhan.com/v1/gToHCalendar/:${month}/:${year}`,
+        method: 'GET'
+    }
+
+    $.ajax(settings).done(function (response) {
+        //  console.log(response.data[0].timings.Fajr);
+      
+        let dates =
+            {
+                GregorianDay: null,
+                GregorianWeekday: null,
+                HijriDay: null,
+                HijriEnglishWeekday: null,
+                HijriArabicWeekday: null
+            };
+            let dateArr=[];
+            for(let i=0;response.data[i]!=null;i++)
+            {
+                data = response.data[i];
+                dates.GregorianDay = data["gregorian"]["day"];
+                dates.GregorianWeekday = data["gregorian"]["weekday"]["en"];
+                dates.HijriDay = data["hijri"]["day"];
+                dates.HijriEnglishWeekday = data["hijri"]["weekday"]["en"];
+                dates.HijriArabicWeekday = data["hijri"]["weekday"]["ar"];
+
+                dateArr.push({...dates});
+            }
+            console.log(dateArr);
+    });
+}
