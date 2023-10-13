@@ -7,7 +7,9 @@ router.get('/prayer-times', (req, res) => {
     if (!req.session.user) {
         return res.redirect('/login');
     }
-    res.render('PrayerTimes', {data: req.session.prayerTime, location: req.session.location});
+    if (req.session.location) {
+        res.render('PrayerTimes', {data: req.session.prayerTime, location: req.session.location});
+    }
 });
 
 function setPrayerTimeSession(req, res) {

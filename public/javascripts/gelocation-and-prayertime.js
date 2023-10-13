@@ -2,7 +2,7 @@
 
 getCoordinates(function (location) {
     sendLocationToServer(location)
-    getPrayerTimes(location, new Date().getFullYear(), new Date().getMonth());
+    getPrayerTimes(location, new Date().getFullYear(), new Date().getMonth(), new Date().getDate());
 });
 
 function sendLocationToServer(location) {
@@ -14,7 +14,7 @@ function sendLocationToServer(location) {
     })
 }
 
-function getPrayerTimes(location, year, month) {
+function getPrayerTimes(location, year, month, date) {
     const settings = {
         async: true,
         crossDomain: true,
@@ -23,7 +23,7 @@ function getPrayerTimes(location, year, month) {
     }
 
     $.ajax(settings).done(function (response) {
-        let timings = response.data[0]["timings"]
+        let timings = response.data[date - 1]["timings"]
         const prayerTime =
             {
                 Fajr: timings["Fajr"],
