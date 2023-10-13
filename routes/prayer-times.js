@@ -7,7 +7,7 @@ router.get('/prayer-times', (req, res) => {
     if (!req.session.user) {
         return res.redirect('/login');
     }
-    if (req.session.location) {
+    if(req.session.location) {
         res.render('PrayerTimes', {data: req.session.prayerTime, location: req.session.location});
     }
 });
