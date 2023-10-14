@@ -1,3 +1,4 @@
+var state = 0;
 $(document).ready(() => {
     if(window.location.pathname=='/home'){
         Dashboard = document.querySelector('.Dashboard');
@@ -11,30 +12,76 @@ $(document).ready(() => {
         Events = document.querySelector('.Events');
         Events.classList.add('active');
     }
-    // $.ajax({
-    //     type: 'get',
-    //     url: $(form).attr('action'),
-    //     data: $(form).serialize(),
-    //     dataType: 'json'
-    // })
-    // .done(function (response) {
-        
-    // });
-    open =0;
+    getStateFromServer();
+    InitClientState();
+    setServerState();
 });
 
 hamburger = document.querySelector('.hamburger');
 sidebar = document.querySelector('.sidebar');
 hamburger.addEventListener('click', () => {
-    // sidebar.classList.add('open');
-    if(open==0){
+    // sidebar.classList.add('state');
+    ChangeClientState();
+    setServerState();
+});
+
+function setServerState()
+{
+    const obj={
+        state: state
+    }
+    $.ajax({
+        type: 'post',
+        async: false,
+        url: '/setSidebarState',
+        data: obj,
+        // contentType: "application/json; charset=utf-8",
+        dataType:'json'
+    })
+    .done(function (response){
+        // console.log(response.state);
+    });
+}
+
+function ChangeClientState(){
+    if(state==0){
         sidebar.style.width= "240px";
         sidebar.style.transition = "0.5s";
-        open=1;
+        state=1;
     }
-    else if(open==1){
+    else if(state==1){
         sidebar.style.width= "108px";
         sidebar.style.transition = "0.5s";
-        open=0;
+        state=0;
     }
-});
+}
+
+function InitClientState()
+{
+    if(state==1){
+        sidebar.style.transition = "none";
+        sidebar.style.width= "240px";
+    }
+    else if(state==0){
+        sidebar.style.transition = "none";
+        sidebar.style.width= "108px";
+    }
+}
+
+function getStateFromServer(){
+    $.ajax({
+        type: 'get',
+        async: false,
+        url: '/getSidebarState',
+        dataType: 'json'
+    })
+    .done(function (response) {
+        if(response.state==1){
+            state = 1;
+        }
+        else if(response.state==0 || response.state == null){
+            state = 0;
+        }
+    });
+    return Promise.resolve("Success");
+}
