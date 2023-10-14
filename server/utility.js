@@ -37,22 +37,31 @@ class Time { // store time in 24 hr format
     // }
     
     static convertTo12(str) {
-        var split = str.split(':');
-        var hour = isNaN(+split[0]) ? 0 : +split[0];
-        var minute = isNaN(+split[1]) ? 0 : +split[1];
-        var seccond;
-        if(split.length > 2) seccond = isNaN(+split[2]) ? 0 : +split[2];
+        let split = str.split(':');
+        let hour = isNaN(+split[0]) ? 0 : +split[0];
+        let minute = isNaN(+split[1]) ? 0 : +split[1];
+        let second;
+        if(split.length > 2) second = isNaN(+split[2]) ? 0 : +split[2];
 
-        var ampm;
-        if(hour == 12) ampm = "PM";
+        let ampm;
+        if(hour === 12) ampm = "PM";
         else if(hour > 12) {
             ampm = "PM";
             hour %= 12;
-            if(hour == 0) ampm = "AM";
+            if(hour === 0) ampm = "AM";
         }
         else ampm = "AM";
 
         return `${hour.toString().padStart(2, '0')}:${minute.toString().padStart(2, '0')} ${ampm}`;
+    }
+
+    static formatPrayerTimes(timings) {
+        timings.Fajr = Time.convertTo12(timings.Fajr.slice(0, -6));
+        timings.Dhuhr = Time.convertTo12(timings.Dhuhr.slice(0, -6));
+        timings.Asr = Time.convertTo12(timings.Asr.slice(0, -6));
+        timings.Maghrib = Time.convertTo12(timings.Maghrib.slice(0, -6));
+        timings.Isha = Time.convertTo12(timings.Isha.slice(0, -6));
+        return timings
     }
 }
 

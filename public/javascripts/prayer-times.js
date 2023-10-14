@@ -1,5 +1,3 @@
-
-
 document.addEventListener('DOMContentLoaded', function () {
     let monthButton = document.querySelector("#month")
     let yearButton = document.querySelector("#year")
@@ -20,17 +18,18 @@ document.addEventListener('DOMContentLoaded', function () {
         dateCells[i].textContent = ""
         dateCells[i].addEventListener('click', function (event) {
             let {year, month, date} = determineDateFromCalendar(event)
+            getPrayerTimes(year, month, date, null)
             console.log({year, month, date})
         })
     }
 
     yearUpButton.addEventListener('click', function () {
         yearButton.value++;
-        getDays(monthNameToNumber[monthButton.value], yearButton.value.toString());
+        getDays(monthNameToNumber[monthButton.value], yearButton.value);
     })
     yearDownButton.addEventListener('click', function () {
         yearButton.value--;
-        getDays(monthNameToNumber[monthButton.value], yearButton.value.toString());
+        getDays(monthNameToNumber[monthButton.value], yearButton.value);
     })
 
     for (let i = 0; i < monthValue.length; i++) {
@@ -111,23 +110,23 @@ document.addEventListener('DOMContentLoaded', function () {
             dateCells[i].classList.remove('current-month')
         }
 
-        let j = new Date(dateArray[0].GregorianYear, dateArray[0].GregorianMonth - 1,  0).getDate()
+        let j = new Date(dateArray[0].GregorianYear, dateArray[0].GregorianMonth - 1, 0).getDate()
         let i
 
-        for(i = start - 1 ; i >= 0; i--) {
+        for (i = start - 1; i >= 0; i--) {
             dateCells[i].textContent = (j--).toString()
             dateCells[i].classList.add('previous-month')
         }
 
         i = start
         j = 0
-        for ( ; j < dateArray.length && i < dateCells.length; i++) {
+        for (; j < dateArray.length && i < dateCells.length; i++) {
             dateCells[i].textContent = (++j).toString()
             dateCells[i].classList.add('current-month')
         }
 
         j = 0
-        for( ; i < dateCells.length; i++) {
+        for (; i < dateCells.length; i++) {
             dateCells[i].textContent = (++j).toString()
             dateCells[i].classList.add('next-month')
         }
@@ -146,21 +145,43 @@ document.addEventListener('DOMContentLoaded', function () {
         let month = monthNameToNumber[monthButton.value]
         let date = cell.textContent
 
-        if(cell.classList.contains('previous-month')) {
+        if (cell.classList.contains('previous-month')) {
             month--
-            if(month < 0) {
+            if (month < 0) {
                 month = 11
                 year--
             }
-        }
-        else if(cell.classList.contains('next-month')) {
+        } else if (cell.classList.contains('next-month')) {
             month++
-            if(month > 11) {
+            if (month > 11) {
                 month = 0
                 year++
             }
         }
         month++ // to make the year 1 index, to use in the API
         return {year, month, date}
+    }
+
+    function getPrayerTimes(year, month, date, location) {
+        $.ajax({
+            url: '/get-prayer-times',
+            method: 'POST',
+            data: {
+                year, month, date, location
+            }
+        })
+            .done(function (response) {
+                updatePrayerTimes(response.data)
+            })
+    }
+
+    function updatePrayerTimes(data) {
+        document.querySelector("#fajr-time").textContent = data['Fajr']
+        document.querySelector("#dhuhr-time").textContent = data['Dhuhr']
+        document.querySelector("#asr-time").textContent = data['Asr']
+        document.querySelector("#maghrib-time").textContent = data['Maghrib']
+        document.querySelector("#isha-time").textContent = data['Isha']
+
+        console.log(data)
     }
 })
