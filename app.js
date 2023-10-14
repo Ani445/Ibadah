@@ -23,6 +23,7 @@ const profileRoutes = require('./routes/profile');
 const classesRoutes = require('./routes/classes');
 const prayerTimeRoutes = require('./routes/prayer-times');
 const sidebarRoutes = require('./routes/sidebar');
+const calendarEventRoutes = require('./routes/calendar-events');
 
 app.use('/', loginRoutes);
 app.use('/', registerRoutes);
@@ -31,6 +32,7 @@ app.use('/', profileRoutes);
 app.use('/', classesRoutes);
 app.use('/', prayerTimeRoutes);
 app.use('/', sidebarRoutes);
+app.use('/', calendarEventRoutes);
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Calendar Events</title>
+    <%- include('head-include.ejs') %>
+
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <link rel="stylesheet" href="stylesheets/calendar-events.css"/>
+
+</head>
+
+<body>
+<%- include('sidebar.ejs') %>
+<div class="main--content">
+    <!-- include('header-wrapper.ejs',name:"Calendar") -->
+    <div class="card--container">
+        <div class="tasks">
+            <div class="Today">
+                Today
+            </div>
+        </div>
+         <%- include('big-calendar.ejs') %>
+    </div>
+</div>
+<script src="javascripts/calendar.js"></script>
+<script src="javascripts/utility.js"></script>
+</body>
+
+</html>

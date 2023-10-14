@@ -1,0 +1,24 @@
+.tasks
+{
+    width: 240px;
+    height: 605px;
+    float: right;
+    margin:55px 0px 0 7px;
+    /* background:#ddcbfc; */
+    border-width: 1px;
+    border-style: solid;
+    border-color: rgba(153, 149, 149, 0.828);
+}
+.Today{
+  
+    padding: 10px 5px 5px 5px;  
+    width: 238px;
+    height: 50px;
+    border-radius: 1px;
+    background-color: var(--color);
+    text-align: center;
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    border-bottom-color: rgba(153, 149, 149, 0.828);
+    
+}

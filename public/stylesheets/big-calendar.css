@@ -1,0 +1,134 @@
+/*mini-calendar is a table*/
+
+.mini-calendar {
+    border-collapse: collapse;
+    border-spacing: 0;
+    font-size: 14px;
+}
+
+#mini-calendar-container{
+    /* border: 1px solid #b7b7b7;  */
+    padding: 10px 10px 10px 10px; 
+    border-radius: 5px" 
+}
+#mini-calendar-container input[id="month"] {
+    --color: #ddd1f3;
+    --press-color: #d1baf4;
+    width: 200px;
+    height: 40px;
+    border-radius: 5px;
+    border: 1px solid var(--press-color);
+    background-color: var(--color);
+    cursor: pointer;
+}
+
+#mini-calendar-container input[id="year-up"], input[id="year-down"] {
+    --color: #aef5f8;
+    --press-color: #8ee4e7;
+    width: 35px;
+    height: 40px;
+    font-weight: bold;
+    font-size: 16px;
+    border-radius: 2px;
+    cursor: pointer;
+    border: 1px solid var(--press-color);
+    background-color: var(--color);
+}
+
+#mini-calendar-container input[id="year-up"]:active, input[id="year-down"]:active {
+    background-color: var(--press-color);
+}
+
+#mini-calendar-container input[id="year"] {
+    width: 200px;
+    height: 40px;
+    border-radius: 2px;
+    background-color: #aef5f8;
+    cursor: default;
+    border-color: #8ee4e7;
+    border-style: solid;
+    border-width: 1px;
+}
+
+#mini-calendar-container input[id="month"]:active {
+    background-color: var(--press-color);
+}
+
+.mini-calendar td {
+    border-color: rgba(153, 149, 149, 0.828);
+    border-style: solid;
+    border-width: 1px;
+    font-family: 'Times New Roman', monospace;
+    font-size: 16px;
+    overflow: hidden;
+    word-break: normal;
+    width: 30px;
+    height: 110px;
+    vertical-align: top;
+    text-align: left;
+    cursor: pointer;
+    padding: 5px 0 0 5px;
+}
+
+.mini-calendar th {
+    border-color: rgba(153, 149, 149, 0.828);
+    border-style: solid;
+    border-width: 1px;
+    font-family: "Poppins", sans-serif;
+    font-weight: bold;
+    overflow: hidden;
+    word-break: normal;
+    color: #7a30e9 ;
+    width: 135px;
+    height: 50px;
+}
+
+
+.mini-calendar .date-cell.current-month {
+   
+    font-family: "Times New Roman", Times, serif !important;
+    background-color: #e7e7e7;
+}
+
+.mini-calendar .date-cell:hover {
+    background-color: #e5def1;
+}
+
+.mini-calendar .date-cell.previous-month, .date-cell.next-month {
+    -webkit-text-fill-color: #868686;
+}
+
+.month-picker {
+    padding: 5px 5px 5px 5px;
+}
+
+.month-picker td {
+    width: 100px;
+    height: 100px;
+    padding: 5px 5px 5px 5px;
+    cursor: default;
+    text-align: center;
+}
+
+.month-picker td:hover {
+    background-color: #dad8d8;
+}
+
+.calendar-top{
+    display: flex; 
+    flex-direction: row; 
+    margin-bottom: 5px;
+}
+
+.year{
+   margin-left: 10px;
+}
+.change-year{
+    display: flex; 
+    flex-direction: row; 
+    margin-left: 25px;
+}
+#year-up, #year-down{
+    right: 5%; 
+    margin: 0 5px 0 5px; 
+}

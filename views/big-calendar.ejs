@@ -1,31 +1,17 @@
-<link rel="stylesheet" type="text/css" href="stylesheets/mini-calendar.css">
+<link rel="stylesheet" type="text/css" href="stylesheets/big-calendar.css">
 
-<div style="border: 1px solid #b7b7b7; padding: 10px 10px 10px 10px; border-radius: 5px" id="mini-calendar-container">
+<div id="mini-calendar-container">
 
-    <div style="display: flex; flex-direction: row; margin-bottom: 5px;">
+    <div class="calendar-top">
         <input type="button" id="month" value="">
-        <input type="button" id="year" value="" style="margin-left: 10px">
-        <div style="display: flex; flex-direction: row; margin-left: 25px">
-            <input type="button" id="year-up" style="right: 5%; margin: 0 5px 0 5px" value="&uarr;">
-            <input type="button" id="year-down" style="right: 5%; margin: 0 5px 0 5px" value="&darr;">
+        <div class="year">
+            <input type="button" id="year" value="">
+        </div>
+        <div class="change-year">
+            <input type="button" id="year-up" value="&uarr;">
+            <input type="button" id="year-down" value="&darr;">
         </div>
     </div>
-    <style>
-        .month-picker {
-            padding: 5px 5px 5px 5px;
-        }
-    
-        .month-picker td {
-            width: 20px;
-            height: 20px;
-            padding: 5px 5px 5px 5px;
-            cursor: default;
-        }
-    
-        .month-picker td:hover {
-            background-color: #dad8d8;
-        }
-    </style>
     
     <div style="border: 1px solid #b7b4b4; border-radius: 5px; display: none; position: absolute; background-color: #eae8e8"
          id="month-picker-container">
@@ -58,13 +44,13 @@
     <table class="mini-calendar">
         <thead>
         <tr>
-            <th class="day-cell">Sun</th>
-            <th class="day-cell">Mon</th>
-            <th class="day-cell">Tue</th>
-            <th class="day-cell">Wed</th>
-            <th class="day-cell">Thu</th>
-            <th class="day-cell">Fri</th>
-            <th class="day-cell">Sat</th>
+            <th class="day-cell">SUN</th>
+            <th class="day-cell">MON</th>
+            <th class="day-cell">TUE</th>
+            <th class="day-cell">WED</th>
+            <th class="day-cell">THU</th>
+            <th class="day-cell">FRI</th>
+            <th class="day-cell">SAT</th>
         </tr>
         </thead>
         <tbody>
