@@ -94,6 +94,10 @@
     background-color: #e7e7e7;
 }
 
+.mini-calendar .date-cell:hover {
+    background-color: #cccccc;
+}
+
 .mini-calendar .date-cell.previous-month, .date-cell.next-month {
     -webkit-text-fill-color: #868686;
 }
