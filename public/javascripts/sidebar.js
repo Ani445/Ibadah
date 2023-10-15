@@ -83,5 +83,4 @@ function getStateFromServer(){
             state = 0;
         }
     });
-    return Promise.resolve("Success");
 }

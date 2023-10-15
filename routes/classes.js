@@ -13,6 +13,17 @@ router.get('/classes', (req, res) => {
     });
 });
 
+router.get('/class-list', (req, res) => {
+    if (!req.session.user) {
+        return res.redirect('/login');
+    }
+    database.loadClasses((results) => {
+        httpMsg.sendJSON(req, res, {
+            data: results,
+        });
+    });
+});
+
 router.post('/new-class', (req, res) => {
     let addressOrLink;
     if (req.body["medium"] === "Online") {
