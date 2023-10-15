@@ -2,7 +2,6 @@
 
 getCoordinates(function (location) {
     sendLocationToServer(location)
-    getPrayerTimes(location, new Date().getFullYear(), new Date().getMonth(), new Date().getDate());
 });
 
 function sendLocationToServer(location) {
@@ -12,39 +11,10 @@ function sendLocationToServer(location) {
         data: location,
         dataType: 'json'
     })
-}
-
-function getPrayerTimes(location, year, month, date) {
-    const settings = {
-        async: true,
-        crossDomain: true,
-        url: `http://api.aladhan.com/v1/calendarByAddress/${year}/${month}?address=${location.city},${location.country}&method=2`,
-        method: 'GET'
-    }
-
-    $.ajax(settings).done(function (response) {
-        let timings = response.data[date - 1]["timings"]
-        const prayerTime =
-            {
-                Fajr: timings["Fajr"],
-                Dhuhr: timings["Dhuhr"],
-                Asr: timings["Asr"],
-                Maghrib: timings["Maghrib"],
-                Isha: timings["Isha"]
-            };
-        $.ajax({
-            type: 'POST',
-            url: '/setPrayerTimeSession',
-            data: prayerTime,
-            dataType: 'json'
+        .done(function (response) {
+            console.log(response)
         })
-            // console.log(prayerTime);
-            .done(function (response) {
-                console.log('Done');
-            });
-    });
 }
-
 function getCoordinates(callback) {
     let options = {
         enableHighAccuracy: true,

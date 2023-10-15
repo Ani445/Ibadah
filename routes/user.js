@@ -19,9 +19,11 @@ router.get('/logout', (req, res) => {
 });
 
 router.post('/set-user-location', (req, res) => {
-    req.session.location = {
-        city: req.body.city,
-        country: req.body.country
+    if (!req.session.location) {
+        req.session.location = {
+            city: req.body.city,
+            country: req.body.country
+        }
     }
     return httpMsg.sendJSON(req, res, {
         data: req.session.location

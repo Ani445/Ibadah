@@ -181,7 +181,5 @@ document.addEventListener('DOMContentLoaded', function () {
         document.querySelector("#asr-time").textContent = data['Asr']
         document.querySelector("#maghrib-time").textContent = data['Maghrib']
         document.querySelector("#isha-time").textContent = data['Isha']
-
-        console.log(data)
     }
 })

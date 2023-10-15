@@ -5,12 +5,28 @@ const {Time} = require("../server/utility");
 const httpMsg = require("http-msgs")
 const axios = require("axios")
 const http = require("http");
-router.get('/prayer-times', (req, res) => {
+router.get('/prayer-times', async (req, res) => {
     if (!req.session.user) {
         return res.redirect('/login');
     }
-    if (req.session.location) {
-        res.render('PrayerTimes', {data: req.session.prayerTime, location: req.session.location});
+
+    try {
+        let year = new Date().getFullYear()
+        let month = new Date().getMonth() + 1
+        let date = new Date().getDate()
+
+        const response = (await axios.post('http://localhost:3000/get-prayer-times',
+             {
+                year,
+                month,
+                date,
+                location: req.session.location
+            }
+        )).data
+        // console.log(req.session.location)
+        return res.render('PrayerTimes', {data:response["data"], location: response.location})
+    } catch (e) {
+        console.error(e.error)
     }
 });
 
@@ -19,15 +35,14 @@ router.post('/get-prayer-times', async (req, res) => {
 
     let location
 
-    if(req.body.location) {
+    if (req.body.location) {
         location = req.body.location
     }
-    else if(req.session.location) {
+    else if (req.session.location) {
         location = req.session.location
-    }
-    else {
+    } else {
         location = {
-            city: "Dhaka",
+            city: "Thakurgaon",
             country: "Bangladesh"
         }
     }
@@ -44,38 +59,14 @@ router.post('/get-prayer-times', async (req, res) => {
         // console.log(timings)
 
         httpMsg.sendJSON(req, res, {
-            data: timings
+            data: timings,
+            location: location
         })
 
     } catch (error) {
         console.error('Error:', error);
         res.status(500).json({error: 'An error occurred while fetching data from the API'});
     }
-});
-
-function setPrayerTimeSession(req, res) {
-    let isSuccess;
-    req.session.prayerTime = req.body;
-
-    let prayerTime = req.session.prayerTime;
-
-    prayerTime.Fajr = Time.convertTo12(prayerTime.Fajr.slice(0, -6));
-    prayerTime.Dhuhr = Time.convertTo12(prayerTime.Dhuhr.slice(0, -6));
-    prayerTime.Asr = Time.convertTo12(prayerTime.Asr.slice(0, -6));
-    prayerTime.Maghrib = Time.convertTo12(prayerTime.Maghrib.slice(0, -6));
-    prayerTime.Isha = Time.convertTo12(prayerTime.Isha.slice(0, -6));
-
-    if (req.session.prayerTime) {
-        isSuccess = 1;
-    } else isSuccess = 0;
-    httpMsg.sendJSON(req, res, {
-        success: isSuccess
-    });
-}
-
-
-router.post('/setPrayerTimeSession', (req, res) => {
-    setPrayerTimeSession(req, res);
 });
 
 module.exports = router;
