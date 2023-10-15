@@ -15,6 +15,14 @@ $(document).ready(function () {
 type = 0;
 
 searchFilter = document.querySelector('.search-filter');
+select = searchFilter.querySelector('select');
+searchFilter.addEventListener('click', () => {
+    type = select.selectedIndex;
+    if(type == 3 || type == 4){
+        
+    }
+});
+
 
 searchbar = document.querySelector('.searchbar');
 searchbar.addEventListener('input', function (event) {
