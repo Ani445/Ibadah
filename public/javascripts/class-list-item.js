@@ -11,18 +11,25 @@ $(document).ready(function () {
         console.log(listItems);
     });
 });
+
+type = 0;
+
+searchFilter = document.querySelector('.search-filter');
+
 searchbar = document.querySelector('.searchbar');
-// searchbar.addEventListener('input', function (event) {
-//     const searchTerm = event.target.value.toLowerCase();
-//     const listItems = document.querySelectorAll('.card--container');
+searchbar.addEventListener('input', function (event) {
+    const searchTerm = event.target.value.toLowerCase();
+    const listItems = document.querySelectorAll('.info-table');
 
-//     listItems.forEach(function (item) {
-//         const itemText = item.topic.toLowerCase();
+    listItems.forEach(function (item) {
+        itemRow = item.getElementsByTagName("tr")[type]; 
+        itemData = itemRow.querySelector('.value');
+        const itemText = itemData.textContent.toLowerCase();
 
-//         if (itemText.includes(searchTerm)) {
-//             item.style.display = 'list-item';
-//         } else {
-//             item.style.display = 'none';
-//         }
-//     });
-// });
+        if (itemText.includes(searchTerm)) {
+            item.style.display = 'list-item';
+        } else {
+            item.style.display = 'none';
+        }
+    });
+});
