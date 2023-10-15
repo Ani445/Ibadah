@@ -1,11 +1,9 @@
 
 filter = 0; // topic, teacher, link etc
 type = "All";
-typeVal = 2;
 searchFilter = document.querySelector('.search-filter');
 select = searchFilter.querySelector('select');
 radioButton = document.querySelector('.online-offline-filter');
-
 searchFilter.addEventListener('click', () => {
     const idx = select.selectedIndex;
     if(idx == 0 || idx == 1){
@@ -37,7 +35,7 @@ searchbar.addEventListener('input', function (event) {
         itemData = itemRow.querySelector('.value');
         const itemText = itemData.textContent.toLowerCase();
         console.log(itemText);
-        itemTypeRow = (item.getElementsByTagName("tr")[typeVal]);
+        itemTypeRow = (item.getElementsByTagName("tr")[2]);
         itemType = itemTypeRow.querySelector('.value').textContent;
         if (itemText.indexOf(searchTerm) !== -1  && (itemType == type || type=="All")) {
             item.parentNode.style.display = 'list-item';
@@ -54,11 +52,22 @@ radioButton.addEventListener('input', function (event) {
 });
 
 function applyType(){
-
+    if(type == "Online"){
+        select[2].disabled=false;
+        select[3].disabled=true;
+    }
+    else if(type == "Offline"){
+        select[2].disabled=true;
+        select[3].disabled=false;
+    }
+    else if(type =="All"){
+        select[3].disabled=false;
+        select[2].disabled=false;
+    }
     listItems.forEach(function (item) {
 
         listItems.forEach(function (item) {
-            itemTypeRow = (item.getElementsByTagName("tr")[typeVal]);
+            itemTypeRow = (item.getElementsByTagName("tr")[2]);
             itemType = itemTypeRow.querySelector('.value').textContent;
             if(type == itemType || type=="All"){
                 item.parentNode.style.display = 'list-item';
