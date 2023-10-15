@@ -53,10 +53,12 @@ radioButton.addEventListener('input', function (event) {
 
 function applyType(){
     if(type == "Online"){
+        if(select.selectedIndex==3)select.selectedIndex=0;
         select[2].disabled=false;
         select[3].disabled=true;
     }
     else if(type == "Offline"){
+        if(select.selectedIndex==2)select.selectedIndex=0;
         select[2].disabled=true;
         select[3].disabled=false;
     }
