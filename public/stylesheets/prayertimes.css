@@ -31,9 +31,20 @@
 }
 
 #prayer-time-location{
-    color: rgba(113, 99, 186, 255);
-    padding-bottom: 10px;
-    font-size: 35px;
+    display: flex;
+    flex-direction: row;
+    position: relative;
+    left: 10px
+}
+
+.prayer-time-location-select{
+    margin: 10px 10px 10px 10px;
+}
+
+
+.prayer-time-location-select select{
+    border: 2px solid #525252;
+    border-radius: 5px;
 }
 
 .tg .tg-0lax {

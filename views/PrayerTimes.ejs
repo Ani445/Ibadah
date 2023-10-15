@@ -18,9 +18,24 @@
     <%- include('header-wrapper.ejs',{name: "Prayer Times"}) %>
     <div class="card--container" id="prayer-time-container" style="display: flex; flex-direction: row;">
         <div style="display: flex; flex-direction: column; align-items: center" id="prayer-time-content">
-            <h3 class="main--title" id="prayer-time-location">
-                <%= `${location.city}, ${location.country}` %>
-            </h3>
+            <div class="" id="prayer-time-location">
+                <label class="prayer-time-location-select">
+                    City:
+                    <select>
+                        <option>
+                            <%= `${location.city}`%>
+                        </option>
+                    </select>
+                </label>
+                <label class="prayer-time-location-select">
+                    Country:
+                    <select>
+                        <option>
+                            <%=`${location.country}`%>
+                        </option>
+                    </select>
+                </label>
+            </div>
             <%- include('PrayerTable.ejs') %>
         </div>
         <div style="margin: 200px 30px 30px 200px">
