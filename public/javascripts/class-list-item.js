@@ -1,43 +1,70 @@
-let listItems=[];
-$(document).ready(function () {
-    $.ajax({
-        type: 'get',
-        async: false,
-        url: '/class-list',
-        dataType: 'json'
-    })
-    .done(function (response) {
-        listItems.push(response.data);
-        console.log(listItems);
-    });
-});
 
-type = 0;
-
+filter = 0; // topic, teacher, link etc
+type = "All";
+typeVal = 2;
 searchFilter = document.querySelector('.search-filter');
 select = searchFilter.querySelector('select');
+radioButton = document.querySelector('.online-offline-filter');
+
 searchFilter.addEventListener('click', () => {
-    type = select.selectedIndex;
-    if(type == 3 || type == 4){
-        
+    const idx = select.selectedIndex;
+    if(idx == 0 || idx == 1){
+        filter = idx;
     }
+
+    if(idx == 2){
+        type = "Online";
+        filter = 3;
+        applyType();
+    }
+    else if(idx == 3){
+        type = "Offline"; 
+        filter = 3;
+        applyType();
+    }
+
+
 });
 
 
+const listItems = document.querySelectorAll('.info-table');
 searchbar = document.querySelector('.searchbar');
 searchbar.addEventListener('input', function (event) {
     const searchTerm = event.target.value.toLowerCase();
-    const listItems = document.querySelectorAll('.info-table');
 
     listItems.forEach(function (item) {
-        itemRow = item.getElementsByTagName("tr")[type]; 
+        itemRow = item.getElementsByTagName("tr")[filter];
         itemData = itemRow.querySelector('.value');
         const itemText = itemData.textContent.toLowerCase();
-
-        if (itemText.includes(searchTerm)) {
-            item.style.display = 'list-item';
+        console.log(itemText);
+        itemTypeRow = (item.getElementsByTagName("tr")[typeVal]);
+        itemType = itemTypeRow.querySelector('.value').textContent;
+        if (itemText.indexOf(searchTerm) !== -1  && (itemType == type || type=="All")) {
+            item.parentNode.style.display = 'list-item';
         } else {
-            item.style.display = 'none';
+            item.parentNode.style.display = 'none';
         }
     });
 });
+
+radioButton.addEventListener('input', function (event) {
+    const btnValue = event.target.value;
+    type = btnValue;
+    applyType();
+});
+
+function applyType(){
+
+    listItems.forEach(function (item) {
+
+        listItems.forEach(function (item) {
+            itemTypeRow = (item.getElementsByTagName("tr")[typeVal]);
+            itemType = itemTypeRow.querySelector('.value').textContent;
+            if(type == itemType || type=="All"){
+                item.parentNode.style.display = 'list-item';
+            } else {
+                item.parentNode.style.display = 'none';
+            }
+        });
+    });
+}

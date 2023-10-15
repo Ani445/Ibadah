@@ -60,5 +60,21 @@
   border-radius: 5px;
   width: 200px;
   height: 35px;
-  font-size: large;
+  font-size: medium;
 }
+
+/*radio button*/
+/* Customize the label (the container) */
+.online-offline-filter .container {
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  font-size: 18px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
