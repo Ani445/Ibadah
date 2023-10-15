@@ -19,7 +19,6 @@ document.addEventListener('DOMContentLoaded', function () {
         dateCells[i].addEventListener('click', function (event) {
             let {year, month, date} = determineDateFromCalendar(event)
             getPrayerTimes(year, month, date, null)
-            console.log({year, month, date})
         })
     }
 
@@ -182,6 +181,6 @@ document.addEventListener('DOMContentLoaded', function () {
         document.querySelector("#maghrib-time").textContent = data['Maghrib']
         document.querySelector("#isha-time").textContent = data['Isha']
 
-        console.log(data)
+        // console.log(data)
     }
 })

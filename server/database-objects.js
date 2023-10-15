@@ -4,7 +4,11 @@ let user = {
     email: null,
     gender: null,
     country: null,
-    phone: null
+    phone: null,
+    location: {
+        city: null,
+        country: null
+    }
 }
 
 module.exports = {user}
