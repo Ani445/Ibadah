@@ -11,6 +11,7 @@ router.post('/setSidebarState', (req, res) => {
 });
 
 router.get('/getSidebarState', (req, res) => {
+    if(req.session.sidebarState==null)req.session.sidebarState=1;
     httpMsg.sendJSON(req, res, {
         state: req.session.sidebarState
     });
