@@ -9,12 +9,22 @@
 
     <link rel="stylesheet" type="text/css" href="stylesheets/classes.css">
     <link rel="stylesheet" type="text/css" href="stylesheets/class-list-item.css">
+    <link rel="stylesheet" type="text/css" href="stylesheets/search.css">
 </head>
 
 <body>
 <%- include('sidebar.ejs') %>
 <div class="main--content">
     <%- include('header-wrapper.ejs',{name: "Events"}) %>
+   <div class="search">
+    <div class="searchbar">
+        <%- include('search/searchbar.ejs') %>
+    </div>
+    <div class="search-filter">
+
+        <%- include('search/search-filter.ejs') %>
+    </div>
+   </div>
 
     <div>
         <button id="add-new-class-button" name="add-new-class-button">Post a new class</button>

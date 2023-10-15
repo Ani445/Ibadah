@@ -225,7 +225,7 @@ body{
     padding: 25px 35px 0 5px; 
 }
 
-.input-box select{
+/* .input-box select{
     width: 100%;
     height: auto;
     background: transparent;
@@ -235,7 +235,7 @@ body{
     color: #162938;
     font-weight: 600;
     padding: 25px 35px 0 5px; 
-}
+} */
 
 .input-box textarea {
     width: 80%; /* Adjust the width as needed */

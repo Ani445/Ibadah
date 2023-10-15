@@ -56,7 +56,7 @@
     /*padding: 10px 0 10px 0;*/
 }
 
-.new-class-input input, select, textarea{
+.new-class-input input, select#medium, textarea{
     border-style: solid;
     border-width: 2px;
     border-color: #c0c0c0;
