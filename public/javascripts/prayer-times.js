@@ -183,4 +183,42 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // console.log(data)
     }
+
+    function fetchAllCountryNames() {
+        const username = 'abeshahsan';
+        const countryName = 'United States'; // Replace with the desired country name
+
+        $.ajax({
+            async: true,
+            crossDomain: true,
+            // url: `https://restcountries.com/v3.1/all`,
+            url: `http://api.geonames.org/countryInfoJSON?username=${username}`,
+            method: 'GET'
+        })
+            .done(function (response) {
+                const countryNames = response["geonames"].map(country => country["countryName"]);
+                console.log(countryNames)
+            })
+    }
+    function fetchAllCityNames(country) {
+        const username = 'abeshahsan';
+        const countryName = 'BD'; // Replace with the desired country name
+
+        $.ajax({
+            async: true,
+            crossDomain: true,
+            // url: `https://restcountries.com/v3.1/all`,
+            url: `http://api.geonames.org/searchJSON?country=${countryName}&maxRows=500&style=FULL&&featureClass=P&username=${username}`,
+            method: 'GET',
+            dataType: 'JSON'
+        })
+            .done(function (response) {
+                const cityNames = response["geonames"].map(city => city["toponymName"]);
+                cityNames.sort()
+                // const cityNames = response;
+                console.log(cityNames)
+            })
+    }
+    fetchAllCountryNames()
+    fetchAllCityNames()
 })

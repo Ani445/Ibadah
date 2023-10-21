@@ -1,6 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap");
 
-*{
+* {
     margin: 0;
     padding: 0;
     border: none;
@@ -9,11 +9,11 @@
     font-family: "Poppins", sans-serif;
 }
 
-body{
+body {
     display: flex;
 }
 
-.card{
+.card {
     /* background: rgb(93, 154, 119); */
     border-radius: 10px;
     padding: 1.2rem;
@@ -22,18 +22,20 @@ body{
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    transition: all 0.5 s ease-in-out;
+    transition: all 0.5s ease-in-out;
     cursor: pointer;
 }
-.card:hover{
+
+.card:hover {
     transform: translateY(-5px);
 }
-.card--detail{
+
+.card--detail {
     font-size: 25px;
     font-weight: bold;
     color: rgba(113, 99, 186, 255);
     letter-spacing: 2px;
-    font-family: "Poppins";
+    font-family: "Poppins", sans-serif;
     text-align: center;
 }
 
@@ -44,7 +46,7 @@ body{
 .light-green {
     background: rgb(235, 254, 235);
     /* background: #8a00e6; */
-    
+
 }
 
 .light-red {

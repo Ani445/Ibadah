@@ -47,6 +47,8 @@ router.post('/get-prayer-times', async (req, res) => {
         }
     }
 
+    // console.log(req.session.location)
+
     try {
         // Replace 'https://api.example.com/data' with the actual API endpoint URL
         const response = await axios.get(

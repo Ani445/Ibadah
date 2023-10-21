@@ -192,7 +192,7 @@ $("#change_pass_form").validate({
             required: "Please enter The Password",
             minlength: "Password should be at least 8 characters"
         },
-        new_password: {
+        confirm_new_password: {
             required: "Please Repeat The Password"
         }
     },
