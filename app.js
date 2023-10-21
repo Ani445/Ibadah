@@ -23,7 +23,7 @@ const profileRoutes = require('./routes/profile');
 const classesRoutes = require('./routes/classes');
 const prayerTimeRoutes = require('./routes/prayer-times');
 const sidebarRoutes = require('./routes/sidebar');
-const calendarEventRoutes = require('./routes/calendar-events');
+const calendarEventRoutes = require('./routes/my-calendar');
 
 app.use('/', loginRoutes);
 app.use('/', registerRoutes);
