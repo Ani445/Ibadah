@@ -21,3 +21,10 @@
     border-bottom-color: rgba(153, 149, 149, 0.828);
     
 }
+
+.planned--events{
+    padding: 10px 10px 0px 30px;
+}
+li{
+    margin: 10px 10px 10px 10px;
+}
