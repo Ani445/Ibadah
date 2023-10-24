@@ -4,7 +4,6 @@ const router = express.Router(); // Create an Express.js app
 const {Time} = require("../server/utility");
 const httpMsg = require("http-msgs")
 const axios = require("axios")
-const http = require("http");
 router.get('/prayer-times', async (req, res) => {
     if (!req.session.user) {
         return res.redirect('/login');
@@ -33,7 +32,7 @@ router.get('/prayer-times', async (req, res) => {
 router.post('/get-prayer-times', async (req, res) => {
     let {year, month, date} = req.body
 
-    let location
+   let location
 
     if (req.body.location) {
         location = req.body.location
@@ -47,18 +46,12 @@ router.post('/get-prayer-times', async (req, res) => {
         }
     }
 
-    // console.log(req.session.location)
-
     try {
-        // Replace 'https://api.example.com/data' with the actual API endpoint URL
         const response = await axios.get(
             `http://api.aladhan.com/v1/calendarByAddress/${year}/${month}?address=${location.city},${location.country}&method=2`);
 
-        // Assuming the API returns JSON data
         let timings = response.data.data[date - 1]["timings"];
         timings = Time.formatPrayerTimes(timings)
-
-        // console.log(timings)
 
         httpMsg.sendJSON(req, res, {
             data: timings,
