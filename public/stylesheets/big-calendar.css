@@ -98,7 +98,7 @@
     -webkit-text-fill-color: #868686;
 }
 .mini-calendar .date-cell.current-date{
-    background-color: #eebef1;
+    background-color: #eebef1 !important;
 }
 
 .month-picker {

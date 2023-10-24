@@ -37,13 +37,12 @@ document.addEventListener('DOMContentLoaded', function () {
             /*coloring current date*/
             if(selectedElement!=dateCells[i]){
                 if(selectedElement != null)setDefault(selectedElement);
-                selectedElement = dateCells[i];
-                if(selectedElement.classList.contains('current-date')==false)
-               {
-                   dateCells[i].setAttribute('style','background-color: #e5def1;')
+                if(dateCells[i].classList.contains('current-date')==false)
+                {
+                    dateCells[i].setAttribute('style','background-color: #e5def1;')
+                    selectedElement = dateCells[i];
 
                }
-                
                 
             }
                 
@@ -134,7 +133,7 @@ document.addEventListener('DOMContentLoaded', function () {
             dateCells[i].textContent = ""
             dateCells[i].classList.remove('previous-month')
             dateCells[i].classList.remove('next-month')
-            dateCells[i].classList.remove('current-month')
+            dateCells[i].classList.remove('current-month')  
             dateCells[i].classList.remove('current-date')
         }
         
@@ -145,7 +144,7 @@ document.addEventListener('DOMContentLoaded', function () {
         for (i = start - 1; i >= 0; i--) {
             dateCells[i].textContent = (j--).toString()
             dateCells[i].classList.add('previous-month')
-            //setDefault(dateCells[i]);
+            setDefault(dateCells[i]);
         }
 
         i = start
@@ -153,7 +152,7 @@ document.addEventListener('DOMContentLoaded', function () {
         for (; j < dateArray.length && i < dateCells.length; i++) {
             dateCells[i].textContent = (++j).toString()
             dateCells[i].classList.add('current-month')
-            //setDefault(dateCells[i]);
+            setDefault(dateCells[i]);
             
             /*coloring current data*/
             if(new Date().getDate() == j && new Date().getMonth()==monthNameToNumber[monthButton.value] && yearButton.value == new Date().getFullYear())
@@ -226,7 +225,8 @@ function setDefault(element)
         element.setAttribute('style','background-color: inherit;')
     }
     else{
-        if(!element.classList.contains('current-date'))
+        if(element.classList.contains('current-date')==false)
         element.setAttribute('style','background-color: #e7e7e7;')
     }
+    
 }
