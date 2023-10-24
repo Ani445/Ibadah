@@ -15,13 +15,11 @@ searchFilter.addEventListener('click', () => {
 
     if(idx == 2){
        // radioButtonEle[1].checked=true;
-        type = "Online";
         filter = 3;
         filterType = 2;
     }
     else if(idx == 3){
        // radioButtonEle[2].checked=true;
-        type = "Offline"; 
         filter = 3;
         filterType = 3;
     }
@@ -52,7 +50,7 @@ function applyType(){
     if(type == "Online"){
         if(select.selectedIndex==3){
             select.selectedIndex=0;
-            //type = "All";
+            type = "All";
             filter=0;
             filterType = 0;
         }
@@ -62,7 +60,7 @@ function applyType(){
     else if(type == "Offline"){
         if(select.selectedIndex==2){
             select.selectedIndex=0;
-            //type="All";
+            type="All";
             filter = 0;
             filterType = 0;
         }
