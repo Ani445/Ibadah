@@ -4,6 +4,10 @@ document.addEventListener('DOMContentLoaded', function () {
     let yearUpButton = document.querySelector("#year-up")
     let yearDownButton = document.querySelector("#year-down")
 
+    let gyear = new Date().getFullYear()
+    let gmonth = new Date().getMonth() + 1
+    let gdate = new Date().getDate()
+
     let monthPickerContainer = document.querySelector("#month-picker-container")
     monthButton.value = months[new Date().getMonth()].substring(0, 3)
     yearButton.value = new Date().getFullYear()
@@ -158,6 +162,11 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         }
         month++ // to make the year 1 index, to use in the API
+
+        gyear = year
+        gmonth = month
+        gdate = date
+
         return {year, month, date}
     }
 
@@ -165,14 +174,22 @@ document.addEventListener('DOMContentLoaded', function () {
         $.ajax({
             url: '/get-prayer-times',
             method: 'POST',
-            data: {
-                year, month, date, location
-            }
+            data: JSON.stringify({
+                year,
+                month,
+                date,
+                location
+            }),
+            contentType: "application/json",
+            dataType: "JSON"
         })
             .done(function (response) {
+                console.log(response.data)
                 updatePrayerTimes(response.data)
             })
     }
+
+    addAllCities()
 
     function updatePrayerTimes(data) {
         document.querySelector("#fajr-time").textContent = data['Fajr']
@@ -200,6 +217,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 console.log(countryNames)
             })
     }
+
     function fetchAllCityNames(country) {
         const username = 'abeshahsan';
         const countryName = 'BD'; // Replace with the desired country name
@@ -219,6 +237,97 @@ document.addEventListener('DOMContentLoaded', function () {
                 console.log(cityNames)
             })
     }
-    fetchAllCountryNames()
-    fetchAllCityNames()
+
+    // fetchAllCountryNames()
+    // fetchAllCityNames()
+
+    function addAllCities() {
+        let select = document.querySelector(".city-list");
+
+        for (let x in districtNames) {
+            let option = document.createElement("option");
+            option.textContent = districtNames[x];
+            select.appendChild(option);
+        }
+
+        select.addEventListener("change", function (event) {
+            // Code to handle the change event goes here
+            // console.log("Selected value: " + select.value);
+            let location = {
+                city: select.value.toString(),
+                country: "Bangladesh"
+            }
+            // console.log(location)
+            getPrayerTimes(gyear, gmonth, gdate, location)
+        });
+    }
+
+
 })
+let districtNames =
+    [
+        "Dhaka",
+        "Faridpur",
+        "Gazipur",
+        "Gopalganj",
+        "Jamalpur",
+        "Kishoreganj",
+        "Madaripur",
+        "Manikganj",
+        "Munshiganj",
+        "Mymensingh",
+        "Narayanganj",
+        "Narsingdi",
+        "Netrokona",
+        "Rajbari",
+        "Shariatpur",
+        "Sherpur",
+        "Tangail",
+        "Bogra",
+        "Joypurhat",
+        "Naogaon",
+        "Natore",
+        "Nawabganj",
+        "Pabna",
+        "Rajshahi",
+        "Sirajgonj",
+        "Dinajpur",
+        "Gaibandha",
+        "Kurigram",
+        "Lalmonirhat",
+        "Nilphamari",
+        "Panchagarh",
+        "Rangpur",
+        "Thakurgaon",
+        "Barguna",
+        "Barisal",
+        "Bhola",
+        "Jhalokati",
+        "Patuakhali",
+        "Pirojpur",
+        "Bandarban",
+        "Brahmanbaria",
+        "Chandpur",
+        "Chittagong",
+        "Comilla",
+        "Cox's Bazar",
+        "Feni",
+        "Khagrachari",
+        "Lakshmipur",
+        "Noakhali",
+        "Rangamati",
+        "Habiganj",
+        "Maulvibazar",
+        "Sunamganj",
+        "Sylhet",
+        "Bagerhat",
+        "Chuadanga",
+        "Jessore",
+        "Jhenaidah",
+        "Khulna",
+        "Kushtia",
+        "Magura",
+        "Meherpur",
+        "Narail",
+        "Satkhira"
+    ]

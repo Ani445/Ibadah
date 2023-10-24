@@ -33,7 +33,7 @@ router.get('/prayer-times', async (req, res) => {
 router.post('/get-prayer-times', async (req, res) => {
     let {year, month, date} = req.body
 
-    let location
+   let location
 
     if (req.body.location) {
         location = req.body.location
@@ -50,6 +50,7 @@ router.post('/get-prayer-times', async (req, res) => {
     // console.log(req.session.location)
 
     try {
+        console.log(location.city + location.country)
         // Replace 'https://api.example.com/data' with the actual API endpoint URL
         const response = await axios.get(
             `http://api.aladhan.com/v1/calendarByAddress/${year}/${month}?address=${location.city},${location.country}&method=2`);
