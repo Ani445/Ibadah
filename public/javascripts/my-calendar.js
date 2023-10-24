@@ -1,4 +1,11 @@
+
 document.addEventListener('DOMContentLoaded', function () {
+
+    /*for the task panel header*/
+    let currentDate = document.querySelector('.Today');
+    currentDate.innerHTML = "<span>"+new Date().getDate().toString()+" "+months[new Date().getMonth()].substring(0, 3) + " "+new Date().getFullYear().toString()+"</span>";
+    /*for the task panel header*/
+
     let monthButton = document.querySelector("#month")
     let yearButton = document.querySelector("#year")
     let yearUpButton = document.querySelector("#year-up")
@@ -20,6 +27,11 @@ document.addEventListener('DOMContentLoaded', function () {
             let {year, month, date} = determineDateFromCalendar(event)
             getCalendarEvents(year, month, date)
             console.log({year, month, date})
+            
+            /*for the task panel header*/
+            let currentDate = document.querySelector('.Today');
+            currentDate.innerHTML = "<span>"+date+" "+months[month].substring(0, 3) + " "+year+"</span>";
+            /*for the task panel header*/
         })
     }
 
@@ -170,12 +182,12 @@ document.addEventListener('DOMContentLoaded', function () {
                 year, month, date
             }
         })
-            .done(function (response) {
-                showCalendarEvents()
-            })
+            // .done(function (response) {
+            //     showCalendarEvents()
+            // })
     }
 
-    function showCalendarEvents() {
+    // function showCalendarEvents() {
 
-    }
+    // }
 })
