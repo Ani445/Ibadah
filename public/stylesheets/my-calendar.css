@@ -12,6 +12,7 @@
   
     padding: 10px 5px 5px 5px;  
     width: 300px;
+    max-width: 500px;
     height: 50px;
     border-radius: 1px;
     background-color: var(--color);
@@ -23,8 +24,9 @@
 }
 
 .planned--events{
-    padding: 10px 10px 0px 30px;
+    padding: 20px 10px 0px 40px;
 }
 li{
-    margin: 10px 10px 10px 10px;
+    margin: 10px 10px 20px 10px;
+    word-wrap: break-word;
 }

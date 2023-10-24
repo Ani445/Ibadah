@@ -1,4 +1,5 @@
 
+var selectedElement;
 document.addEventListener('DOMContentLoaded', function () {
 
     /*for the task panel header*/
@@ -31,7 +32,22 @@ document.addEventListener('DOMContentLoaded', function () {
             /*for the task panel header*/
             let currentDate = document.querySelector('.Today');
             currentDate.innerHTML = "<span>"+date+" "+months[month].substring(0, 3) + " "+year+"</span>";
-            /*for the task panel header*/
+            /***************************/
+           
+            /*coloring current date*/
+            if(selectedElement!=dateCells[i]){
+                if(selectedElement != null)setDefault(selectedElement);
+                selectedElement = dateCells[i];
+                if(selectedElement.classList.contains('current-date')==false)
+               {
+                   dateCells[i].setAttribute('style','background-color: #e5def1;')
+
+               }
+                
+                
+            }
+                
+            /***********************/
         })
     }
 
@@ -48,7 +64,6 @@ document.addEventListener('DOMContentLoaded', function () {
         monthValue[i].addEventListener('click', function () {
             monthButton.value = monthValue[i].textContent;
             let monthNumber = monthNameToNumber[monthButton.value]
-
             getDays(monthNumber, yearButton.value); // setting month number for api req
         });
     }
@@ -120,14 +135,17 @@ document.addEventListener('DOMContentLoaded', function () {
             dateCells[i].classList.remove('previous-month')
             dateCells[i].classList.remove('next-month')
             dateCells[i].classList.remove('current-month')
+            dateCells[i].classList.remove('current-date')
         }
-
+        
         let j = new Date(dateArray[0].GregorianYear, dateArray[0].GregorianMonth - 1, 0).getDate()
+        
         let i
-
+        
         for (i = start - 1; i >= 0; i--) {
             dateCells[i].textContent = (j--).toString()
             dateCells[i].classList.add('previous-month')
+            //setDefault(dateCells[i]);
         }
 
         i = start
@@ -135,12 +153,22 @@ document.addEventListener('DOMContentLoaded', function () {
         for (; j < dateArray.length && i < dateCells.length; i++) {
             dateCells[i].textContent = (++j).toString()
             dateCells[i].classList.add('current-month')
+            //setDefault(dateCells[i]);
+            
+            /*coloring current data*/
+            if(new Date().getDate() == j && new Date().getMonth()==monthNameToNumber[monthButton.value] && yearButton.value == new Date().getFullYear())
+            {
+                dateCells[i].classList.add('current-date');
+                selectedElement = dateCells[i];
+            }
+            /**************************/
         }
 
         j = 0
         for (; i < dateCells.length; i++) {
             dateCells[i].textContent = (++j).toString()
             dateCells[i].classList.add('next-month')
+            setDefault(dateCells[i]);
         }
     }
 
@@ -191,3 +219,14 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // }
 })
+
+function setDefault(element)
+{
+    if(element.classList.contains('previous-month') || element.classList.contains('next-month')){
+        element.setAttribute('style','background-color: inherit;')
+    }
+    else{
+        if(!element.classList.contains('current-date'))
+        element.setAttribute('style','background-color: #e7e7e7;')
+    }
+}

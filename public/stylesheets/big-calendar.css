@@ -67,7 +67,7 @@
     vertical-align: top;
     text-align: left;
     cursor: pointer;
-    padding: 5px 0 0 5px;
+    padding: 10px 0 0 10px;
 }
 
 .mini-calendar th {
@@ -96,6 +96,9 @@
 
 .mini-calendar .date-cell.previous-month, .date-cell.next-month {
     -webkit-text-fill-color: #868686;
+}
+.mini-calendar .date-cell.current-date{
+    background-color: #eebef1;
 }
 
 .month-picker {
