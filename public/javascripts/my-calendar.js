@@ -28,6 +28,7 @@ document.addEventListener('DOMContentLoaded', function () {
     for (let i = 0; i < dateCells.length; i++) {
         // dateCells[i].innerHTML = ""
         dateCells[i].addEventListener('click', function (event) {
+            if(selectedElement == dateCells[i])return;
             let {year, month, date} = determineDateFromCalendar(event)
             getCalendarEvents(year, month, date)
             //console.log({year, month, date})
