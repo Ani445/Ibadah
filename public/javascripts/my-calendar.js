@@ -75,7 +75,7 @@ document.addEventListener('DOMContentLoaded', function () {
     document.addEventListener('click', function (event) {
         if (event.target.id !== monthButton.id) {
             closeMonthPicker()
-        } else if (monthPickerContainer.style.display === 'none') {
+        } else if (monthPickerContainer.classList.contains('hidden')) {
             openMonthPicker()
         } else {
             closeMonthPicker()
@@ -83,11 +83,11 @@ document.addEventListener('DOMContentLoaded', function () {
     })
 
     function openMonthPicker() {
-        monthPickerContainer.style.display = 'block'
+        monthPickerContainer.classList.remove('hidden')
     }
 
     function closeMonthPicker() {
-        monthPickerContainer.style.display = 'none'
+        monthPickerContainer.classList.add('hidden')
     }
 
     // function getDays(month, year) {
