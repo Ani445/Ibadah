@@ -251,7 +251,7 @@ document.addEventListener('DOMContentLoaded', function () {
         
         // }
     function InnerContent(j){
-         return "<p class=\"GregorianDate\">"+j.toString()+"</p>"+"<p class=\"HijriDate\">"+new HijrahDate(new Date(yearButton.value,monthNameToNumber[monthButton.value],j-1)).getDate()+"</p>";
+         return "<p class=\"GregorianDate\">"+j.toString()+"</p>"+"<p class=\"HijriDate\">"+new HijrahDate(new Date(yearButton.value,monthNameToNumber[monthButton.value],j)).getDate()+"</p>";
     }
 })
 
