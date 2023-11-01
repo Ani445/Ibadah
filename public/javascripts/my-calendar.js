@@ -170,7 +170,7 @@ document.addEventListener('DOMContentLoaded', function () {
         let i
         
         for (i = start - 1; i >= 0; i--) {
-            dateCells[i].innerHTML = InnerContent(j);
+            dateCells[i].innerHTML = InnerContent(monthNameToNumber[monthButton.value]-1,j);
             j--;
             dateCells[i].classList.add('previous-month')
             setDefault(dateCells[i]);
@@ -180,7 +180,7 @@ document.addEventListener('DOMContentLoaded', function () {
         j = 0
         for (; j < dateArray.length && i < dateCells.length; i++) {
             j++;
-            dateCells[i].innerHTML = InnerContent(j);
+            dateCells[i].innerHTML = InnerContent(monthNameToNumber[monthButton.value],j);
             dateCells[i].classList.add('current-month')
             setDefault(dateCells[i]);
             
@@ -190,14 +190,14 @@ document.addEventListener('DOMContentLoaded', function () {
                 dateCells[i].classList.add('current-date');
                 selectedElement = dateCells[i];
             }
-            else dateCells[i].classList.remove('current-date');
+            // else dateCells[i].classList.remove('current-date');
             /**************************/
         }
         
         j = 0
         for (; i < dateCells.length; i++) {
             j++;            
-            dateCells[i].innerHTML = InnerContent(j);
+            dateCells[i].innerHTML = InnerContent(monthNameToNumber[monthButton.value],j);
             dateCells[i].classList.add('next-month')
             setDefault(dateCells[i]);
         }
@@ -250,8 +250,8 @@ document.addEventListener('DOMContentLoaded', function () {
     // function showCalendarEvents() {
         
         // }
-    function InnerContent(j){
-         return "<p class=\"GregorianDate\">"+j.toString()+"</p>"+"<p class=\"HijriDate\">"+new HijrahDate(new Date(yearButton.value,monthNameToNumber[monthButton.value],j)).getDate()+"</p>";
+    function InnerContent(month,j){
+         return "<p class=\"GregorianDate\">"+j.toString()+"</p>"+"<p class=\"HijriDate\">"+new HijrahDate(new Date(yearButton.value,month,j)).getDate()+"</p>";
     }
 })
 
