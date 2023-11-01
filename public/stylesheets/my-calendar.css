@@ -10,7 +10,8 @@
 } */
 .Today{
   
-    padding: 10px 5px 5px 5px;  
+    padding: 10px 5px 5px 5px;
+    padding-bottom: 60px;
     width: 300px;
     max-width: 500px;
     height: 50px;
