@@ -1,14 +1,12 @@
 
 var selectedElement;
 document.addEventListener('DOMContentLoaded', function () {
-    // alert(writeIslamicDate(-1,new Date(2020,6,22)));
-    /*for the task panel header*/
+
     currentDate = document.querySelector('.Today >.en');
-    currentDate.innerHTML ="<span>"+ new Date().getDate().toString()+" "+months[new Date().getMonth()].substring(0, 3) + " "+new Date().getFullYear().toString()+"</span>";
+    currentDate.innerHTML ="<span>" + new Date().getDate().toString()+" "+months[new Date().getMonth()].substring(0, 3) + " "+new Date().getFullYear().toString()+"</span>";
 
     currentArabicDate = document.querySelector('.Today > .ar');
     currentArabicDate.innerHTML = "<span>"+ new HijrahDate(new Date()) +"</span>"
-    /*for the task panel header*/
 
     let monthButton = document.querySelector("#month")
     let yearButton = document.querySelector("#year")
@@ -30,7 +28,7 @@ document.addEventListener('DOMContentLoaded', function () {
         dateCells[i].addEventListener('click', function (event) {
             if(selectedElement == dateCells[i])return;
             let {year, month, date} = determineDateFromCalendar(event)
-            getCalendarEvents(year, month, date)
+            // getCalendarEvents(year, month, date)
             //console.log({year, month, date})
             
             /*for the task panel header*/
@@ -44,9 +42,8 @@ document.addEventListener('DOMContentLoaded', function () {
                 if(selectedElement != null)setDefault(selectedElement);
                 if(dateCells[i].classList.contains('current-date')==false)
                 {
-                    dateCells[i].setAttribute('style','background-color: #e5def1;')
-                    selectedElement = dateCells[i];
-                    
+                    dateCells[i].style.backgroundColor = "#e5def1";
+                    selectedElement = dateCells[i];                    
                 }
                 
             }
@@ -242,17 +239,41 @@ document.addEventListener('DOMContentLoaded', function () {
                 year, month, date
             }
         })
-            // .done(function (response) {
-                //     showCalendarEvents()
-                // })
+        .done(function (response) {
+            showCalendarEvents()
+        })
     }
     
     // function showCalendarEvents() {
         
         // }
     function InnerContent(month,j){
-         return "<p class=\"GregorianDate\">"+j.toString()+"</p>"+"<p class=\"HijriDate\">"+new HijrahDate(new Date(yearButton.value,month,j)).getDate()+"</p>";
+         HDate = new HijrahDate(new Date(yearButton.value,month,j))
+         return "<p class=\"GregorianDate\">" + j.toString()+ "</p>" +"<p class=\"HijriDate\">"+ HDate.getDate()+"</p>";
     }
+
+    const options = { year: 'numeric', month: 'long', day: 'numeric' };
+    const formattedDate = (new Date()).toLocaleDateString('en-US', options);
+    $.ajax({
+        url: '/calendar-events',
+        method: 'POST',
+        data: {date: formattedDate},
+        dataType: 'json'
+    })
+    .done(function (response) {
+        console.log(response);
+        showCalendarEvents(response.tasks);
+    })
+
+    function showCalendarEvents(tasks){
+        let taskList = document.querySelector('.task');
+        for(let i =0 ;i<tasks.length ; i++){
+            var li = document.createElement("li");
+            li.appendChild(document.createTextNode(tasks[i].TASK_NAME));
+            taskList.appendChild(li);
+        }
+    }
+
 })
 
 
@@ -260,10 +281,9 @@ document.addEventListener('DOMContentLoaded', function () {
 function setDefault(element)
 {
     if(element.classList.contains('previous-month') || element.classList.contains('next-month')){
-        element.setAttribute('style','background-color: inherit;')
+        element.style.backgroundColor = "inherit";
     }
     else if(element.classList.contains('current-date')==false)
-        element.setAttribute('style','background-color: #e7e7e7;')
-    
-    
+        element.style.backgroundColor = "#e7e7e7";
+       
 }

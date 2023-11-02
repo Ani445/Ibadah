@@ -8,7 +8,7 @@
 
 #mini-calendar-container {
     /* border: 1px solid #b7b7b7;  */
-    padding: 10px 10px 10px 10px;
+    padding: 10px 10px 10px 35px;
     border-radius: 5px;
 }
 
@@ -63,7 +63,7 @@
     overflow: hidden;
     word-break: normal;
     width: 30px;
-    height: 120px;
+    height: 100px;
     vertical-align: top;
     text-align: left;
     cursor: pointer;
@@ -78,7 +78,7 @@
     overflow: hidden;
     word-break: normal;
     color: #7a30e9;
-    width: 150px;
+    width: 140px;
     height: 50px;
 }
 

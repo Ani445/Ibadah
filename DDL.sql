@@ -36,17 +36,23 @@ CREATE TABLE CLASSES
 );
 
 
-# user's daily tasks
+
+
+/* user's daily tasks*/
 CREATE TABLE DAILY_PLANS
 (
     TASK_ID BIGINT AUTO_INCREMENT,
     USER_ID BIGINT,
-    DATE DATE,
+    DATE DATETIME,
     TIME TIME,
-    NAME VARCHAR(50),
+    TASK_NAME VARCHAR(50),
     DESCRIPTION MEDIUMBLOB,
     CONSTRAINT DAILY_TASKS_PK PRIMARY KEY (TASK_ID),
     CONSTRAINT DAILY_TASKS_FK FOREIGN KEY (USER_ID) REFERENCES CREDENTIALS(USER_ID)
         ON UPDATE CASCADE
         ON DELETE CASCADE
 );
+
+
+insert into daily_plans (user_id, task_name, date, time) values(1, 'homework', date(now()), time(now()));
+insert into daily_plans (user_id, task_name, date, time) values(1, 'read quran', date(now()), time(now()));

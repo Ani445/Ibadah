@@ -33,11 +33,27 @@ router.post('/login', (req, res) => {
             const { userID, userName, email, gender, country, phone } = user;
             req.session.user = { userID, username: userName, email, gender, country, phone };
 
-            delete req.session.temp
+            delete req.session.temp;
+
+            req.session.user.allTasks = {}
+            database.loadAllTasks(userID, (results)=>{
+
+                
+                for(let i=0;i<results.length;i++){
+                    date = new Date(results[i].DATE);
+                    const options = { year: 'numeric', month: 'long', day: 'numeric' };
+                    const formattedDate = date.toLocaleDateString('en-US', options);
+
+                    if(!req.session.user.allTasks[formattedDate])
+                        req.session.user.allTasks[formattedDate] = []
+                    req.session.user.allTasks[formattedDate].push({...results[i]});
+                }
+                //console.log(req.session.user.allTasks);
+                httpMsgs.sendJSON(req, res, {
+                    success: isSuccess,
+                });
+            })
         }
-        httpMsgs.sendJSON(req, res, {
-            success: isSuccess,
-        });
     });
 });
 

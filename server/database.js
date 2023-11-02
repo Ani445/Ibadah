@@ -170,7 +170,22 @@ function insertNewClasses(topic, teacher, medium, address, date, time, callback)
         callback(1);
     });
 }
+function loadAllTasks(userID, callback){
 
+    const sql = `SELECT TASK_ID, 
+                TASK_NAME,
+                DESCRIPTION,
+                DATE_FORMAT(DATE, '%M %d, %Y') as DATE,
+                TIME_FORMAT(TIME, '%h:%i %p')  as TIME
+                FROM DAILY_PLANS WHERE USER_ID = ${pool.escape(userID)}`;
+    pool.query(sql, (err,results) => {
+        if (err) {
+            console.log(err.sqlMessage + '\n' + err.sql);
+            callback(0);
+        }
+        callback(results);
+    });
+}
 module.exports = {
     checkCredentials,
     insertUser,
@@ -179,5 +194,6 @@ module.exports = {
     loadClasses,
     insertNewClasses,
     updatePersonalInfo,
-    updateEmail
+    updateEmail,
+    loadAllTasks
 }

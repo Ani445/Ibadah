@@ -246,9 +246,11 @@ document.addEventListener('DOMContentLoaded', function () {
         let select = document.querySelector(".city-list");
 
         for (let x in districtNames) {
-            let option = document.createElement("option");
-            option.textContent = districtNames[x];
-            select.appendChild(option);
+            if(select[0].value != districtNames[x]){
+                let option = document.createElement("option");
+                option.textContent = districtNames[x];
+                select.appendChild(option);
+            }
         }
 
         select.addEventListener("change", function (event) {
