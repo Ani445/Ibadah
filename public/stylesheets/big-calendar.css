@@ -39,15 +39,15 @@
 }
 
 #mini-calendar-container input[id="year-up"], input[id="year-down"] {
-    --color: rgb(245, 209, 249);
-    --press-color: #dd8ee7;
+    --color: #943dce32;
+    --press-color: rgba(174, 133, 235, 0.278);
     width: 35px;
     height: 40px;
     font-weight: bold;
     font-size: 14px;
     border-radius: 2px;
     cursor: pointer;
-    border: 1px solid var(--press-color);
+    /* border: 1px solid var(--press-color); */
     background-color: var(--color);
 }
 
@@ -61,8 +61,8 @@
     border-radius: 2px;
     background-color: #dbd3df32;
     cursor: default;
-    border-color: rgb(193, 169, 206);
-    border-style: solid;
+    border-color: #d1baf4;;
+    /* border-style: solid; */
     border-width: 1px;
 }
 
@@ -160,7 +160,7 @@
 #year {
     font-size: 16px;
     margin-left: 10px;
-    margin: 10px;
+    margin: 10px 0;
 }
 
 #month {
@@ -171,14 +171,19 @@
 .change-year {
     display: flex;
     flex-direction: row;
-    margin-left: 25px;
+    /* margin-left: 25px; */
 }
 
-#year-up, #year-down {
-    right: 5%;
-    margin: 10px;
+#year-down{
+    /* right: 50%; */
+    margin: 10px 0;
+    translate: -200px;
 }
 
+#year-up {
+    margin: 10px 0;
+    translate: -71px;
+}
 .HijriDate{
     text-align: center;
     /* padding: 40px 5px 0 0; */
