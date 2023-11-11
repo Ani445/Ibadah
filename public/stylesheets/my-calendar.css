@@ -21,8 +21,13 @@
     border-bottom-style: solid;
     border-bottom-width: 1px;
     border-bottom-color: rgba(153, 149, 149, 0.828);
-    
 }
+/* .Today .ar{
+     background-color: rgb(235, 211, 250);
+}
+.Today .en{
+    background-color: rgb(235, 211, 250);
+} */
 
 .planned--events{
     padding: 20px 10px 0px 40px;
@@ -30,4 +35,8 @@
 li{
     margin: 10px 10px 20px 10px;
     word-wrap: break-word;
+}
+
+.selected{
+    background-color: "#e5def1";
 }

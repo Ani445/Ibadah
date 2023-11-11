@@ -28,7 +28,7 @@
 }
 
 #mini-calendar-container input[id="month"] {
-    --color: #ddd1f3;
+    --color: rgb(218, 218, 240);
     --press-color: #d1baf4;
     width: 200px;
     height: 40px;
@@ -93,7 +93,7 @@
     font-weight: bold;
     overflow: hidden;
     word-break: normal;
-    background-color: #9266d3;
+    background-color: #7e65e1;
     color: white;
     width: 140px;
     height: 50px;
@@ -109,8 +109,10 @@
     background-color: #e7e7e7;
 }
 
-.mini-calendar .date-cell:hover {
-    background-color: #e5def1;  
+.mini-calendar td:hover {
+    background-color: #dcd4e9 !important;
+    font-weight: bold;
+    color: rgb(99, 65, 209);
 }
 
 .mini-calendar .date-cell.previous-month, .date-cell.next-month {
@@ -118,7 +120,9 @@
 }
 
 .mini-calendar .date-cell.current-date {
-    background-color: #eebef1 !important;
+    background-color: #c3a7ea !important;
+    font-weight: bold;
+    color: rgb(99, 65, 209);
 }
 
 .month-picker-container {
