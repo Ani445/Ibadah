@@ -111,8 +111,8 @@
 
 .mini-calendar td:hover {
     background-color: #dcd4e9 !important;
-    font-weight: bold;
-    color: rgb(99, 65, 209);
+    font-weight: bold !important;
+    /* color: rgb(99, 65, 209); */
 }
 
 .mini-calendar .date-cell.previous-month, .date-cell.next-month {

@@ -39,7 +39,6 @@ document.addEventListener('DOMContentLoaded', function () {
             if(selectedElement != null)setDefault(selectedElement);
             if(dateCells[i].classList.contains('current-date')==false)
             {
-                // selectedElement.classList.remove('.selected');
                 dateCells[i].style.backgroundColor = "#e5def1";
                 selectedElement = dateCells[i];                    
             }
@@ -191,8 +190,8 @@ document.addEventListener('DOMContentLoaded', function () {
             data: {date: formattedDate}
         })
         .done(function (response) {
-            console.log(response);
-            showCalendarEvents(response.tasks)
+            // console.log(response);
+            if(response.tasks!=null)showCalendarEvents(response.tasks)
         })
     }
 
