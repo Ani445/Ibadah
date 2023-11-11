@@ -56,3 +56,4 @@ CREATE TABLE DAILY_PLANS
 
 insert into daily_plans (user_id, task_name, date, time) values(1, 'homework', date(now()), time(now()));
 insert into daily_plans (user_id, task_name, date, time) values(1, 'read quran', date(now()), time(now()));
+insert into daily_plans (user_id, task_name, date, time) values(1, 'read hadith', date(now()), time(now()));

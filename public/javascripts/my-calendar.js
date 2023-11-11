@@ -3,10 +3,13 @@ var selectedElement;
 document.addEventListener('DOMContentLoaded', function () {
 
     currentDate = document.querySelector('.Today >.en');
-    currentDate.innerHTML ="<span>" + new Date().getDate().toString()+" "+months[new Date().getMonth()].substring(0, 3) + " "+new Date().getFullYear().toString()+"</span>";
-
+    let todayDate = new Date().getDate();
+    let todayMonth = new Date().getMonth();
+    let todayYear = new Date().getFullYear();
+    
+    currentDate.innerHTML ="<span>" + todayDate + " " + months[todayMonth].substring(0, 3) + " " + todayYear + "</span>";
     currentArabicDate = document.querySelector('.Today > .ar');
-    currentArabicDate.innerHTML = "<span>"+ new HijrahDate(new Date()) +"</span>"
+    currentArabicDate.innerHTML = "<span>"+ new HijrahDate(new Date()).format('longDate', 'en') +"</span>";
 
     let monthButton = document.querySelector("#month")
     let yearButton = document.querySelector("#year")
@@ -14,43 +17,37 @@ document.addEventListener('DOMContentLoaded', function () {
     let yearDownButton = document.querySelector("#year-down")
 
     let monthPickerContainer = document.querySelector("#month-picker-container")
-    monthButton.value = months[new Date().getMonth()].substring(0, 3)
-    yearButton.value = new Date().getFullYear()
+    monthButton.value = months[todayMonth].substring(0, 3);
+    yearButton.value = todayYear;
 
-    getDays(new Date().getMonth(), new Date().getFullYear());
+    getDays(todayMonth, todayYear);
 
     let monthValue = document.getElementsByClassName('month-name')
 
     let dateCells = document.getElementsByClassName('date-cell')
 
     for (let i = 0; i < dateCells.length; i++) {
-        // dateCells[i].innerHTML = ""
         dateCells[i].addEventListener('click', function (event) {
             if(selectedElement == dateCells[i])return;
-            let {year, month, date} = determineDateFromCalendar(event)
-            // getCalendarEvents(year, month, date)
-            //console.log({year, month, date})
-            
-            /*for the task panel header*/
-            currentDate.innerHTML ="<span>"+date+" "+months[month].substring(0, 3) + " "+year+"</span>";
 
-            currentArabicDate.innerHTML = "<span>"+ new HijrahDate(new Date(year,month,date)) +"</span>"
-            /***************************/
-           
-            /*coloring current date*/
-            if(selectedElement!=dateCells[i]){
-                if(selectedElement != null)setDefault(selectedElement);
-                if(dateCells[i].classList.contains('current-date')==false)
-                {
-                    dateCells[i].style.backgroundColor = "#e5def1";
-                    selectedElement = dateCells[i];                    
-                }
-                
+            let {year, month, date} = determineDateFromCalendar(event)
+            
+            currentDate.innerHTML ="<span>" + date + " " + months[month].substring(0, 3) + " " + year + "</span>";
+
+            currentArabicDate.innerHTML = "<span>" + new HijrahDate(new Date(year, month, date)).format('longDate', 'en') +"</span>"
+            
+            if(selectedElement != null)setDefault(selectedElement);
+            if(dateCells[i].classList.contains('current-date')==false)
+            {
+                dateCells[i].style.backgroundColor = "#e5def1";
+                selectedElement = dateCells[i];                    
             }
-                
-            /***********************/
+            getCalendarEvents(year, month, date);        
+            
         })
     }
+
+    getCalendarEvents(todayYear, todayMonth, todayDate);
 
     yearUpButton.addEventListener('click', function () {
         yearButton.value++;
@@ -65,7 +62,7 @@ document.addEventListener('DOMContentLoaded', function () {
         monthValue[i].addEventListener('click', function () {
             monthButton.value = monthValue[i].textContent;
             let monthNumber = monthNameToNumber[monthButton.value]
-            getDays(monthNumber, yearButton.value); // setting month number for api req
+            getDays(monthNumber, yearButton.value);
         });
     }
 
@@ -86,46 +83,6 @@ document.addEventListener('DOMContentLoaded', function () {
     function closeMonthPicker() {
         monthPickerContainer.classList.add('hidden')
     }
-
-    // function getDays(month, year) {
-    //     const settings = {
-    //         async: true,
-    //         crossDomain: true,
-    //         url: `http://api.aladhan.com/v1/gToHCalendar/${month + 1}/${year}`,
-    //         method: 'GET'
-    //     }
-
-    //     $.ajax(settings).done(function (response) {
-    //         let dates =
-    //             {
-    //                 GregorianDay: null,
-    //                 GregorianWeekday: null,
-    //                 GregorianMonth: null,
-    //                 HijriDay: null,
-    //                 HijriEnglishWeekday: null,
-    //                 HijriArabicWeekday: null
-    //             };
-    //         let dateArr = [];
-
-    //         for (let i = 0; response.data[i] != null; i++) {
-    //             data = response.data[i];
-    //             // console.log(response.data)
-
-    //             dates.GregorianDay = data["gregorian"]["day"];
-    //             dates.GregorianMonth = data["gregorian"]["month"]["number"];
-    //             dates.GregorianMonthName = data["gregorian"]["month"]["en"];
-    //             dates.GregorianYear = data["gregorian"]["year"];
-    //             dates.GregorianWeekday = data["gregorian"]["weekday"]["en"];
-    //             dates.HijriDay = data["hijri"]["day"];
-    //             dates.HijriEnglishWeekday = data["hijri"]["weekday"]["en"];
-    //             dates.HijriArabicWeekday = data["hijri"]["weekday"]["ar"];
-
-    //             dateArr.push({...dates});
-    //         }
-    //         console.log(dateArr);
-    //         populateCalendar(dateArr)
-    //     });
-    // }
     
     function getDays(month, year) {
         let date = new Date(year, month,1);
@@ -144,12 +101,10 @@ document.addEventListener('DOMContentLoaded', function () {
           dateObj.GregorianMonth= month;
           dateObj.GregorianYear=year;
         }
-        // console.log(dateArray);
         populateCalendar(dateArray);
       }
 
     function populateCalendar(dateArray) {
-        // let start = weekdays[dateArray[0].GregorianWeekday]
         let start = dateArray[0].GregorianWeekday;
 
        let dateCells = document.getElementsByClassName('date-cell')
@@ -162,7 +117,6 @@ document.addEventListener('DOMContentLoaded', function () {
             dateCells[i].classList.remove('current-date')
         }
         
-        // let j = new Date(dateArray[0].GregorianYear, dateArray[0].GregorianMonth - 1, 0).getDate()
         let j = new Date(dateArray[0].GregorianYear, dateArray[0].GregorianMonth, 0).getDate()
         let i
         
@@ -181,14 +135,12 @@ document.addEventListener('DOMContentLoaded', function () {
             dateCells[i].classList.add('current-month')
             setDefault(dateCells[i]);
             
-            /*coloring current data*/
-            if(new Date().getDate() == j && new Date().getMonth()==monthNameToNumber[monthButton.value] && yearButton.value == new Date().getFullYear())
+
+            if(todayDate == j && todayMonth == monthNameToNumber[monthButton.value] && yearButton.value == todayYear)
             {
                 dateCells[i].classList.add('current-date');
                 selectedElement = dateCells[i];
             }
-            // else dateCells[i].classList.remove('current-date');
-            /**************************/
         }
         
         j = 0
@@ -201,7 +153,6 @@ document.addEventListener('DOMContentLoaded', function () {
     }
     
     /**
-     *
      * @param event The event generated by a mouse-click on a cell of the calendar
      * @returns {{year, month, date}} An object containing the determined year, month, date
     */
@@ -227,46 +178,42 @@ document.addEventListener('DOMContentLoaded', function () {
                 year++
             }
         }
-        // month++ // to make the year 1 index, to use in the API
         return {year, month, date}
     }
-
+    
     function getCalendarEvents(year, month, date) {
+        const options = { year: 'numeric', month: 'long', day: 'numeric' };
+        const formattedDate = (new Date(year, month, date)).toLocaleDateString('en-US', options);
         $.ajax({
             url: '/calendar-events',
             method: 'POST',
-            data: {
-                year, month, date
-            }
+            data: {date: formattedDate}
         })
         .done(function (response) {
-            showCalendarEvents()
+            console.log(response);
+            showCalendarEvents(response.tasks)
         })
     }
-    
-    // function showCalendarEvents() {
-        
-        // }
+
     function InnerContent(month,j){
          HDate = new HijrahDate(new Date(yearButton.value,month,j))
          return "<p class=\"GregorianDate\">" + j.toString()+ "</p>" +"<p class=\"HijriDate\">"+ HDate.getDate()+"</p>";
     }
 
-    const options = { year: 'numeric', month: 'long', day: 'numeric' };
-    const formattedDate = (new Date()).toLocaleDateString('en-US', options);
-    $.ajax({
-        url: '/calendar-events',
-        method: 'POST',
-        data: {date: formattedDate},
-        dataType: 'json'
-    })
-    .done(function (response) {
-        console.log(response);
-        showCalendarEvents(response.tasks);
-    })
+    // $.ajax({
+    //     url: '/calendar-events',
+    //     method: 'POST',
+    //     data: {date: formattedDate},
+    //     dataType: 'json'
+    // })
+    // .done(function (response) {
+    //     console.log(response);
+    //     showCalendarEvents(response.tasks);
+    // })
 
     function showCalendarEvents(tasks){
         let taskList = document.querySelector('.task');
+        taskList.innerHTML="";
         for(let i =0 ;i<tasks.length ; i++){
             var li = document.createElement("li");
             li.appendChild(document.createTextNode(tasks[i].TASK_NAME));
