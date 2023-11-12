@@ -264,8 +264,54 @@ document.addEventListener('DOMContentLoaded', function () {
             getPrayerTimes(gYear, gMonth, gDate, gLocation)
         });
     }
+    updateRowColor();
+    updateCurrentWaqt();
 
 })
+
+function updateCurrentWaqt(){
+
+    var ONE_MINUTE = 60 * 1000;
+    setInterval(updateRowColor , ONE_MINUTE-2000);//milliseconds
+}
+
+function updateRowColor(){
+    let waqtArr = [];
+    waqtArr.push(document.getElementById('fajr-time'));
+    waqtArr.push(document.getElementById('dhuhr-time'));
+    waqtArr.push(document.getElementById('asr-time'));
+    waqtArr.push(document.getElementById('maghrib-time'));
+    waqtArr.push(document.getElementById('isha-time'));
+    
+    currentWaqt = -1;
+    for(let i=0; i< 5;i++){
+        if(compareTimes(waqtArr[i].textContent) < 0)break;
+        else if(compareTimes(waqtArr[i].textContent >= 0)) currentWaqt = i;
+    }
+    if(currentWaqt == -1)currentWaqt = 4;
+    
+    let parentRow = waqtArr[currentWaqt].parentNode;
+    parentRow.classList.add('is-selected');
+}
+
+function compareTimes(timeStr){
+    let currentHour = new Date().getHours();
+    let currentMinute = new Date().getMinutes();
+    let currentTime = currentHour*60 + currentMinute;
+
+    let givenHour = timeStr.substring(0,1);
+    let givenMinute = timeStr.substring(3,5);
+    let add12h = (timeStr.substring(6,8) == 'AM')?0:12;
+    let givenTime = (givenHour + add12h )*60 + givenMinute;
+
+    if(givenTime == currentTime){
+        return 0;
+    }
+    else if( givenTime < currentTime){
+        return -1;
+    }
+    else return 1;
+}
 let districtNames =
     [
         "Dhaka",
