@@ -121,7 +121,7 @@ document.addEventListener('DOMContentLoaded', function () {
         let i
         
         for (i = start - 1; i >= 0; i--) {
-            dateCells[i].innerHTML = InnerContent(monthNameToNumber[monthButton.value]-1,j);
+            dateCells[i].innerHTML = dateCellContent(monthNameToNumber[monthButton.value]-1,j);
             j--;
             dateCells[i].classList.add('previous-month')
             setDefault(dateCells[i]);
@@ -131,7 +131,7 @@ document.addEventListener('DOMContentLoaded', function () {
         j = 0
         for (; j < dateArray.length && i < dateCells.length; i++) {
             j++;
-            dateCells[i].innerHTML = InnerContent(monthNameToNumber[monthButton.value],j);
+            dateCells[i].innerHTML = dateCellContent(monthNameToNumber[monthButton.value],j);
             dateCells[i].classList.add('current-month')
             setDefault(dateCells[i]);
             
@@ -146,7 +146,7 @@ document.addEventListener('DOMContentLoaded', function () {
         j = 0
         for (; i < dateCells.length; i++) {
             j++;            
-            dateCells[i].innerHTML = InnerContent(monthNameToNumber[monthButton.value],j);
+            dateCells[i].innerHTML = dateCellContent(monthNameToNumber[monthButton.value],j);
             dateCells[i].classList.add('next-month')
             setDefault(dateCells[i]);
         }
@@ -191,11 +191,11 @@ document.addEventListener('DOMContentLoaded', function () {
         })
         .done(function (response) {
             // console.log(response);
-            if(response.tasks!=null)showCalendarEvents(response.tasks)
+            showCalendarEvents(response.tasks)
         })
     }
 
-    function InnerContent(month,j){
+    function dateCellContent(month,j){
          HDate = new HijrahDate(new Date(yearButton.value,month,j))
          return "<p class=\"GregorianDate\">" + j.toString()+ "</p>" +"<p class=\"HijriDate\">"+ HDate.getDate()+"</p>";
     }
@@ -214,6 +214,7 @@ document.addEventListener('DOMContentLoaded', function () {
     function showCalendarEvents(tasks){
         let taskList = document.querySelector('.task');
         taskList.innerHTML="";
+        if(tasks == null)return;
         for(let i =0 ;i<tasks.length ; i++){
             var li = document.createElement("li");
             li.appendChild(document.createTextNode(tasks[i].TASK_NAME));
