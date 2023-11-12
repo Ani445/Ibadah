@@ -266,7 +266,6 @@ document.addEventListener('DOMContentLoaded', function () {
     }
     updateRowColor();
     updateCurrentWaqt();
-
 })
 
 function updateCurrentWaqt(){
@@ -285,7 +284,8 @@ function updateRowColor(){
     
     currentWaqt = -1;
     for(let i=0; i< 5;i++){
-        if(compareTimes(waqtArr[i].textContent) < 0)break;
+        waqtArr[i].parentNode.classList.remove('is-selected');
+        if(compareTimes(waqtArr[i].textContent) > 0)break;
         else if(compareTimes(waqtArr[i].textContent >= 0)) currentWaqt = i;
     }
     if(currentWaqt == -1)currentWaqt = 4;
@@ -298,12 +298,12 @@ function compareTimes(timeStr){
     let currentHour = new Date().getHours();
     let currentMinute = new Date().getMinutes();
     let currentTime = currentHour*60 + currentMinute;
-
-    let givenHour = timeStr.substring(0,1);
-    let givenMinute = timeStr.substring(3,5);
-    let add12h = (timeStr.substring(6,8) == 'AM')?0:12;
+    
+    let givenHour = parseInt(timeStr.toString().substring(0,2));
+    let givenMinute = parseInt(timeStr.toString().substring(3,5));
+    let add12h = (timeStr.toString().substring(6,8) == 'AM')?0:12;
     let givenTime = (givenHour + add12h )*60 + givenMinute;
-
+    
     if(givenTime == currentTime){
         return 0;
     }
