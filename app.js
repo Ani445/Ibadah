@@ -24,6 +24,9 @@ const classesRoutes = require('./routes/classes');
 const prayerTimeRoutes = require('./routes/prayer-times');
 const sidebarRoutes = require('./routes/sidebar');
 const calendarEventRoutes = require('./routes/calendar-events');
+const forumRoutes= require('./routes/forum');
+const duaRoutes= require('./routes/dua');
+
 
 app.use('/', loginRoutes);
 app.use('/', registerRoutes);
@@ -33,6 +36,9 @@ app.use('/', classesRoutes);
 app.use('/', prayerTimeRoutes);
 app.use('/', sidebarRoutes);
 app.use('/', calendarEventRoutes);
+app.use('/', forumRoutes);
+app.use('/', duaRoutes);
+
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');

@@ -1,0 +1,16 @@
+
+<form id="search-form" action="/loadDua" method="post">
+  <select name="dua-cat" id="dua-cat">
+    <!-- <option value="2" selected>[Select a Category]</option> -->
+    <option value="2" <%= selectedCategory === '2' ? 'selected' : '' %>>Daily Life</option>
+    <option value="1" <%= selectedCategory === '1' ? 'selected' : '' %>>Allahumma Series</option>
+    <option value="3" <%= selectedCategory === '3' ? 'selected' : '' %>>Emotions</option>
+    <option value="4" <%= selectedCategory === '4' ? 'selected' : '' %>>Hajj</option>
+    <option value="5" <%= selectedCategory === '5' ? 'selected' : '' %>>Istigfar</option>
+    <option value="6" <%= selectedCategory === '6' ? 'selected' : '' %>>Istikhara</option>
+    <option value="7" <%= selectedCategory === '7' ? 'selected' : '' %>>Jannah & Jahannam</option>
+    <option value="8" <%= selectedCategory === '8' ? 'selected' : '' %>>Knowledge</option>
+    <option value="9" <%= selectedCategory === '9' ? 'selected' : '' %>>Rabbana Series</option>
+    <option value="10" <%= selectedCategory === '10' ? 'selected' : '' %>>Ramadan</option>
+  </select>
+</form>

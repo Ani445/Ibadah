@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+
+<head>
+    <title>Forum</title>
+    <meta charset="UTF-8">
+
+    <%- include('head-include.ejs') %>
+    
+    <link rel="stylesheet" type="text/css" href="stylesheets/forum.css">
+
+</head>
+
+<body>
+    <%- include('sidebar.ejs') %>
+        <div class="main--content">
+            <%- include('header-wrapper.ejs',{name: "Forum" }) %>
+            <div>
+                    <form id="postForm" name="postForm" action="/new-post" method="post">
+                        <textarea type="input" id="contentInput" name="paiso" placeholder="What is on your mind?" required></textarea>
+                        <label class="error" for="contentInput"></label>
+                        <button type="submit" id="submitBtnPost" name="submitBtnPost">Create a new post</button>
+                    </form>
+            </div>
+               
+
+
+                <div class="card--container">
+
+                    <ul style="list-style: none;">
+                        <% data.forEach(post=> { %>
+                            <li>
+                                <div class="post" id = <%= post.post_id %> >
+                                    <p class="post-id" id="name_user" name="name_user">
+                                        <%= post.user_name %>
+                                    </p> 
+                                    <p class="post-time" id="time_post">
+                                        <%= post.time %>,<%= post.date %>
+                                    </p>
+                                    <!-- <p class="post-date" id="date_post">
+                                        <%= post.date %>
+                                    </p> -->
+                                    <p class="post-content">
+                                        <%= post.topic %>
+                                    </p>
+
+                                    <div class="comment-section">
+                                        <h4>Comments</h4>
+                                        <ul class="comment-list">
+                                            <% post.comments.forEach(comment=> { %>
+                                                <li>
+                                                    <div class="comment">
+                                                        <p class="comment-id" id="name_commenter" name="name_commenter">
+                                                            <%= comment.user_name %>
+                                                        </p>
+                                                        <p class="comment-date" id="date_comment">
+                                                            <%= comment.time %>, <%= comment.date %>
+                                                        </p>
+                                                        <p class="comment-content">
+                                                            <%= comment.comment_text %>
+                                                        </p>
+                                                    </div>
+                                                </li>
+                                                <% }) %>
+
+                                        </ul>
+                                    </div>
+
+                                    <div>
+                                        <form id="postComment" name="postComment" action="/new-comment/<%= post.post_id %>" method="post">
+                                            <textarea type="input" id="commented" name="commented" placeholder="Add a comment"></textarea>
+                                            <button type="submit" id="submitComment" name="submitComment">Comment</button>
+                                        </form>
+                                    </div>
+
+                                </div>
+                            </li>
+                            <% }) %>
+                    </ul>
+                </div> 
+        </div>
+        <script src="javascripts/forum.js"></script>
+
+        
+        
+</body>
+
+</html>
