@@ -6,49 +6,48 @@
     <meta charset="UTF-8">
 
     <%- include('head-include.ejs') %>
-    
+
     <link rel="stylesheet" type="text/css" href="stylesheets/classes.css">
-    <link rel="stylesheet" type="text/css" href="stylesheets/class-list-item.css"> 
+    <link rel="stylesheet" type="text/css" href="stylesheets/class-list-item.css">
     <link rel="stylesheet" type="text/css" href="stylesheets/search.css">
     <link rel="stylesheet" type="text/css" href="stylesheets/forum.css">
 
 </head>
 
 <body>
-    <%- include('sidebar.ejs') %>
-        <div class="main--content">
-            <%- include('header-wrapper.ejs',{name: "Dua" }) %>
-            <div class="dua-cat-filter">
-                <%- include('search/dua-cat-filter.ejs') %>
-            </div>
+<%- include('sidebar.ejs') %>
+<div class="main--content">
+    <%- include('header-wrapper.ejs',{name: "Dua" }) %>
+    <div class="dua-cat-filter">
+        <%- include('search/dua-cat-filter.ejs') %>
+    </div>
 
 
-                <div class="card--container">
+    <div class="card--container">
 
-                    <ul style="list-style: none;">
-                        <% data.forEach(dua=> { %>
-                            <li>
-                                <div class="dua" id = <%= dua.dua_id %> >
-                                    <h4 class="dua_title" id="dua_title" name="title_dua">
-                                        <%= dua.title %>
-                                    </h4>
-                                    <div class="dua_arabic" id="dua_arabic" name="arabic_dua">
-                                        <%= dua.dua_text %>
-                                    </div>
-                                    <p class="mean_eng" id="mean_eng" name="eng_mean">
-                                        <%= dua.meaning %>
-                                    </p>
-                                    <p class="dua_src" id="dua_src" name="src_dua">
-                                        <%= dua.source %>
-                                    </p>
-                                </div>
-                            </li>
-                            <% }) %>
-                    </ul>
-                </div> 
-        </div>
-        <!-- <script src="javascripts/forum.js"></script> -->
-        <script src="javascripts/dua.js"></script>
+        <ul style="list-style: none;">
+            <% data.forEach(dua=> { %>
+                <li>
+                    <div class="dua" id= <%= dua.dua_id %>>
+                        <h4 class="dua_title" id="dua_title">
+                            <%= dua.title %>
+                        </h4>
+                        <div class="dua_arabic" id="dua_arabic">
+                            <%= dua.dua_text %>
+                        </div>
+                        <p class="mean_eng" id="mean_eng">
+                            <%= dua.meaning %>
+                        </p>
+                        <p class="dua_src" id="dua_src">
+                            <%= dua.source %>
+                        </p>
+                    </div>
+                </li>
+            <% }) %>
+        </ul>
+    </div>
+</div>
+<script src="javascripts/dua.js"></script>
 </body>
 
 </html>
