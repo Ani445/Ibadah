@@ -35,9 +35,6 @@ CREATE TABLE CLASSES
     CONSTRAINT CLASSES_PK PRIMARY KEY (POST_ID)
 );
 
-
-
-
 /* user's daily tasks*/
 CREATE TABLE DAILY_PLANS
 (
@@ -54,6 +51,52 @@ CREATE TABLE DAILY_PLANS
 );
 
 
-insert into daily_plans (user_id, task_name, date, time) values(1, 'homework', date(now()), time(now()));
-insert into daily_plans (user_id, task_name, date, time) values(1, 'read quran', date(now()), time(now()));
-insert into daily_plans (user_id, task_name, date, time) values(1, 'read hadith', date(now()), time(now()));
+insert into daily_plans (user_id, task_name, date, time) values(122, 'homework', date(now()), time(now()));
+insert into daily_plans (user_id, task_name, date, time) values(122, 'read quran', date(now()), time(now()));
+insert into daily_plans (user_id, task_name, date, time) values(122, 'read hadith', date(now()), time(now()));
+
+CREATE TABLE POSTS (
+  POST_ID BIGINT AUTO_INCREMENT,
+  USER_ID BIGINT,
+  USER_NAME VARCHAR(50),
+  TOPIC VARCHAR(255),
+  DATE DATE,
+  TIME TIME,
+  CONSTRAINT POSTS_PK PRIMARY KEY (POST_ID),
+  CONSTRAINT POSTS_FK FOREIGN KEY(USER_ID) REFERENCES CREDENTIALS(USER_ID)
+      ON DELETE CASCADE
+      ON UPDATE CASCADE
+);
+
+CREATE TABLE Comments (
+  Comment_ID BIGINT AUTO_INCREMENT,
+  Post_ID BIGINT,
+  User_ID BIGINT,
+  USER_NAME VARCHAR(50),
+  Comment_Text VARCHAR(255),
+  DATE DATE,
+  TIME TIME,
+  CONSTRAINT Comments_PK PRIMARY KEY (Comment_ID),
+  CONSTRAINT Comments_FK_Post FOREIGN KEY (Post_ID) REFERENCES Posts (Post_ID)
+      ON DELETE CASCADE
+      ON UPDATE CASCADE
+);
+
+CREATE TABLE CATEGORY(
+  CAT_ID BIGINT AUTO_INCREMENT,
+  CAT_DESC VARCHAR(50),
+  CONSTRAINT CAT_PK PRIMARY KEY (CAT_ID)
+);
+
+CREATE TABLE DUA (
+  DUA_ID BIGINT AUTO_INCREMENT,
+  CAT_ID BIGINT,
+  TITLE VARCHAR(100),
+  DUA_TEXT TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
+  MEANING TEXT,
+  SOURCE VARCHAR(50),
+  CONSTRAINT DUA_PK PRIMARY KEY (DUA_ID),
+  CONSTRAINT DUA_FK FOREIGN KEY (CAT_ID) REFERENCES CATEGORY (CAT_ID)
+      ON DELETE CASCADE
+      ON UPDATE CASCADE
+);

@@ -1,0 +1,177 @@
+#contentInput {
+    width: 100%; /* Set the width to 100% of its container */
+    padding: 10px; /* Add padding for better visual appearance */
+    font-size: 16px; /* Set the font size */
+    border: 1px solid #ccc; /* Add a border with a light gray color */
+    border-radius: 4px; /* Add rounded corners */
+    min-height: 50px; /* Set a minimum height for the textarea */
+    resize: vertical; /* Allow vertical resizing */
+}
+
+#commentSubmit {
+    width: 600px; /* Set the width to 100% of its container */
+    padding: 10px; /* Add padding for better visual appearance */
+    font-size: 16px; /* Set the font size */
+    border: 1px solid #ccc; /* Add a border with a light gray color */
+    border-radius: 4px; /* Add rounded corners */
+    min-height: 50px; /* Set a minimum height for the textarea */
+    resize: vertical; /* Allow vertical resizing */
+}
+
+
+/* Apply some additional styles when the input is focused (optional) */
+#contentInput:focus {
+    outline: none; /* Remove the default focus outline */
+    border-color: #007bff; /* Change the border color when focused */
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Add a subtle shadow when focused */
+}
+
+#submitBtnPost {
+    width: 200px;
+    height: 45px;
+    background: #9f5fff;
+    border: none;
+    outline: none;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 1em;
+    color: #fff;
+    font-weight: 300;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+#submitComment {
+    width: 150px;
+    height: 35px;
+    background: #584871;
+    border: none;
+    outline: none;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 1em;
+    color: #fff;
+    font-weight: 150;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+.post{
+    width: 640px; /* Optional: Set the table width as needed */
+    /*min-width: 600px; !* Optional: Set the table width as needed *!*/
+    /*max-width: 600px;*/
+    border-radius: 15px;
+    background-color: hsl(262, 71%, 93%);
+    padding: 10px 10px 10px 10px ;
+    margin: 10px 0 10px 0;
+}
+
+ul {
+    list-style: none; /* Remove default bullet points */
+}
+
+.dua{
+    width: 700px; /* Optional: Set the table width as needed */
+        /*min-width: 600px; !* Optional: Set the table width as needed *!*/
+        /*max-width: 600px;*/
+    border-radius: 15px;
+    background-color: hsl(262, 71%, 93%);
+    padding: 10px 10px 10px 10px ;
+    margin: 10px 0 10px 0;
+}
+
+.comment{
+    width: 620px; /* Optional: Set the table width as needed */
+    /*min-width: 600px; !* Optional: Set the table width as needed *!*/
+    /*max-width: 600px;*/
+    border-radius: 15px;
+    background-color: #d4c5e7;
+    padding: 10px 10px 10px 10px ;
+    margin: 10px 0 10px 0;
+}
+
+.comment-section{
+    margin-top: 18px;
+}
+
+
+
+.post-id {
+    font-weight: bold;
+    /* color: #007bff; Blue color */
+}
+
+.post-date {
+    color: #777; /* Gray color */
+}
+
+.post-time {
+    color: #777; /* Gray color */
+}
+#date_comment, #time_comment {
+    color:#777;
+}
+
+.post-content {
+    margin-top: 10px;
+    font-size: 16px;
+    line-height: 1.4;
+}
+
+label.error
+{
+    font-weight:400;
+    display: block;
+    color: #f00;
+    font-size: 13px;
+}
+
+#postComment
+{
+    display: flex;
+    flex-direction: column;
+}
+
+.dua_arabic
+{
+    font-size: 60 px !important;
+    font-weight: 900;
+}
+
+.dua-cat-filter select {
+    /* border:none;
+    padding: 10px 20px;
+    border-radius:5px; */
+    margin: 0 0 0 10px;
+    padding: 0 0 0 10px;
+    border-style: solid;
+    border-width: 2px;
+    border-color: #d0baf8;
+    border-radius: 5px;
+    width: 200px;
+    height: 35px;
+    font-size: medium;
+  }
+  .card--container{
+    margin-top: 10px;
+  }
+  .dua {
+    margin-bottom: 20px; /* Add margin between each dua element */
+    padding: 10px; /* Add padding to the entire dua element */
+}
+
+.dua_title {
+    font-size: 20px; /* Set the font size for the title */
+}
+
+.dua_arabic {
+    margin-top: 10px;
+    font-size: 18px; /* Set the font size for the Arabic text */
+}
+
+.mean_eng, .dua_src {
+    margin-top: 10px; /* Add margin between the meaning and source paragraphs */
+}
+
+.dua_src{
+    color:#777;
+}
