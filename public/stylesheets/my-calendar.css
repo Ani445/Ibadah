@@ -9,18 +9,17 @@
     border-color: rgba(153, 149, 149, 0.828);
 } */
 .Today{
-  
-    padding: 10px 5px 5px 5px;
+    padding: 10px;
     padding-bottom: 60px;
-    width: 300px;
-    max-width: 500px;
-    height: 50px;
+    height: 50px;   
+    width: 100%;
     border-radius: 1px;
     background-color: var(--color);
     text-align: center;
     border-bottom-style: solid;
     border-bottom-width: 1px;
     border-bottom-color: rgba(153, 149, 149, 0.828);
+   
 }
 /* .Today .ar{
      background-color: rgb(235, 211, 250);
@@ -30,10 +29,41 @@
 } */
 
 .planned--events{
-    padding: 20px 10px 0px 40px;
+    padding: 5px 5px 5px 5px;
 }
-li{
-    margin: 10px 10px 20px 10px;
+.task >li{
+    /* margin: 10px 10px 20px 10px; */
+    /* margin: 0 auto; */
+    padding: 5px 5px 5px 5px;
     word-wrap: break-word;
 }
 
+.event--card--container{
+    background: #fff;
+    padding: 2rem;
+    border-radius: 10px; 
+    min-width: 10px;  
+    display: block;
+    margin: 0 auto;
+    width: 25rem;
+}
+
+/* .calendar--card--container{
+    margin: auto auto;
+    display: flex;
+    flex-direction: column;
+} */
+
+.mycalendar--main--content{
+    /* background-color: #a09eca; */
+    background:  #c3cef1c6;
+
+    /* display: flex;
+    flex-direction: column; */
+    /* background:  rgb(236, 236, 254); */
+    height: 100%;
+    width: 60rem;
+    padding: 1rem;
+    justify-self: left;
+    /* margin: 0 auto; */
+}

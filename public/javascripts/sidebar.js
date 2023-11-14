@@ -45,7 +45,7 @@ function setServerState()
 
 function ChangeClientState(){
     if(state==0){
-        sidebar.style.width= "240px";
+        sidebar.style.width= "290px";
         sidebar.style.transition = "0.5s";
         state=1;
     }
@@ -60,7 +60,7 @@ function InitClientState()
 {
     if(state==1){
         sidebar.style.transition = "none";
-        sidebar.style.width= "240px";
+        sidebar.style.width= "290px";
     }
     else if(state==0){
         sidebar.style.transition = "none";
