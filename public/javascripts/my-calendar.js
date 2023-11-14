@@ -28,12 +28,13 @@ document.addEventListener('DOMContentLoaded', function () {
 
     for (let i = 0; i < dateCells.length; i++) {
         dateCells[i].addEventListener('click', function (event) {
-            if(selectedElement == dateCells[i])return;
-
+            
             let {year, month, date} = determineDateFromCalendar(event)
+            getCalendarEvents(year, month, date);        
+            if(selectedElement == dateCells[i])return;
             
             currentDate.innerHTML ="<span>" + date + " " + months[month].substring(0, 3) + " " + year + "</span>";
-
+            
             currentArabicDate.innerHTML = "<span>" + new HijrahDate(new Date(year, month, date)).format('longDate', 'en') +"</span>"
             
             if(selectedElement != null)setDefault(selectedElement);
@@ -42,7 +43,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 dateCells[i].style.backgroundColor = "#e5def1";
                 selectedElement = dateCells[i];                    
             }
-            getCalendarEvents(year, month, date);        
             
         })
     }
