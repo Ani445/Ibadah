@@ -31,12 +31,12 @@ document.addEventListener('DOMContentLoaded', function () {
             
             let {year, month, date} = determineDateFromCalendar(event)
             getCalendarEvents(year, month, date);        
-            if(selectedElement == dateCells[i])return;
             
             currentDate.innerHTML ="<span>" + date + " " + months[month].substring(0, 3) + " " + year + "</span>";
             
             currentArabicDate.innerHTML = "<span>" + new HijrahDate(new Date(year, month, date)).format('longDate', 'en') +"</span>"
             
+            if(selectedElement == dateCells[i])return;
             if(selectedElement != null)setDefault(selectedElement);
             if(dateCells[i].classList.contains('current-date')==false)
             {
