@@ -68,7 +68,8 @@
 
                                     <div>
                                         <form id="postComment" name="postComment" action="/new-comment/<%= post.post_id %>" method="post">
-                                            <textarea type="input" id="commented" name="commented" placeholder="Add a comment"></textarea>
+                                            <textarea type="input" id="commented" name="commented" required placeholder="Add a comment"></textarea>
+                                            <label class="error" for="commented"></label>
                                             <button type="submit" id="submitComment" name="submitComment">Comment</button>
                                         </form>
                                     </div>
