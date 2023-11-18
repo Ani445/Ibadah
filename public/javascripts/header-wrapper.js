@@ -29,4 +29,18 @@ $(() => {
         .done(function (res) {
         profileButton.textContent = res.username
     });
+
+    let bellIcon = $(".bell-icon");
+
+    bellIcon.click(function () {
+        if(!bellIcon.selected) {
+            bellIcon.selected = true;
+            $(".bell-icon-inner").show();
+            $(".notification-list").removeClass("hidden");
+        } else {
+            bellIcon.selected = false;
+            $(".bell-icon-inner").hide();
+            $(".notification-list").addClass("hidden");
+        }
+    })
 })

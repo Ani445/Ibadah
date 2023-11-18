@@ -47,3 +47,45 @@
 .profile-menu-item:hover{
     background-color: #e7e4e7;
 }
+
+.bell-icon {
+    cursor: pointer;
+    border-radius: 20px;
+    padding: 7px 7px;
+}
+
+.bell-icon:hover {
+    background-color: #e0f2fd;
+}
+
+.bell-icon svg {
+    fill: #6b05e8;
+}
+
+
+.notification-list.hidden {
+    display: none;
+}
+
+.notification-list {
+    display: flex;
+    flex-direction: column;
+    background-color: #e1ecfb;
+    width: 400px;
+    height: 500px;
+    margin-top: 10px;
+    right: 160px;
+    top: 55px;
+    padding: 10px 0 10px 0;
+    border-radius: 10px;
+    box-shadow: -2px 2px 7px 1px #dad9d9;
+}
+
+.notification-header {
+    height: 2.2rem;
+    line-height: 2.2rem;
+    font-weight: 220;
+    text-align: center;
+    border-bottom: thin solid #797979;
+    user-select: none;
+}
