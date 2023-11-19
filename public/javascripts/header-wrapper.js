@@ -55,15 +55,17 @@ $(() => {
 
     let count = 0;
     function updateNotifications() {
+        if(count > 20) return;
+
         let notificationList = $(".notification-list").find("li").toArray(); // Get all existing li elements
 
         // Create a new li element using jQuery
         let firstNotification = $(notificationList[0]).clone();
 
-        firstNotification.find('p').text(`${++count}`);
+        firstNotification.find('p').text(`${++count} isaugfvisgekyieds vdgfvydeg bsfvgiydesggb iuyv dsyfesdbcdsjbvydefve`);
+        firstNotification.removeClass("hidden");
 
         // Append the new li element to the DOM before adding it to the array
         $(".notification-list").append(firstNotification);
     }
-
 })
