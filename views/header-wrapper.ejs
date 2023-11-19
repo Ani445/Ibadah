@@ -13,10 +13,17 @@
                       d="M 232.074 86 C 262.791 86.444 292.32 99.681 312.649 119.456 C 332.427 139.79 345.558 169.294 346 200.006 L 346 233.422 C 345.79 279.877 357.306 318.268 379.611 355.321 L 393.125 378 L 54.875 378 L 67.489 356.832 L 68.402 355.3 C 90.706 318.247 102.21 279.855 102 233.398 L 102 199.926 C 102.444 169.21 115.684 139.677 135.458 119.349 C 155.793 99.571 185.294 86.442 216.006 86 L 232.074 86 Z"></path>
             </svg>
         </div>
-        <div class="notification-list hidden" style="position: absolute; z-index: 2;">
-                <h2 class="notification-header">
-                    Notifications
-                </h2>
+        <div class="notification-panel hidden" style="position: absolute; z-index: 2;">
+            <h2 class="notification-panel-header">
+                Notifications
+            </h2>
+            <div class="notification-list-container" style="display: flex; flex-direction: column">
+                <ul class="notification-list" style="list-style: none;">
+                    <li id="notification-demo">
+                        <p></p>
+                    </li>
+                </ul>
+            </div>
         </div>
         <div class="header--profile">
             <button id="profile-button"></button>
