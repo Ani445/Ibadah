@@ -280,7 +280,8 @@ function loadAllTasks(userID, callback) {
                         TASK_NAME,
                         DESCRIPTION,
                         DATE_FORMAT(DATE, '%M %d, %Y') as DATE,
-                        TIME_FORMAT(TIME, '%h:%i %p')  as TIME
+                        TIME_FORMAT(START_TIME, '%h:%i %p')  as START_TIME,
+                        TIME_FORMAT(START_TIME, '%h:%i %p')  as END_TIME
                  FROM DAILY_PLANS
                  WHERE USER_ID = ${pool.escape(userID)}`;
     pool.query(sql, (err, results) => {
@@ -291,6 +292,21 @@ function loadAllTasks(userID, callback) {
         callback(results);
     });
 }
+
+function insertNewTask(task_name, description, date, start_time, end_time, callback) {
+
+    const sql = `INSERT INTO daily_plans(user_id, task_name, description, date, start_time, end_time)
+                 VALUES (${pool.escape(user.userID)}, ${pool.escape(task_name)}, ${pool.escape(description)},
+                         ${pool.escape(date)}, ${pool.escape(start_time)}, ${pool.escape(end_time)})`;
+    pool.query(sql, (err) => {
+        if (err) {
+            console.log(err.sqlMessage + '\n' + err.sql);
+            callback(0);
+        }
+        callback(1);
+    });
+}
+
 
 function insertNewPosts(topic, callback) {
     const id_user = user.userID;
@@ -360,6 +376,7 @@ module.exports = {
     updatePersonalInfo,
     updateEmail,
     loadAllTasks,
+    insertNewTask,
     insertNewPosts,
     loadPosts,
     insertNewComments,

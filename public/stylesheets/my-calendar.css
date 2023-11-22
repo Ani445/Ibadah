@@ -19,12 +19,16 @@
     border-bottom-style: solid;
     border-bottom-width: 1px;
     border-bottom-color: rgba(153, 149, 149, 0.828);
+    color: #867de3ed;
+    font-weight: 500;
    
 }
-/* .Today .ar{
-     background-color: rgb(235, 211, 250);
+.Today .ar{
+    font-weight: 600;
+    color: #7971e4;
 }
-.Today .en{
+
+/*.Today .en{
     background-color: rgb(235, 211, 250);
 } */
 
@@ -41,7 +45,6 @@
 .event--card--container{
     background: #fff;
     padding: 2rem;
-    border-radius: 10px; 
     min-width: 10px;  
     display: block;
     margin: 0 auto;

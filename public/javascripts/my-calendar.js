@@ -40,10 +40,15 @@ document.addEventListener('DOMContentLoaded', function () {
             if(selectedElement != null)setDefault(selectedElement);
             if(dateCells[i].classList.contains('current-date')==false)
             {
-                dateCells[i].style.backgroundColor = "#e5def1";
+                dateCells[i].style.backgroundColor = "#e2e1f1df";
                 selectedElement = dateCells[i];                    
             }
             
+        })
+
+        dateCells[i].addEventListener('dblclick',function(event){
+            let {year, month, date} = determineDateFromCalendar(event);
+            openModal(year, month, date);
         })
     }
 
@@ -200,23 +205,14 @@ document.addEventListener('DOMContentLoaded', function () {
          return "<p class=\"GregorianDate\">" + j.toString()+ "</p>" +"<p class=\"HijriDate\">"+ HDate.getDate()+"</p>";
     }
 
-    // $.ajax({
-    //     url: '/calendar-events',
-    //     method: 'POST',
-    //     data: {date: formattedDate},
-    //     dataType: 'json'
-    // })
-    // .done(function (response) {
-    //     console.log(response);
-    //     showCalendarEvents(response.tasks);
-    // })
 
     function showCalendarEvents(tasks){
         let taskList = document.querySelector('.task');
         taskList.innerHTML="";
         if(tasks == null)return;
         for(let i =0 ;i<tasks.length ; i++){
-            var li = document.createElement("li");
+            let li = document.createElement("li");
+            li.setAttribute("id", tasks[i].TASK_ID);
             li.appendChild(document.createTextNode(tasks[i].TASK_NAME));
             taskList.appendChild(li);
         }
@@ -232,6 +228,18 @@ function setDefault(element)
         element.style.backgroundColor = "inherit";
     }
     else if(element.classList.contains('current-date')==false)
-        element.style.backgroundColor = "#e7e7e7";
+        element.style.backgroundColor = "#3c3a3a13";
        
+}
+
+
+function openModal(year, month, date){
+    let newEvent = document.querySelector("#new-event");
+    let overlayInNewEvent = document.querySelector("#overlay-in-new-event");
+    let eventDate = document.querySelector("#event-date");
+    eventDate.textContent = date + " " + months[month] + ", " + year;
+    let inputDate = document.querySelector(".hidden-date");
+    inputDate.value = year + "-" + (month+1) + "-" + date;
+    $(newEvent).css("display", "block");
+    $(overlayInNewEvent).css("display", "block");
 }

@@ -41,7 +41,8 @@ CREATE TABLE DAILY_PLANS
     TASK_ID BIGINT AUTO_INCREMENT,
     USER_ID BIGINT,
     DATE DATETIME,
-    TIME TIME,
+    START_TIME TIME,
+    END_TIME TIME,
     TASK_NAME VARCHAR(50),
     DESCRIPTION MEDIUMBLOB,
     CONSTRAINT DAILY_TASKS_PK PRIMARY KEY (TASK_ID),
@@ -51,9 +52,9 @@ CREATE TABLE DAILY_PLANS
 );
 
 
-insert into daily_plans (user_id, task_name, date, time) values(122, 'homework', date(now()), time(now()));
-insert into daily_plans (user_id, task_name, date, time) values(122, 'read quran', date(now()), time(now()));
-insert into daily_plans (user_id, task_name, date, time) values(122, 'read hadith', date(now()), time(now()));
+insert into daily_plans (user_id, task_name, date, start_time, end_time) values(1, 'homework', date(now()), time(now()), time(now()));
+insert into daily_plans (user_id, task_name, date, start_time, end_time) values(1, 'read quran', date(now()), time(now()), time(now()));
+insert into daily_plans (user_id, task_name, date, start_time, end_time) values(1, 'read hadith', date(now()), time(now()), time(now()));
 
 CREATE TABLE POSTS (
   POST_ID BIGINT AUTO_INCREMENT,

@@ -1,0 +1,10 @@
+blur--- kernel
+sharpen --- blur + edge
+crop +
+rotate +
+contrast
+invert 
+grayscale
+filter
+
+
