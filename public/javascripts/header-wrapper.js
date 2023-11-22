@@ -33,39 +33,60 @@ $(() => {
     let bellIcon = $(".bell-icon");
     let notificationListContainer = $(".notification-list-container");
 
+    function openNotificationPanel() {
+        bellIcon.selected = true;
+        $(".bell-icon-inner").show();
+        $(".notification-panel").removeClass("hidden");
+    }
+
+    function closeNotificationPanel() {
+        bellIcon.selected = false;
+        $(".bell-icon-inner").hide();
+        $(".notification-panel").addClass("hidden");
+    }
+
     bellIcon.click(function () {
         if (!bellIcon.selected) {
-            bellIcon.selected = true;
-            $(".bell-icon-inner").show();
-            $(".notification-panel").removeClass("hidden");
+            openNotificationPanel()
         } else {
-            bellIcon.selected = false;
-            $(".bell-icon-inner").hide();
-            $(".notification-panel").addClass("hidden");
+            closeNotificationPanel();
         }
     })
 
     setInterval(checkForNotifications, 1000);
 
+    let count = 0;
+
     async function checkForNotifications() {
         $.post("check-for-notifications", function (response) {
-            updateNotifications();
+            if(response.data) {
+                console.log(response.data);
+                updateNotifications();
+            }
         })
     }
 
-    let count = 0;
     function updateNotifications() {
-        if(count > 20) return;
-
-        let notificationList = $(".notification-list").find("li").toArray(); // Get all existing li elements
+        let notificationList = $(".notification-list");
+        let notificationArray = notificationList.find("li").toArray(); // Get all existing li elements
 
         // Create a new li element using jQuery
-        let firstNotification = $(notificationList[0]).clone();
+        let notification = $(notificationArray[0]).clone();
 
-        firstNotification.find('p').text(`${++count} isaugfvisgekyieds vdgfvydeg bsfvgiydesggb iuyv dsyfesdbcdsjbvydefve`);
-        firstNotification.removeClass("hidden");
+        notification.find('p').text(`${++count} isaugfvisgekyieds vdgfvydeg bsfvgiydesggb iuyv dsyfesdbcdsjbvydefve`);
+        notification.removeClass("hidden");
 
-        // Append the new li element to the DOM before adding it to the array
-        $(".notification-list").append(firstNotification);
+        notification.addClass("salah-reminder");
+        notification.click(function (event) {
+            if (event.target.className == "salah-reminder") {
+                if (window.location.pathname != "/prayer-times") {
+                    window.location.href = "/prayer-times";
+                } else {
+                    closeNotificationPanel();
+                }
+            }
+        })
+
+        notificationList.append(notification);
     }
 })

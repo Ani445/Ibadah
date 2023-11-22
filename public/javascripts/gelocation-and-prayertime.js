@@ -1,6 +1,7 @@
 
 
 getCoordinates(function (location) {
+    console.log(location)
     sendLocationToServer(location)
 });
 

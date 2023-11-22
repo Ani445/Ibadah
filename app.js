@@ -28,9 +28,9 @@ const forumRoutes= require('./routes/forum');
 const duaRoutes= require('./routes/dua');
 
 
+app.use('/', userRoutes);
 app.use('/', loginRoutes);
 app.use('/', registerRoutes);
-app.use('/', userRoutes);
 app.use('/', profileRoutes);
 app.use('/', classesRoutes);
 app.use('/', prayerTimeRoutes);

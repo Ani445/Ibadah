@@ -246,7 +246,7 @@ document.addEventListener('DOMContentLoaded', function () {
         let select = document.querySelector(".city-list");
 
         for (let x in districtNames) {
-            if(select[0].value != districtNames[x]){
+            if (select[0].value != districtNames[x]) {
                 let option = document.createElement("option");
                 option.textContent = districtNames[x];
                 select.appendChild(option);
@@ -264,54 +264,53 @@ document.addEventListener('DOMContentLoaded', function () {
             getPrayerTimes(gYear, gMonth, gDate, gLocation)
         });
     }
+
     updateRowColor();
     updateCurrentWaqt();
 })
 
-function updateCurrentWaqt(){
+function updateCurrentWaqt() {
 
     var ONE_MINUTE = 60 * 1000;
-    setInterval(updateRowColor , ONE_MINUTE-2000);//milliseconds
+    setInterval(updateRowColor, ONE_MINUTE - 2000);//milliseconds
 }
 
-function updateRowColor(){
+function updateRowColor() {
     let waqtArr = [];
     waqtArr.push(document.getElementById('fajr-time'));
     waqtArr.push(document.getElementById('dhuhr-time'));
     waqtArr.push(document.getElementById('asr-time'));
     waqtArr.push(document.getElementById('maghrib-time'));
     waqtArr.push(document.getElementById('isha-time'));
-    
-    currentWaqt = -1;
-    for(let i=0; i< 5;i++){
+    let currentWaqt = -1;
+    for (let i = 0; i < 5; i++) {
         waqtArr[i].parentNode.classList.remove('is-selected');
-        if(compareTimes(waqtArr[i].textContent) > 0)break;
-        else if(compareTimes(waqtArr[i].textContent >= 0)) currentWaqt = i;
+        if (compareTimes(waqtArr[i].textContent) > 0) break;
+        else if (compareTimes(waqtArr[i].textContent >= 0)) currentWaqt = i;
     }
-    if(currentWaqt == -1)currentWaqt = 4;
-    
+    if (currentWaqt == -1) currentWaqt = 4;
+
     let parentRow = waqtArr[currentWaqt].parentNode;
     parentRow.classList.add('is-selected');
 }
 
-function compareTimes(timeStr){
+function compareTimes(timeStr) {
     let currentHour = new Date().getHours();
     let currentMinute = new Date().getMinutes();
-    let currentTime = currentHour*60 + currentMinute;
-    
-    let givenHour = parseInt(timeStr.toString().substring(0,2));
-    let givenMinute = parseInt(timeStr.toString().substring(3,5));
-    let add12h = (timeStr.toString().substring(6,8) == 'AM')?0:12;
-    let givenTime = (givenHour + add12h )*60 + givenMinute;
-    
-    if(givenTime == currentTime){
+    let currentTime = currentHour * 60 + currentMinute;
+
+    let givenHour = parseInt(timeStr.toString().substring(0, 2));
+    let givenMinute = parseInt(timeStr.toString().substring(3, 5));
+    let add12h = (timeStr.toString().substring(6, 8) == 'AM') ? 0 : 12;
+    let givenTime = (givenHour + add12h) * 60 + givenMinute;
+
+    if (givenTime == currentTime) {
         return 0;
-    }
-    else if( givenTime < currentTime){
+    } else if (givenTime < currentTime) {
         return -1;
-    }
-    else return 1;
+    } else return 1;
 }
+
 let districtNames =
     [
         "Dhaka",
