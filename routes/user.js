@@ -30,6 +30,18 @@ router.post('/set-user-location', (req, res) => {
     })
 });
 
+router.post('/check-for-notifications', (req, res) => {
+    if (!req.session.location) {
+        req.session.location = {
+            city: req.body.city,
+            country: req.body.country
+        }
+    }
+    return httpMsg.sendJSON(req, res, {
+        data: req.session.location
+    })
+});
+
 //export the router.
 //It will be used in 'app.js'
 module.exports = router
