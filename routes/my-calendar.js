@@ -5,6 +5,9 @@ const database = require("../server/database");
 const router = express.Router(); // Create an Express.js router 
 
 router.get('/my-calendar',(req, res) => {
+    if (!req.session.user) {
+        return res.redirect('/login')
+    }
     res.render('my-calendar');
 });
 

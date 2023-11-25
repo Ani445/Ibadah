@@ -1,4 +1,3 @@
-
 var selectedElement;
 document.addEventListener('DOMContentLoaded', function () {
 
@@ -6,10 +5,10 @@ document.addEventListener('DOMContentLoaded', function () {
     let todayDate = new Date().getDate();
     let todayMonth = new Date().getMonth();
     let todayYear = new Date().getFullYear();
-    
-    currentDate.innerHTML ="<span>" + todayDate + " " + months[todayMonth].substring(0, 3) + " " + todayYear + "</span>";
+
+    currentDate.innerHTML = "<span>" + todayDate + " " + months[todayMonth].substring(0, 3) + " " + todayYear + "</span>";
     currentArabicDate = document.querySelector('.Today > .ar');
-    currentArabicDate.innerHTML = "<span>"+ new HijrahDate(new Date()).format('longDate', 'en') +"</span>";
+    currentArabicDate.innerHTML = "<span>" + new HijrahDate(new Date()).format('longDate', 'en') + "</span>";
 
     let monthButton = document.querySelector("#month")
     let yearButton = document.querySelector("#year")
@@ -28,25 +27,24 @@ document.addEventListener('DOMContentLoaded', function () {
 
     for (let i = 0; i < dateCells.length; i++) {
         dateCells[i].addEventListener('click', function (event) {
-            
+
             let {year, month, date} = determineDateFromCalendar(event)
-            getCalendarEvents(year, month, date);        
-            
-            currentDate.innerHTML ="<span>" + date + " " + months[month].substring(0, 3) + " " + year + "</span>";
-            
-            currentArabicDate.innerHTML = "<span>" + new HijrahDate(new Date(year, month, date)).format('longDate', 'en') +"</span>"
-            
-            if(selectedElement == dateCells[i])return;
-            if(selectedElement != null)setDefault(selectedElement);
-            if(dateCells[i].classList.contains('current-date')==false)
-            {
+            getCalendarEvents(year, month, date);
+
+            currentDate.innerHTML = "<span>" + date + " " + months[month].substring(0, 3) + " " + year + "</span>";
+
+            currentArabicDate.innerHTML = "<span>" + new HijrahDate(new Date(year, month, date)).format('longDate', 'en') + "</span>"
+
+            if (selectedElement == dateCells[i]) return;
+            if (selectedElement != null) setDefault(selectedElement);
+            if (dateCells[i].classList.contains('current-date') == false) {
                 dateCells[i].style.backgroundColor = "#e2e1f1df";
-                selectedElement = dateCells[i];                    
+                selectedElement = dateCells[i];
             }
-            
+
         })
 
-        dateCells[i].addEventListener('dblclick',function(event){
+        dateCells[i].addEventListener('dblclick', function (event) {
             let {year, month, date} = determineDateFromCalendar(event);
             openModal(year, month, date);
         })
@@ -88,10 +86,10 @@ document.addEventListener('DOMContentLoaded', function () {
     function closeMonthPicker() {
         monthPickerContainer.classList.add('hidden')
     }
-    
+
     function getDays(month, year) {
-        let date = new Date(year, month,1);
-        let dateObj={
+        let date = new Date(year, month, 1);
+        let dateObj = {
             GregorianDay: date.getDate(),
             GregorianWeekday: date.getDay(),
             GregorianMonth: month,
@@ -99,68 +97,67 @@ document.addEventListener('DOMContentLoaded', function () {
         }
         let dateArray = [];
         while (date.getMonth() === month) {
-          dateArray.push({...dateObj});
-          date.setDate(date.getDate() + 1);
-          dateObj.GregorianDay=date.getDate();
-          dateObj.GregorianWeekday=date.getDay();
-          dateObj.GregorianMonth= month;
-          dateObj.GregorianYear=year;
+            dateArray.push({...dateObj});
+            date.setDate(date.getDate() + 1);
+            dateObj.GregorianDay = date.getDate();
+            dateObj.GregorianWeekday = date.getDay();
+            dateObj.GregorianMonth = month;
+            dateObj.GregorianYear = year;
         }
         populateCalendar(dateArray);
-      }
+    }
 
     function populateCalendar(dateArray) {
         let start = dateArray[0].GregorianWeekday;
 
-       let dateCells = document.getElementsByClassName('date-cell')
+        let dateCells = document.getElementsByClassName('date-cell')
 
         for (let i = 0; i < dateCells.length; i++) {
             dateCells[i].innerHTML = "";
             dateCells[i].classList.remove('previous-month')
             dateCells[i].classList.remove('next-month')
-            dateCells[i].classList.remove('current-month')  
+            dateCells[i].classList.remove('current-month')
             dateCells[i].classList.remove('current-date')
         }
-        
+
         let j = new Date(dateArray[0].GregorianYear, dateArray[0].GregorianMonth, 0).getDate()
         let i
-        
+
         for (i = start - 1; i >= 0; i--) {
-            dateCells[i].innerHTML = dateCellContent(monthNameToNumber[monthButton.value]-1,j);
+            dateCells[i].innerHTML = dateCellContent(monthNameToNumber[monthButton.value] - 1, j);
             j--;
             dateCells[i].classList.add('previous-month')
             setDefault(dateCells[i]);
         }
-        
+
         i = start
         j = 0
         for (; j < dateArray.length && i < dateCells.length; i++) {
             j++;
-            dateCells[i].innerHTML = dateCellContent(monthNameToNumber[monthButton.value],j);
+            dateCells[i].innerHTML = dateCellContent(monthNameToNumber[monthButton.value], j);
             dateCells[i].classList.add('current-month')
             setDefault(dateCells[i]);
-            
 
-            if(todayDate == j && todayMonth == monthNameToNumber[monthButton.value] && yearButton.value == todayYear)
-            {
+
+            if (todayDate == j && todayMonth == monthNameToNumber[monthButton.value] && yearButton.value == todayYear) {
                 dateCells[i].classList.add('current-date');
                 selectedElement = dateCells[i];
             }
         }
-        
+
         j = 0
         for (; i < dateCells.length; i++) {
-            j++;            
-            dateCells[i].innerHTML = dateCellContent(monthNameToNumber[monthButton.value],j);
+            j++;
+            dateCells[i].innerHTML = dateCellContent(monthNameToNumber[monthButton.value], j);
             dateCells[i].classList.add('next-month')
             setDefault(dateCells[i]);
         }
     }
-    
+
     /**
      * @param event The event generated by a mouse-click on a cell of the calendar
      * @returns {{year, month, date}} An object containing the determined year, month, date
-    */
+     */
 
     function determineDateFromCalendar(event) {
         let cell = event.target
@@ -185,61 +182,62 @@ document.addEventListener('DOMContentLoaded', function () {
         }
         return {year, month, date}
     }
-    
+
     function getCalendarEvents(year, month, date) {
-        const options = { year: 'numeric', month: 'long', day: 'numeric' };
+        const options = {year: 'numeric', month: 'long', day: 'numeric'};
         const formattedDate = (new Date(year, month, date)).toLocaleDateString('en-US', options);
         $.ajax({
             url: '/calendar-events',
             method: 'POST',
             data: {date: formattedDate}
         })
-        .done(function (response) {
-            // console.log(response);
-            showCalendarEvents(response.tasks)
-        })
+            .done(function (response) {
+                console.log(response);
+                showCalendarEvents(response.tasks)
+            })
     }
 
-    function dateCellContent(month,j){
-         HDate = new HijrahDate(new Date(yearButton.value,month,j))
-         return "<p class=\"GregorianDate\">" + j.toString()+ "</p>" +"<p class=\"HijriDate\">"+ HDate.getDate()+"</p>";
+    function dateCellContent(month, j) {
+        let HDate = new HijrahDate(new Date(yearButton.value, month, j))
+        return "<p class=\"GregorianDate\">" + j.toString() + "</p>" + "<p class=\"HijriDate\">" + HDate.getDate() + "</p>";
     }
 
 
-    function showCalendarEvents(tasks){
-        let taskList = document.querySelector('.task');
-        taskList.innerHTML="";
-        if(tasks == null)return;
-        for(let i =0 ;i<tasks.length ; i++){
-            let li = document.createElement("li");
-            li.setAttribute("id", tasks[i].TASK_ID);
-            li.appendChild(document.createTextNode(tasks[i].TASK_NAME));
-            taskList.appendChild(li);
+    function showCalendarEvents(tasks) {
+        let taskList = $(".task");
+
+        let taskArray = taskList.find("li").toArray(); // Get all existing li elements
+
+        let demoTaskHtml = $(taskArray[0]).clone();
+        demoTaskHtml.removeClass("hidden")
+
+
+
+        if (tasks == null) return;
+        for (let i = 0; i < tasks.length; i++) {
+            demoTaskHtml.find(".task-name").html(`${tasks[i].TASK_NAME}`);
+            demoTaskHtml.find(".task-time").html(`${tasks[i].START_TIME} - ${tasks[i].END_TIME}`);
+            taskList.append(demoTaskHtml);
         }
     }
-
 })
 
-
-
-function setDefault(element)
-{
-    if(element.classList.contains('previous-month') || element.classList.contains('next-month')){
+function setDefault(element) {
+    if (element.classList.contains('previous-month') || element.classList.contains('next-month')) {
         element.style.backgroundColor = "inherit";
-    }
-    else if(element.classList.contains('current-date')==false)
+    } else if (element.classList.contains('current-date') == false)
         element.style.backgroundColor = "#3c3a3a13";
-       
+
 }
 
 
-function openModal(year, month, date){
+function openModal(year, month, date) {
     let newEvent = document.querySelector("#new-event");
     let overlayInNewEvent = document.querySelector("#overlay-in-new-event");
     let eventDate = document.querySelector("#event-date");
     eventDate.textContent = date + " " + months[month] + ", " + year;
     let inputDate = document.querySelector(".hidden-date");
-    inputDate.value = year + "-" + (month+1) + "-" + date;
+    inputDate.value = year + "-" + (month + 1) + "-" + date;
     $(newEvent).css("display", "block");
     $(overlayInNewEvent).css("display", "block");
 }

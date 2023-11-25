@@ -281,7 +281,7 @@ function loadAllTasks(userID, callback) {
                         DESCRIPTION,
                         DATE_FORMAT(DATE, '%M %d, %Y') as DATE,
                         TIME_FORMAT(START_TIME, '%h:%i %p')  as START_TIME,
-                        TIME_FORMAT(START_TIME, '%h:%i %p')  as END_TIME
+                        TIME_FORMAT(END_TIME, '%h:%i %p')  as END_TIME
                  FROM DAILY_PLANS
                  WHERE USER_ID = ${pool.escape(userID)}`;
     pool.query(sql, (err, results) => {
