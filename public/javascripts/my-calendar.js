@@ -230,7 +230,6 @@ document.addEventListener('DOMContentLoaded', function () {
         }
 
         $(taskList).find(".delete-task-button").each(function (index, button) {
-            console.log(button);
             $(button).click(function (event) {
                 $(event.target).parent().parent().remove();
                 $.post(`/delete-planned-event/${$(event.target).parent().parent().attr("id")}`, function (response) {
@@ -241,6 +240,26 @@ document.addEventListener('DOMContentLoaded', function () {
                     }
                 });
             })
+
+            const planDescriptionModal = $('.description-modal');
+            $(button).parent().parent().hover(function () {
+                    const liOffset = $(this).offset();
+                    const liWidth = $(this).outerWidth();
+                    const modalWidth = planDescriptionModal.outerWidth();
+
+                    const modalLeft = liOffset.left - modalWidth - 10; // Adjust as needed
+                    const modalTop = liOffset.top;
+
+                    planDescriptionModal.css({left: modalLeft, top: modalTop});
+                    planDescriptionModal.addClass('active');
+
+
+
+                },
+                function () {
+                    planDescriptionModal.removeClass('active');
+                }
+            );
         });
     }
 })

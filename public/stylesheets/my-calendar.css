@@ -67,6 +67,8 @@
 
     height: 100%;
     width: 100%;
+
+    cursor: default;
 }
 
 .planned-event-content {
@@ -135,3 +137,32 @@
     justify-self: left;
     /* margin: 0 auto; */
 }
+
+.planned--events .description-modal {
+    --modal-color: #9aadea;
+    display: none;
+    position: absolute;
+    transform: translateY(8px);
+    background-color: var(--modal-color);
+    border: 1px solid var(--modal-color);;
+    padding: 10px;
+    border-radius: 8px;
+    z-index: 3;
+}
+
+.planned--events .description-modal.active {
+    display: block;
+}
+
+.planned--events .modal-arrow {
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 10px 0 10px 10px;
+    border-color: transparent transparent transparent var(--modal-color);; /* Change this to match modal bg color */
+    top: 50%;
+    right: -10px; /* Adjust the position of the arrow */
+    transform: translateY(-50%);
+}
+
