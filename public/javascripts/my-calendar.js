@@ -210,22 +210,38 @@ document.addEventListener('DOMContentLoaded', function () {
 
         let demoTaskHtml = $(taskArray[0]);
         /**
-         * The demoTask is demo html defined in 'my-calendar.ejs' and 'my-calendar.css'
-         * Now while adding the tasks to the
+         * The "demoTaskHtml" is a demo html defined in 'my-calendar.ejs' and 'my-calendar.css'.
+         * Now, while adding the tasks to the unordered list,
+         * this demo will be cloned for every task, with attributes set properly
          */
 
-
-        taskList.find("li:not(:first-child)").remove();
+        $(taskList).find("li:not(:first-child)").remove();
+        //removing all children (li) except the first one, for the demo
 
         if (tasks == null) return;
 
         for (let i = 0; i < tasks.length; i++) {
-            let task = demoTaskHtml.clone();
+            let task = demoTaskHtml.clone(); //make a copy of it, otherwise it takes reference
             task.removeClass("hidden");
+            task.attr("id", `${tasks[i].TASK_ID}`)
             task.find(".task-name").html(`${tasks[i].TASK_NAME}`);
             task.find(".task-time").html(`${tasks[i].START_TIME} - ${tasks[i].END_TIME}`);
             taskList.append(task);
         }
+
+        $(taskList).find(".delete-task-button").each(function (index, button) {
+            console.log(button);
+            $(button).click(function (event) {
+                $(event.target).parent().parent().remove();
+                $.post(`/delete-planned-event/${$(event.target).parent().parent().attr("id")}`, function (response) {
+                    if (response.success) {
+                        console.log("ok")
+                    } else {
+                        alert("Could not delete the event. Please try again later.");
+                    }
+                });
+            })
+        });
     }
 })
 

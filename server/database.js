@@ -307,6 +307,17 @@ function insertNewTask(task_name, description, date, start_time, end_time, callb
     });
 }
 
+function deleteTask(task_id, callback) {
+    const sql = `DELETE FROM DAILY_PLANS WHERE TASK_ID = ${pool.escape(task_id)}`;
+    pool.query(sql, (err) => {
+        if (err) {
+            console.log(err.sqlMessage + '\n' + err.sql);
+            callback(0);
+        }
+        callback(1);
+    });
+}
+
 
 function insertNewPosts(topic, callback) {
     const id_user = user.userID;
@@ -382,4 +393,5 @@ module.exports = {
     insertNewComments,
     loadDuas,
     loadDuaByCategory,
+    deleteTask
 }
