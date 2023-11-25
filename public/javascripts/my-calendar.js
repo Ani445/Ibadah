@@ -192,7 +192,7 @@ document.addEventListener('DOMContentLoaded', function () {
             data: {date: formattedDate}
         })
             .done(function (response) {
-                console.log(response);
+                // console.log(response);
                 showCalendarEvents(response.tasks)
             })
     }
@@ -208,16 +208,23 @@ document.addEventListener('DOMContentLoaded', function () {
 
         let taskArray = taskList.find("li").toArray(); // Get all existing li elements
 
-        let demoTaskHtml = $(taskArray[0]).clone();
-        demoTaskHtml.removeClass("hidden")
+        let demoTaskHtml = $(taskArray[0]);
+        /**
+         * The demoTask is demo html defined in 'my-calendar.ejs' and 'my-calendar.css'
+         * Now while adding the tasks to the
+         */
 
 
+        taskList.find("li:not(:first-child)").remove();
 
         if (tasks == null) return;
+
         for (let i = 0; i < tasks.length; i++) {
-            demoTaskHtml.find(".task-name").html(`${tasks[i].TASK_NAME}`);
-            demoTaskHtml.find(".task-time").html(`${tasks[i].START_TIME} - ${tasks[i].END_TIME}`);
-            taskList.append(demoTaskHtml);
+            let task = demoTaskHtml.clone();
+            task.removeClass("hidden");
+            task.find(".task-name").html(`${tasks[i].TASK_NAME}`);
+            task.find(".task-time").html(`${tasks[i].START_TIME} - ${tasks[i].END_TIME}`);
+            taskList.append(task);
         }
     }
 })
