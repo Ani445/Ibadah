@@ -4,7 +4,7 @@
     border-collapse: collapse;
     border-spacing: 0;
     font-size: 14px;
-    margin: auto auto;
+    /* margin: 0 auto; */
     scale: 0.9;
     min-width: 50%;
 }
@@ -29,8 +29,8 @@
 }
 
 #mini-calendar-container input[id="month"] {
-    --color: rgb(218, 218, 240);
-    --press-color: #d1baf4;
+    --color: rgba(175, 196, 234, 0.517);
+    --press-color: rgba(175, 196, 234, 0.689);
     width: 200px;
     height: 40px;
     border-radius: 5px;
@@ -40,8 +40,8 @@
 }
 
 #mini-calendar-container input[id="year-up"], input[id="year-down"] {
-    --color: #943dce32;
-    --press-color: rgba(174, 133, 235, 0.278);
+    --color: rgba(175, 196, 234, 0.517);
+    --press-color: rgba(175, 196, 234, 0.689);
     width: 35px;
     height: 40px;
     font-weight: bold;
@@ -85,19 +85,22 @@
     cursor: pointer;
     padding-top: 5px;
     text-align: center;
+    user-select: none;
 }
 
 .mini-calendar th {
-    border-color: rgba(153, 149, 149, 0.828);
-    border-style: solid;
-    border-width: 1px;
+    border-bottom-color: #867de359;
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
     font-weight: bold;
     overflow: hidden;
     word-break: normal;
-    background-color: #635dabed;
-    color: white;
+    /* background-color: #867de3ed; */
+    /* background-color: rgba(44, 44, 228, 0.097); */
+    color: #6059aded;
     width: 140px;
-    height: 50px;
+    height: 60px;
+    font-size: 18px;
 }
 
 .mini-calendar .date-cell{
@@ -107,11 +110,11 @@
 .mini-calendar .date-cell.current-month {
    
     font-family: "Times New Roman", Times, serif !important;
-    background-color: #e7e7e7;
+    background-color: #3c3a3a13;
 }
 
 .mini-calendar td:hover {
-    background-color: #dcd4e9 !important;
+    background-color: #e1e6f1c9 !important;
     font-weight: bold !important;
     /* color: rgb(99, 65, 209); */
 }
@@ -167,12 +170,12 @@
 #year {
     font-size: 16px;
     margin-left: 10px;
-    margin: 10px 0;
+    margin: 10px 0 5px;
 }
 
 #month {
     font-size: 16px;
-    margin: auto 30px;
+    margin: 10px 30px 5px;
 }
 
 .change-year {
@@ -183,12 +186,12 @@
 
 #year-down{
     /* right: 50%; */
-    margin: 10px 0;
+    margin: 10px 0 5px; 
     translate: -200px;
 }
 
 #year-up {
-    margin: 10px 0;
+    margin: 10px 0 5px;
     translate: -71px;
 }
 .HijriDate{

@@ -19,29 +19,97 @@
     border-bottom-style: solid;
     border-bottom-width: 1px;
     border-bottom-color: rgba(153, 149, 149, 0.828);
+    color: #867de3ed;
+    font-weight: 500;
    
 }
-/* .Today .ar{
-     background-color: rgb(235, 211, 250);
+.Today .ar{
+    font-weight: 600;
+    color: #7971e4;
 }
-.Today .en{
+
+/*.Today .en{
     background-color: rgb(235, 211, 250);
 } */
 
 .planned--events{
     padding: 5px 5px 5px 5px;
 }
-.task >li{
-    /* margin: 10px 10px 20px 10px; */
-    /* margin: 0 auto; */
+
+.planned-events-item.hidden {
+    display: none;
+}
+
+.planned-events-item {
+    display: flex;
+    min-height: 60px;
+    height: fit-content;
+    width: 100%;
+
     padding: 5px 5px 5px 5px;
     word-wrap: break-word;
+    list-style: none;
+
+    background-color: #ddefff;
+    box-shadow: -1px 1px 5px -1px #a5a4a4;
+    margin-top: 8px;
+    border-radius: 5px;
+}
+
+.planned-events-item-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: left;
+    padding: 5px 5px;
+
+    overflow-wrap: break-word;
+
+    height: 100%;
+    width: 100%;
+}
+
+.planned-event-content {
+    display: flex;
+    flex-direction: column;
+    /*align-items: center;*/
+    /*justify-content: left;*/
+    width: 85%;
+    height: 100%;
+    gap: 8px;
+}
+
+.delete-task-button {
+    width: 15%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    cursor: pointer;
+    margin-left: 8%;
+}
+
+.delete-task-button svg{
+    width: 18px;
+    height: 18px;
+    fill: red;
+    pointer-events: none;
+}
+.task-name {
+    font-size: 14px;
+    font-family: "Segoe UI Semibold", sans-serif;
+}
+
+.task-time {
+    font-size: 12px;
+    font-family: "Segoe UI", sans-serif;
+    color: #535353;
 }
 
 .event--card--container{
     background: #fff;
     padding: 2rem;
-    border-radius: 10px; 
     min-width: 10px;  
     display: block;
     margin: 0 auto;

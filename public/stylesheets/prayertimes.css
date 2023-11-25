@@ -88,8 +88,8 @@
 
 .salat-table tr.is-selected {
     /* background-color: #00d1b2; */
-    background-color: #635dabed;
-    color: #fff;
+    background-color: rgba(182, 202, 246, 0.93);
+    font-weight: bold;
   }
   
 

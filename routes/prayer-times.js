@@ -4,7 +4,7 @@ const router = express.Router(); // Create an Express.js app
 const {Time} = require("../server/utility");
 const httpMsg = require("http-msgs")
 const axios = require("axios")
-router.get('/prayer-times', async (req, res) => {
+router.get('/prayer-times', async (req, res, next) => {
     if (!req.session.user) {
         return res.redirect('/login');
     }
@@ -32,7 +32,7 @@ router.get('/prayer-times', async (req, res) => {
 router.post('/get-prayer-times', async (req, res) => {
     let {year, month, date} = req.body
 
-   let location
+    let location
 
     if (req.body.location) {
         location = req.body.location
@@ -52,7 +52,7 @@ router.post('/get-prayer-times', async (req, res) => {
 
         let timings = response.data.data[date - 1]["timings"];
         timings = Time.formatPrayerTimes(timings)
-
+        // console.log(location);
         httpMsg.sendJSON(req, res, {
             data: timings,
             location: location

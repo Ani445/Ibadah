@@ -1,0 +1,173 @@
+#overlay-in-new-event {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(52, 50, 50, 0.7);
+    z-index: 110; /* Make sure the overlay is above everything else */
+}
+
+#new-event {
+    height: 400px;
+    width: 550px;
+    overflow-x:hidden;
+    overflow-y: hidden;
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    z-index: 120; /* Make sure the modal is above the overlay */
+    padding: 10px;
+    border-radius: 5px;
+    -webkit-box-shadow: 0 2px 3px rgba(10, 10, 10, 0.1), 0 0 0 1px rgba(10, 10, 10, 0.1);
+    box-shadow: 0 10px 10px rgba(10, 10, 10, 0.1), 0 0 0 1px rgba(10, 10, 10, 0.1);
+
+}
+
+
+#new-event-content {
+    position: relative;
+    width: 100%;
+    padding: 0 60px 0 60px;
+}
+/* 
+#event-date{
+    padding: 10px 0 0px 0;
+    font-weight: 600;
+    text-align: center;
+    color:rgba(21, 17, 92, 0.602);
+} */
+
+#new-event-content h4{
+    position: relative;
+    font-size: 21px;
+    font-weight: 100;
+    /* border-bottom: 1px solid #b2b0b0; */
+    text-align: center;
+    padding: 5px;
+    margin-top: 10px;
+    /* background-color:rgba(144, 179, 221, 0.503);; */
+    border-radius: 5px;
+    color:rgba(21, 17, 92, 0.602);
+}
+
+
+/* :root{
+    --width: 260px;
+    --height: 83px;
+} */
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus, 
+input:-webkit-autofill:active{
+    transition: background-color 5000s ease-in-out 0s;
+}
+
+.new-event-input{
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-bottom: 2px solid #b2b0b0;
+    margin: 30px 0;
+}
+
+.new-event-input label{
+    position: relative;
+    left: 5px;
+    font-size: 1em;
+    color: #162938;
+    font-weight: 500;
+    pointer-events: none;
+}
+
+
+.new-event-input input{
+    width: 100%;
+    height: 50%;
+    background: transparent;
+    border: none;
+    outline: none;
+    font-size: 1em;
+    color: #162938;
+    padding: 5px 5px 5px 5px; 
+}
+
+
+.new-event-input textarea{
+    width: 80%; /* Adjust the width as needed */
+    height: 50%; /* Adjust the height as needed */
+    background: transparent;
+    border: none;
+    outline: none;
+    font-size: 1em;
+    color: #162938;
+    font-weight: 600;
+    resize: none;
+    padding: 5px 5px 5px 5px;
+    
+}
+
+.new-event-input input[id="event-name"]{
+    font-size: 1.1em;
+    font-weight: 300;
+}
+
+.new-event-input label {
+    font-weight: bold;
+}
+
+
+
+.timings input {
+    cursor: text;
+}
+
+
+
+.timings input::-webkit-calendar-picker-indicator {
+    display: block;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+}
+
+
+.submit{
+    display: grid;
+}
+#new-event-submit-button{
+    width: 25%;
+    height: 40px;
+    background: rgba(97, 76, 232, 0.626);
+    border: none;
+    outline: none;
+    border-radius: 5px;
+    cursor: pointer;
+    /* font-size: x-large; */
+    color: #fff;
+    font-weight: 100;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    justify-self: right;
+}
+
+.new-event-input label.error {
+    position: absolute;
+    font-family: Arial, sans-serif;
+    font-size: small;
+    color: red;
+    font-weight: unset;
+    translate: 0 45px;
+}
+
+.timings{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 20px;
+}

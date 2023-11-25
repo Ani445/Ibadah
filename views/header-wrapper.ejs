@@ -1,36 +1,58 @@
-
 <link rel="stylesheet" href="stylesheets/header-wrapper.css"/>
 
 <div class="header--wrapper">
     <div class="header--title">
-        <h2><%=`${name}`%></h2>
+        <h2><%= `${name}` %></h2>
     </div>
-    <div class="header--profile">
-        <button id="profile-button"></button>
-        <div id="profile-menu" style="display: none; position: absolute">
-            <ul style="list-style: none">
-                <li>
-                    <a style="text-decoration: none; color: black;" href="/profile" >
-                        <div class="profile-menu-item">
-                            Profile
-                        </div>
-                    </a>
-                </li>
-                <li>
-                    <a style="text-decoration: none; color: black;" href="" >
-                        <div class="profile-menu-item">
-                            Settings
-                        </div>
-                    </a>
-                </li>
-                <li>
-                    <a style="text-decoration: none; color: black;" href="/logout" >
-                        <div class="profile-menu-item">
-                            Logout
-                        </div>
-                    </a>
-                </li>
-            </ul>
+    <div style="display: flex; flex-direction: row;  gap: 10px">
+        <div class="bell-icon" style="display: flex; align-items: center; justify-content: center;">
+            <svg class="bell-icon-svg" height="25" viewBox="0 0 448 512" xmlns="http://www.w3.org/2000/svg">
+                <path class="bell-icon-outer"
+                      d="M 278.787 431.665 L 172.107 431.665 C 173.437 442.346 176.182 449.604 187.08 459.755 C 197.23 470.65 210.287 475.665 225.45 475.665 C 240.632 475.665 253.407 470.922 263.541 460.033 C 274.448 449.86 277.422 442.372 278.787 431.665 Z M 239.762 16.621 L 239.724 16.586 L 239.69 16.548000000000002 C 235.565 11.895 230.874 10 224 10 C 217.075 10 212.701 11.602 208.63 16.232 L 208.598 16.269 L 208.559 16.304 C 203.846 20.554 201.547 25.111 201.995 31.726 L 202 54.808 L 202 58.12 L 189.792 60.435 C 156.811 66.3 130.037 81.78 108.418 107.331 C 86.33 132.505 73.644 163.938 74 199.95 L 74 233.398 C 73.717 280.441 57.133 327.66 28.034 364.516 L 13.135 383.212 C 11.023 385.549 10.22 387.367 10.017 390.379 C 9.502 393.496 9.527 395.185 11.032 397.351 L 11.135 397.525 L 11.203 397.647 L 11.267 397.763 L 11.324 397.866 L 11.352 397.917 L 11.51 398.306 C 12.411 400.999 13.583 402.281 16.214 403.719 C 18.78 405.485 20.742 406.208 23.758 406.004 L 423.963 406 C 427.093 406.172 428.965 405.661 431.459 403.936 C 434.218 402.393 435.518 401.324 436.275 398.797 L 436.377 398.535 L 436.423 398.426 L 436.621 398.022 L 436.645 397.972 L 436.67 397.934 C 438.216 395.521 438.543 393.71 438.015 390.788 C 437.787 387.674 437.126 385.686 435.063 383.455 L 419.998 364.65 C 390.898 327.704 374.283 280.473 374 233.43 L 374 200.004 C 374.356 163.985 361.732 132.574 339.646 107.402 C 318.02 81.851 291.254 66.31 258.274 60.449 L 257.419 60.29 L 256.555 60.122 L 246 58.12 L 246 32.022 C 246.412 25.308 244.436 20.788 239.762 16.621 Z M 232.074 86 C 262.791 86.444 292.32 99.681 312.649 119.456 C 332.427 139.79 345.558 169.294 346 200.006 L 346 233.422 C 345.79 279.877 357.306 318.268 379.611 355.321 L 393.125 378 L 54.875 378 L 67.489 356.832 L 68.402 355.3 C 90.706 318.247 102.21 279.855 102 233.398 L 102 199.926 C 102.444 169.21 115.684 139.677 135.458 119.349 C 155.793 99.571 185.294 86.442 216.006 86 L 232.074 86 Z"></path>
+                <path class="bell-icon-inner" style="display: none"
+                      d="M 232.074 86 C 262.791 86.444 292.32 99.681 312.649 119.456 C 332.427 139.79 345.558 169.294 346 200.006 L 346 233.422 C 345.79 279.877 357.306 318.268 379.611 355.321 L 393.125 378 L 54.875 378 L 67.489 356.832 L 68.402 355.3 C 90.706 318.247 102.21 279.855 102 233.398 L 102 199.926 C 102.444 169.21 115.684 139.677 135.458 119.349 C 155.793 99.571 185.294 86.442 216.006 86 L 232.074 86 Z"></path>
+            </svg>
+        </div>
+        <div class="notification-panel hidden" style="position: absolute; z-index: 2;">
+            <h2 class="notification-panel-header">
+                Notifications
+            </h2>
+            <div class="notification-list-container"
+                 style="display: flex; flex-direction: column; overflow-y: scroll; overflow-x: hidden; overflow-wrap: break-word">
+                <ul class="notification-list" style="list-style: none;">
+                    <li id="notification-demo" class="hidden">
+                        <p></p>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="header--profile">
+            <button id="profile-button"></button>
+            <div id="profile-menu" style="display: none; position: absolute">
+                <ul style="list-style: none">
+                    <li>
+                        <a style="text-decoration: none; color: black;" href="/profile">
+                            <div class="profile-menu-item">
+                                Profile
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a style="text-decoration: none; color: black;" href="">
+                            <div class="profile-menu-item">
+                                Settings
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a style="text-decoration: none; color: black;" href="/logout">
+                            <div class="profile-menu-item">
+                                Logout
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+            </div>
         </div>
     </div>
 </div>
