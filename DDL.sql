@@ -114,20 +114,20 @@ CREATE TABLE NOTIFICATIONS
     NOTIFICATION_ID BIGINT AUTO_INCREMENT,
     USER_ID         BIGINT,
     WHAT_FOR        VARCHAR(30),
-    TIME            TIME,
+    TIME            DATETIME,
     CONSTRAINT NOTIFICATION_PK PRIMARY KEY (NOTIFICATION_ID),
     CONSTRAINT NOTIFICATION_FK_USER FOREIGN KEY (USER_ID) REFERENCES CREDENTIALS (USER_ID)
 );
 
-insert into notifications values (1, 122, 'prayer-asr-started', now());
-insert into notifications values (2, 122, 'prayer-maghrib-30', now());
-insert into notifications values (3, 122, 'prayer-asr-started', '2023-10-10');
-insert into notifications values (4, 122, 'prayer-maghrib-30', '2023-11-25');
+insert into notifications values (1, 1, 'prayer-asr-started', now());
+insert into notifications values (2, 1, 'prayer-maghrib-30', now());
+insert into notifications values (3, 1, 'prayer-asr-started', '2023-10-10');
+insert into notifications values (4, 1, 'prayer-maghrib-30', '2023-11-25');
 
 
 SELECT *
 FROM NOTIFICATIONS
-WHERE USER_ID = 122
+WHERE USER_ID = 1
   AND date(TIME) = date('2023-11-26')
 ORDER BY TIME DESC;
 
