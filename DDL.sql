@@ -119,8 +119,15 @@ CREATE TABLE NOTIFICATIONS
     CONSTRAINT NOTIFICATION_FK_USER FOREIGN KEY (USER_ID) REFERENCES CREDENTIALS (USER_ID)
 );
 
-insert into notifications
-values (1, 122, 'prayer-asr-started', now());
-insert into notifications
-values (2, 122, 'prayer-maghrib-30', now());
+insert into notifications values (1, 122, 'prayer-asr-started', now());
+insert into notifications values (2, 122, 'prayer-maghrib-30', now());
+insert into notifications values (3, 122, 'prayer-asr-started', '2023-10-10');
+insert into notifications values (4, 122, 'prayer-maghrib-30', '2023-11-25');
+
+
+SELECT *
+FROM NOTIFICATIONS
+WHERE USER_ID = 122
+  AND date(TIME) = date('2023-11-26')
+ORDER BY TIME DESC;
 

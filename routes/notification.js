@@ -4,11 +4,13 @@ const database = require("../server/database");
 const router = express.Router(); // Create an Express.js app
 const httpMsg = require('http-msgs')
 const axios = require("axios");
+const {verifyNotification} = require("../server/database");
 
-router.post('/checkk-for-notifications', async (req, res) => {
+async function checkPrayerTimes(req, res) {
     //Send a notification for prayer-time
+    let prayerTimes;
     try {
-        if (!req.session.prayerTimes && req.session.location) {
+        if (req.session.location) {
             let year = new Date().getFullYear()
             let month = new Date().getMonth() + 1
             let date = new Date().getDate()
@@ -16,51 +18,56 @@ router.post('/checkk-for-notifications', async (req, res) => {
             const response = (await axios.post('http://localhost:3000/get-prayer-times', {
                 year, month, date, location: req.session.location
             })).data
-            req.session.prayerTimes = [
-                {waqt: "Fajr", time: response.data["Fajr"], notified: false},
-                {waqt: "Dhuhr", time: response.data["Dhuhr"], notified: false},
-                {waqt: "Asr", time: response.data["Asr"], notified: false},
-                {waqt: "Maghrib", time: response.data["Maghrib"], notified: false},
-                {waqt: "Isha", time: response.data["Isha"], notified: false}
+            prayerTimes = [
+                {waqt: "Fajr", time: response.data["Fajr"]},
+                {waqt: "Dhuhr", time: response.data["Dhuhr"]},
+                {waqt: "Asr", time: response.data["Asr"]},
+                {waqt: "Maghrib", time: response.data["Maghrib"]},
+                {waqt: "Isha", time: response.data["Isha"]}
             ];
         }
         let timeLeft = 0;
         let currentWaqt = -1;
 
-        req.session.prayerTimes[4]["time"] = "08:11 PM";
+        prayerTimes[4]["time"] = "08:11 PM";
 
-        for (let i = 0; i < req.session.prayerTimes.length; i++) {
-            timeLeft = compareTimes(req.session.prayerTimes[i]["time"]);
+        for (let i = 0; i < prayerTimes.length; i++) {
+            timeLeft = compareTimes(prayerTimes[i]["time"]);
             if (timeLeft > 0) break;
             else currentWaqt = i;
         }
         if (currentWaqt == -1) currentWaqt = 4;
-        let notification = null;
-        if (!req.session.prayerTimes[currentWaqt].notified) {
-            if (-2 <= timeLeft && timeLeft <= 0) {
-                notification = {
-                    type: "prayer-time",
-                    status: "time-left",
-                    timeLeft: timeLeft
+
+
+        database.verifyNotification(req.session.user.userID, new Date(),
+            'prayer-isha-started', function (found) {
+                if (!found) {
+                    database.insertNewNotification(req.session.user.userID,
+                        'prayer-isha-started', function () {
+
+                        });
                 }
-                req.session.prayerTimes[currentWaqt].notified = true;
-            }
-        }
-        res.send({data: notification});
+            });
+
     } catch (e) {
         console.error(e.error)
-        res.send({data: null});
     }
-});
+}
 
 router.post('/check-for-notifications', async (req, res) => {
-    if (!req.session.user) {
-        return;
+    try {
+        if (!req.session.user) {
+            return;
+        }
+        checkPrayerTimes(req, res);
+        database.loadNotifications(req.session.user.userID, function (notifications) {
+            // console.log(notifications);
+            res.send({data: notifications});
+        });
+
+    } catch (e) {
+        console.log(e);
     }
-    database.loadNotifications(req.session.user.userID, function (notifications) {
-        // console.log(notifications);
-        res.send({data: notifications});
-    });
 });
 
 function compareTimes(timeStr) {

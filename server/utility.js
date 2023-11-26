@@ -65,4 +65,12 @@ class Time { // store time in 24 hr format
     }
 }
 
-module.exports = {Time};
+function formattedDate(date) {
+    let year = date.getFullYear();
+    let month = date.getMonth();
+    let day = date.getDate();
+
+    return `${year}-${month + 1}-${day}`;
+}
+
+module.exports = {Time, formattedDate};

@@ -23,9 +23,11 @@ router.get('/prayer-times', async (req, res, next) => {
             }
         )).data
         // console.log(req.session.location)
-        return res.render('PrayerTimes', {data:response["data"], location: response.location})
+        res.render('PrayerTimes', {data:response["data"], location: response.location})
+        next();
     } catch (e) {
         console.error(e.error)
+        next();
     }
 });
 

@@ -1,5 +1,6 @@
 const mysql = require('mysql');
 const {user} = require('./database-objects')
+const utility = require('../server/utility')
 
 const pool = mysql.createPool({
     host: 'localhost',
@@ -380,12 +381,44 @@ function loadDuaByCategory(category, callback) {
 }
 
 function loadNotifications(userID, callback) {
-    console.log(userID)
     const query = `SELECT *
                    FROM NOTIFICATIONS
                    WHERE USER_ID = ${pool.escape(userID)}
                    ORDER BY TIME DESC`;
     pool.query(query, (err, results) => {
+        if (err) {
+            console.error('Database query error: ' + err);
+            callback(null);
+        } else {
+            callback(results);
+        }
+    });
+}
+
+function verifyNotification(userID, date, notificationType, callback) {
+    console.log(`${utility.formattedDate(date)}`);
+    const query = `SELECT EXISTS(SELECT *
+                                 FROM NOTIFICATIONS
+                                 WHERE USER_ID = ${pool.escape(userID)}
+                                   AND DATE(TIME) = DATE(${pool.escape(utility.formattedDate(date))})
+                                   AND WHAT_FOR = ${pool.escape(notificationType)}
+                                 ORDER BY TIME DESC) AS FOUND`;
+    let x = pool.query(query, (err, results) => {
+        // console.log(x.sql)
+        if (err) {
+            console.error('Database query error: ' + err);
+            callback(null);
+        } else {
+            callback(results[0].FOUND);
+        }
+    });
+}
+
+function insertNewNotification(userID, notificationType, callback) {
+    const query = `INSERT INTO notifications(USER_ID, WHAT_FOR, TIME)
+                   VALUES (${pool.escape(userID)}, ${pool.escape(notificationType)}, NOW())`;
+    let x = pool.query(query, (err, results) => {
+        // console.log(x.sql)
         if (err) {
             console.error('Database query error: ' + err);
             callback(null);
@@ -412,5 +445,7 @@ module.exports = {
     loadDuas,
     loadDuaByCategory,
     deleteTask,
-    loadNotifications
+    loadNotifications,
+    verifyNotification,
+    insertNewNotification
 }
