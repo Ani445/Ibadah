@@ -6,35 +6,40 @@
     <meta charset="UTF-8">
 
     <%- include('head-include.ejs') %>
-    
-    <link rel="stylesheet" type="text/css" href="stylesheets/forum.css">
+
+        <link rel="stylesheet" type="text/css" href="stylesheets/forum.css">
 
 </head>
 
 <body>
+
     <%- include('sidebar.ejs') %>
         <div class="main--content">
             <%- include('header-wrapper.ejs',{name: "Forum" }) %>
-            <div>
+                <div>
                     <form id="postForm" name="postForm" action="/new-post" method="post">
-                        <textarea type="input" id="contentInput" name="paiso" placeholder="What is on your mind?" required></textarea>
+                        <textarea type="input" id="contentInput" name="paiso" placeholder="What is on your mind?"
+                            required></textarea>
                         <label class="error" for="contentInput"></label>
-                        <button type="submit" id="submitBtnPost" name="submitBtnPost">Create a new post</button>
+                        <button type="submit" id="submitBtnPost" name="submitBtnPost">Create Post</button>
                     </form>
-            </div>
-               
+                </div>
 
 
-                <div class="card--container">
 
-                    <ul style="list-style: none;">
+                <div class="card--container" style=" background: #d5e3ec;">
+
+                    <ul style="list-style: none; display: flex; flex-direction: column; align-items: center;">
                         <% data.forEach(post=> { %>
                             <li>
-                                <div class="post" id = <%= post.post_id %> >
+                                <div class="post" id=<%=post.post_id %> >
                                     <p class="post-id" id="name_user" name="name_user">
-                                        <%= post.user_name %>
-                                    </p> 
-                                    <p class="post-time" id="time_post">
+                                        <i class="fa-solid fa-user" style="color: #1b3852;"></i>
+                                        <span class="user-name" style="vertical-align: bottom;">
+                                            <%= post.user_name %>
+                                        </span>
+                                    </p>
+                                    <p class="post-time" id="time_post" style="font-size: 13px;">
                                         <%= post.time %>,<%= post.date %>
                                     </p>
                                     <!-- <p class="post-date" id="date_post">
@@ -45,15 +50,20 @@
                                     </p>
 
                                     <div class="comment-section">
-                                        <h4>Comments</h4>
-                                        <ul class="comment-list">
+                                        <label class="show-comments" data-postid="<%= post.post_id %>">Show comments</label>
+                                        <ul class="comment-list hidden-comments" id="commentList<%= post.post_id %>" >
                                             <% post.comments.forEach(comment=> { %>
                                                 <li>
                                                     <div class="comment">
                                                         <p class="comment-id" id="name_commenter" name="name_commenter">
-                                                            <%= comment.user_name %>
+
+                                                            <i class="fa-solid fa-user" style="color: #1b3852;"></i>
+                                                            <span class="user-name1" style="vertical-align: bottom;">
+                                                                <%= comment.user_name %>
+                                                                </span>
                                                         </p>
-                                                        <p class="comment-date" id="date_comment">
+                                                        <p class="comment-date" id="date_comment"
+                                                            style="font-size: 13px;">
                                                             <%= comment.time %>, <%= comment.date %>
                                                         </p>
                                                         <p class="comment-content">
@@ -67,10 +77,13 @@
                                     </div>
 
                                     <div>
-                                        <form id="postComment" name="postComment" action="/new-comment/<%= post.post_id %>" method="post">
-                                            <textarea type="input" id="commented" name="commented" required placeholder="Add a comment"></textarea>
+                                        <form id="postComment" name="postComment"
+                                            action="/new-comment/<%= post.post_id %>" method="post">
+                                            <textarea type="input" id="commented" name="commented" required
+                                                placeholder="Add a comment"></textarea>
                                             <label class="error" for="commented"></label>
-                                            <button type="submit" id="submitComment" name="submitComment">Comment</button>
+                                            <button type="submit" id="submitComment"
+                                                name="submitComment">Comment</button>
                                         </form>
                                     </div>
 
@@ -78,12 +91,31 @@
                             </li>
                             <% }) %>
                     </ul>
-                </div> 
+                </div>
         </div>
         <script src="javascripts/forum.js"></script>
+       
 
-        
-        
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        var showCommentsLabels = document.querySelectorAll('.show-comments');
+
+        showCommentsLabels.forEach(function(label) {
+            label.addEventListener('click', function() {
+                toggleComments(label.dataset.postid);
+            });
+        });
+    });
+
+    function toggleComments(postId) {
+        var commentList = document.getElementById("commentList" + postId);
+        commentList.classList.toggle("hidden-comments");
+    }
+</script>
+
+
+
+
 </body>
 
 </html>

@@ -48,7 +48,10 @@
 }
 
 .salat-table .notBottom{
-    border: 1px solid rgba(193, 180, 233, 0.75);
+    /* border: 1px solid rgba(193, 180, 233, 0.75); */
+       /* border: 1px solid rgba(0, 148, 153, 0.75); */
+    border: 1px solid rgba(00, 98, 159, 0.75);
+
     border-width: 0 0 1px;
 }
 #prayer-time-location{
@@ -88,7 +91,8 @@
 
 .salat-table tr.is-selected {
     /* background-color: #00d1b2; */
-    background-color: rgba(182, 202, 246, 0.93);
+    /* background-color: rgba(182, 202, 246, 0.93); */
+    background-color: #f5fffa;
     font-weight: bold;
   }
   
@@ -97,7 +101,8 @@
     margin: 100px;
     margin-left: 150px;
     margin-bottom: 200px;
-    background-color: rgba(95, 46, 241, 0.1);
+    background: linear-gradient(to right, #8cb8d4, #b2dfe0);
+    /* background-color: rgba(95, 46, 241, 0.1); */
     color: #fff;
     border-radius: 5px;
     -webkit-box-shadow: 0 2px 3px rgba(10, 10, 10, 0.1), 0 0 0 1px rgba(10, 10, 10, 0.1);

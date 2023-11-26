@@ -6,8 +6,8 @@
 }
 
 #mini-calendar-container input[id="month"] {
-    --color: #ceb5f8;
-    --press-color: #bf9df3;
+    --color: #80b0cf;
+    --press-color: #4089b7;
     width: 60px;
     height: 25px;
     border-radius: 5px;
@@ -17,8 +17,8 @@
 }
 
 #mini-calendar-container input[id="year-up"], input[id="year-down"] {
-    --color: #ceb5f8;
-    --press-color: #bf9df3;
+    --color: #80b0cf;
+    --press-color: #4089b7;
     width: 20px;
     height: 25px;
     font-weight: bold;
@@ -37,7 +37,7 @@
     width: 60px;
     height: 25px;
     border-radius: 2px;
-    background-color: #ddcbfc;
+    background-color: #80b0cf;
     cursor: default;
 }
 
@@ -75,11 +75,11 @@
 .mini-calendar .date-cell.current-month {
     border-color: inherit;
     font-family: "Times New Roman", Times, serif !important;
-    background-color: #e7e7e7;
+    background-color: #cce0ec;
 }
 
 .mini-calendar .date-cell:hover {
-    background-color: #cccccc;
+    background-color: #8cb8d4;
 }
 
 .mini-calendar .date-cell.previous-month, .date-cell.next-month {

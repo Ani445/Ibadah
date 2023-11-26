@@ -26,8 +26,21 @@ body{
     /* transition: all 0.5s linear; */
     /* background: rgba(113, 99, 186, 255); */
     /* background:  #5908d3; */
-    background: linear-gradient(to top, #8a52dd 0%, #5b57b1 80%);
+    background: linear-gradient(to top, #009499 0%, #00629F 80%);
+    
+    /* background: linear-gradient(to top, #8a52dd 0%, #5b57b1 80%); */
 }
+
+.main--content{
+    position: relative;
+    /* background: #ebe9e9; */
+    background: #d5e3ec;
+    /* background:  #c3cef1c6; */
+    width: 100%;
+    padding: 1rem;
+
+}
+
 /* .sidebar .open{
     width: 240px;
     transition: 0.5s;
@@ -88,13 +101,7 @@ body{
 
 /******main content*******/
 
-.main--content{
-    position: relative;
-    /* background: #ebe9e9; */
-    background:  #c3cef1c6;
-    width: 100%;
-    padding: 1rem;
-}
+
 
 .header--wrapper{
     display: flex;
@@ -108,7 +115,8 @@ body{
 }
 
 .header--title{
-    color: rgba(113, 99, 186, 255);
+    /* color: rgba(113, 99, 186, 255); */
+    color: #0868a2;
 }
 
 .main--title{
@@ -125,7 +133,7 @@ body{
     gap: 1rem;
 }
 .card--container{
-    background: #fff;
+    background: white;
     /* background: rgb(204, 204, 215); */
     padding: 2rem;
     border-radius: 10px; 

@@ -3,7 +3,9 @@
 #profile-button {
     width: auto;
     height: 35px;
-    background-color: #9f5fff;
+    /* background-color: #b83b3e; */
+    background: linear-gradient(to top, #00829b 0%, #338db1 80%);
+
     cursor: pointer;
     padding-left: 5px;
     padding-right: 5px;
@@ -60,10 +62,12 @@
 }
 
 .bell-icon svg {
-    fill: #6b05e8;
+    fill: #338db1;
 }
 
-
+.header--title{
+    color: #0868a2;
+}
 .notification-panel.hidden {
     display: none;
 }
