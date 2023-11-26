@@ -1,4 +1,55 @@
 $(() => {
+    function updateNotifications(notifications) {
+        let htmlNotificationList = $(".notification-list");
+        let htmlNotificationArray = htmlNotificationList.find("li").toArray(); // Get all existing li elements
+
+        $(htmlNotificationList).find("li:not(:first-child)").remove()
+
+        console.log(notifications.length);
+
+        // Create a new li element using jQuery
+        let htmlNotificationDemo = $(htmlNotificationArray[0]);
+
+        for (let i = 0; i < notifications.length; i++) {
+            let n = notifications[i];
+            let type = n.WHAT_FOR.split("-");
+            let newHtmlNotification = htmlNotificationDemo.clone();
+            if (type[0] === "prayer") {
+                if (type[2] === "started") {
+                    newHtmlNotification.find('p').text(`Your ${type[1]} prayer has started`);
+                    newHtmlNotification.removeClass("hidden");
+                } else {
+                    newHtmlNotification.find('p').text(`Your ${type[1]} prayer will start in ${type[2]} minutes.`);
+                    newHtmlNotification.removeClass("hidden");
+                }
+            }
+
+            newHtmlNotification.addClass("salah-reminder");
+            newHtmlNotification.click(function (event) {
+                if (event.target.className == "salah-reminder") {
+                    if (window.location.pathname != "/prayer-times") {
+                        window.location.href = "/prayer-times";
+                    } else {
+                        closeNotificationPanel();
+                    }
+                }
+            })
+            htmlNotificationList.append(newHtmlNotification);
+        }
+    }
+
+    async function checkForNotifications() {
+        $.post("check-for-notifications", function (response) {
+            if (response.data) {
+                // console.log(response.data);
+                updateNotifications(response.data);
+            }
+        })
+    }
+
+    setInterval(checkForNotifications, 2000);
+    checkForNotifications();
+
     let profileButton = document.querySelector("#profile-button")
     let profileMenu = document.querySelector("#profile-menu")
 
@@ -52,57 +103,4 @@ $(() => {
             closeNotificationPanel();
         }
     })
-
-
-    setInterval(checkForNotifications, 2000);
-
-    let count = 0;
-
-    async function checkForNotifications() {
-        $.post("check-for-notifications", function (response) {
-            if (response.data) {
-                console.log(response.data);
-                updateNotifications(response.data);
-            }
-        })
-    }
-
-    checkForNotifications();
-
-    function updateNotifications(notifications) {
-        let notificationList = $(".notification-list");
-        let notificationArray = notificationList.find("li").toArray(); // Get all existing li elements
-
-        $(notificationList).find("li:not(:first-child)").remove()
-
-        // Create a new li element using jQuery
-        let newNotificationElement = $(notificationArray[0]).clone();
-
-        for (let i = 0; i < notifications.length; i++) {
-            let n = notifications[i];
-            let type = n.WHAT_FOR.split("-");
-
-            if (type[0] === "prayer") {
-                if (type[2] === "started") {
-                    newNotificationElement.find('p').text(`Your ${type[1]} prayer has started`);
-                    newNotificationElement.removeClass("hidden");
-                } else {
-                    newNotificationElement.find('p').text(`Your ${type[1]} prayer will start in ${type[2]} minutes.`);
-                    newNotificationElement.removeClass("hidden");
-                }
-            }
-
-            newNotificationElement.addClass("salah-reminder");
-            newNotificationElement.click(function (event) {
-                if (event.target.className == "salah-reminder") {
-                    if (window.location.pathname != "/prayer-times") {
-                        window.location.href = "/prayer-times";
-                    } else {
-                        closeNotificationPanel();
-                    }
-                }
-            })
-            notificationList.append(newNotificationElement);
-        }
-    }
 })
