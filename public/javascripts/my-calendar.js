@@ -1,13 +1,13 @@
-var selectedElement;
+let selectedElement;
 document.addEventListener('DOMContentLoaded', function () {
 
-    currentDate = document.querySelector('.Today >.en');
+    let currentDate = document.querySelector('.Today >.en');
     let todayDate = new Date().getDate();
     let todayMonth = new Date().getMonth();
     let todayYear = new Date().getFullYear();
 
     currentDate.innerHTML = "<span>" + todayDate + " " + months[todayMonth].substring(0, 3) + " " + todayYear + "</span>";
-    currentArabicDate = document.querySelector('.Today > .ar');
+    let currentArabicDate = document.querySelector('.Today > .ar');
     currentArabicDate.innerHTML = "<span>" + new HijrahDate(new Date()).format('longDate', 'en') + "</span>";
 
     let monthButton = document.querySelector("#month")
@@ -232,6 +232,7 @@ document.addEventListener('DOMContentLoaded', function () {
         $(taskList).find(".delete-task-button").each(function (index, button) {
             $(button).click(function (event) {
                 $(event.target).parent().parent().remove();
+                $('.description-modal').removeClass("active");
                 $.post(`/delete-planned-event/${$(event.target).parent().parent().attr("id")}`, function (response) {
                     if (response.success) {
                         console.log("ok")
