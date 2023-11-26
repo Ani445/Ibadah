@@ -4,7 +4,6 @@ const database = require("../server/database");
 const router = express.Router(); // Create an Express.js app
 const httpMsg = require('http-msgs')
 const axios = require("axios");
-const {verifyNotification} = require("../server/database");
 
 async function checkPrayerTimes(req, res) {
     //Send a notification for prayer-time
@@ -28,8 +27,10 @@ async function checkPrayerTimes(req, res) {
         }
         let timeLeft = 0;
         let currentWaqt = -1;
+        let notificationType;
+        let newNotificationCame = false;
 
-        prayerTimes[4]["time"] = "08:11 PM";
+        prayerTimes[4]["time"] = "01:32 AM";
 
         for (let i = 0; i < prayerTimes.length; i++) {
             timeLeft = compareTimes(prayerTimes[i]["time"]);
@@ -38,12 +39,25 @@ async function checkPrayerTimes(req, res) {
         }
         if (currentWaqt == -1) currentWaqt = 4;
 
+        timeLeft = compareTimes(prayerTimes[currentWaqt]["time"]);
+        if (-2 <= timeLeft && timeLeft <= 0) {
+            notificationType = `prayer-${prayerTimes[currentWaqt]["waqt"]}-started`;
+            newNotificationCame = true;
+        } else if (timeLeft === 30) {
+            notificationType = `prayer-${prayerTimes[currentWaqt]["waqt"]}-${timeLeft}`;
+            newNotificationCame = true;
+        } else if (timeLeft === 15) {
+            notificationType = `prayer-${prayerTimes[currentWaqt]["waqt"]}-${timeLeft}`;
+            newNotificationCame = true;
+        }
+
+        if(!newNotificationCame) return;
 
         database.verifyNotification(req.session.user.userID, new Date(),
-            'prayer-isha-started', function (found) {
+            notificationType, function (found) {
                 if (!found) {
                     database.insertNewNotification(req.session.user.userID,
-                        'prayer-isha-started', function () {
+                        notificationType, function () {
 
                         });
                 }
@@ -67,6 +81,7 @@ router.post('/check-for-notifications', async (req, res) => {
 
     } catch (e) {
         console.log(e);
+        res.send(null);
     }
 });
 
