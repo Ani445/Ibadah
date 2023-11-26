@@ -252,9 +252,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
                     planDescriptionModal.css({left: modalLeft, top: modalTop});
                     planDescriptionModal.addClass('active');
-
-
-
                 },
                 function () {
                     planDescriptionModal.removeClass('active');

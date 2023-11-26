@@ -53,40 +53,56 @@ $(() => {
         }
     })
 
-    setInterval(checkForNotifications, 1000);
+
+    setInterval(checkForNotifications, 2000);
 
     let count = 0;
 
     async function checkForNotifications() {
         $.post("check-for-notifications", function (response) {
-            if(response.data) {
+            if (response.data) {
                 console.log(response.data);
-                updateNotifications();
+                updateNotifications(response.data);
             }
         })
     }
 
-    function updateNotifications() {
+    checkForNotifications();
+
+    function updateNotifications(notifications) {
         let notificationList = $(".notification-list");
         let notificationArray = notificationList.find("li").toArray(); // Get all existing li elements
 
+        $(notificationList).find("li:not(:first-child)").remove()
+
         // Create a new li element using jQuery
-        let notification = $(notificationArray[0]).clone();
+        let newNotificationElement = $(notificationArray[0]).clone();
 
-        notification.find('p').text(`${++count} isaugfvisgekyieds vdgfvydeg bsfvgiydesggb iuyv dsyfesdbcdsjbvydefve`);
-        notification.removeClass("hidden");
+        for (let i = 0; i < notifications.length; i++) {
+            let n = notifications[i];
+            let type = n.WHAT_FOR.split("-");
 
-        notification.addClass("salah-reminder");
-        notification.click(function (event) {
-            if (event.target.className == "salah-reminder") {
-                if (window.location.pathname != "/prayer-times") {
-                    window.location.href = "/prayer-times";
+            if (type[0] === "prayer") {
+                if (type[2] === "started") {
+                    newNotificationElement.find('p').text(`Your ${type[1]} prayer has started`);
+                    newNotificationElement.removeClass("hidden");
                 } else {
-                    closeNotificationPanel();
+                    newNotificationElement.find('p').text(`Your ${type[1]} prayer will start in ${type[2]} minutes.`);
+                    newNotificationElement.removeClass("hidden");
                 }
             }
-        })
 
-        notificationList.append(notification);
+            newNotificationElement.addClass("salah-reminder");
+            newNotificationElement.click(function (event) {
+                if (event.target.className == "salah-reminder") {
+                    if (window.location.pathname != "/prayer-times") {
+                        window.location.href = "/prayer-times";
+                    } else {
+                        closeNotificationPanel();
+                    }
+                }
+            })
+            notificationList.append(newNotificationElement);
+        }
     }
 })

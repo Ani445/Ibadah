@@ -38,12 +38,12 @@ CREATE TABLE CLASSES
 /* user's daily tasks*/
 CREATE TABLE DAILY_PLANS
 (
-    TASK_ID BIGINT AUTO_INCREMENT,
-    USER_ID BIGINT,
-    DATE DATETIME,
-    START_TIME TIME,
-    END_TIME TIME,
-    TASK_NAME VARCHAR(50),
+    TASK_ID     BIGINT AUTO_INCREMENT,
+    USER_ID     BIGINT,
+    DATE        DATETIME,
+    START_TIME  TIME,
+    END_TIME    TIME,
+    TASK_NAME   VARCHAR(50),
     DESCRIPTION MEDIUMBLOB,
     CONSTRAINT DAILY_TASKS_PK PRIMARY KEY (TASK_ID),
     CONSTRAINT DAILY_TASKS_FK FOREIGN KEY (USER_ID) REFERENCES CREDENTIALS (USER_ID)
@@ -52,9 +52,12 @@ CREATE TABLE DAILY_PLANS
 );
 
 
-insert into daily_plans (user_id, task_name, date, start_time, end_time) values(1, 'homework', date(now()), time(now()), time(now()));
-insert into daily_plans (user_id, task_name, date, start_time, end_time) values(1, 'read quran', date(now()), time(now()), time(now()));
-insert into daily_plans (user_id, task_name, date, start_time, end_time) values(1, 'read hadith', date(now()), time(now()), time(now()));
+insert into daily_plans (user_id, task_name, date, start_time, end_time)
+values (1, 'homework', date(now()), time(now()), time(now()));
+insert into daily_plans (user_id, task_name, date, start_time, end_time)
+values (1, 'read quran', date(now()), time(now()), time(now()));
+insert into daily_plans (user_id, task_name, date, start_time, end_time)
+values (1, 'read hadith', date(now()), time(now()), time(now()));
 
 CREATE TABLE POSTS
 (
@@ -106,10 +109,18 @@ CREATE TABLE DUA
         ON UPDATE CASCADE
 );
 
-# CREATE TABLE NOTIFICATION
-# (
-#     NOTIFICATION_ID INT AUTO_INCREMENT,
-#     WHAT_FOR VARCHAR(10),
-#     CONSTRAINT NOTIFICATION_PK PRIMARY KEY (NOTIFICATION_ID)
-# );
-#
+CREATE TABLE NOTIFICATIONS
+(
+    NOTIFICATION_ID BIGINT AUTO_INCREMENT,
+    USER_ID         BIGINT,
+    WHAT_FOR        VARCHAR(30),
+    TIME            TIME,
+    CONSTRAINT NOTIFICATION_PK PRIMARY KEY (NOTIFICATION_ID),
+    CONSTRAINT NOTIFICATION_FK_USER FOREIGN KEY (USER_ID) REFERENCES CREDENTIALS (USER_ID)
+);
+
+insert into notifications
+values (1, 122, 'prayer-asr-started', now());
+insert into notifications
+values (2, 122, 'prayer-maghrib-30', now());
+

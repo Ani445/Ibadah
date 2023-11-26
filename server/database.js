@@ -279,9 +279,9 @@ function loadAllTasks(userID, callback) {
     const sql = `SELECT TASK_ID,
                         TASK_NAME,
                         DESCRIPTION,
-                        DATE_FORMAT(DATE, '%M %d, %Y') as DATE,
-                        TIME_FORMAT(START_TIME, '%h:%i %p')  as START_TIME,
-                        TIME_FORMAT(END_TIME, '%h:%i %p')  as END_TIME
+                        DATE_FORMAT(DATE, '%M %d, %Y')      as DATE,
+                        TIME_FORMAT(START_TIME, '%h:%i %p') as START_TIME,
+                        TIME_FORMAT(END_TIME, '%h:%i %p')   as END_TIME
                  FROM DAILY_PLANS
                  WHERE USER_ID = ${pool.escape(userID)}`;
     pool.query(sql, (err, results) => {
@@ -308,7 +308,9 @@ function insertNewTask(task_name, description, date, start_time, end_time, callb
 }
 
 function deleteTask(task_id, callback) {
-    const sql = `DELETE FROM DAILY_PLANS WHERE TASK_ID = ${pool.escape(task_id)}`;
+    const sql = `DELETE
+                 FROM DAILY_PLANS
+                 WHERE TASK_ID = ${pool.escape(task_id)}`;
     pool.query(sql, (err) => {
         if (err) {
             console.log(err.sqlMessage + '\n' + err.sql);
@@ -377,6 +379,22 @@ function loadDuaByCategory(category, callback) {
     });
 }
 
+function loadNotifications(userID, callback) {
+    console.log(userID)
+    const query = `SELECT *
+                   FROM NOTIFICATIONS
+                   WHERE USER_ID = ${pool.escape(userID)}
+                   ORDER BY TIME DESC`;
+    pool.query(query, (err, results) => {
+        if (err) {
+            console.error('Database query error: ' + err);
+            callback(null);
+        } else {
+            callback(results);
+        }
+    });
+}
+
 module.exports = {
     checkCredentials,
     insertUser,
@@ -393,5 +411,6 @@ module.exports = {
     insertNewComments,
     loadDuas,
     loadDuaByCategory,
-    deleteTask
+    deleteTask,
+    loadNotifications
 }

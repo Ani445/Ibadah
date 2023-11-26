@@ -18,6 +18,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 const loginRoutes = require('./routes/login');
 const registerRoutes = require('./routes/register');
+const notificationRoutes = require('./routes/notification');
 const userRoutes = require('./routes/user');
 const profileRoutes = require('./routes/profile');
 const classesRoutes = require('./routes/classes');
@@ -31,6 +32,7 @@ const duaRoutes= require('./routes/dua');
 app.use('/', userRoutes);
 app.use('/', loginRoutes);
 app.use('/', registerRoutes);
+app.use('/', notificationRoutes);
 app.use('/', profileRoutes);
 app.use('/', classesRoutes);
 app.use('/', prayerTimeRoutes);
