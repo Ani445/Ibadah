@@ -33,11 +33,13 @@ const listItems = document.querySelectorAll('.info-table');
 searchbar = document.querySelector('.searchbar');
 
 var searchbarContent="";
+var datePicker = document.querySelector("#search-datepicker");
+
 searchbar.addEventListener('input', function (event) {
     const searchTerm = event.target.value.toLowerCase();
     searchbarContent = searchTerm;
-
-   display(searchbarContent);
+    
+    display(searchbarContent);
 });
 
 radioButton.addEventListener('input', function (event) {
@@ -50,7 +52,7 @@ function applyType(){
     if(type == "Online"){
         if(select.selectedIndex==3){
             select.selectedIndex=0;
-            type = "All";
+            //type = "All";
             filter=0;
             filterType = 0;
         }
@@ -60,7 +62,7 @@ function applyType(){
     else if(type == "Offline"){
         if(select.selectedIndex==2){
             select.selectedIndex=0;
-            type="All";
+            //type="All";
             filter = 0;
             filterType = 0;
         }
@@ -71,9 +73,19 @@ function applyType(){
         select[2].disabled=false;
         select[3].disabled=false;
     }
-
+    
     display(searchbarContent);
-  
+    
+}
+
+function showClass(filterType, itemType){
+    if(filterType==2 && itemType!="Online") return false;
+    if(filterType==3 && itemType!="Offline") return false;
+    return true;
+}
+function IsEqual(date1, date2){
+    return (date1.getDate() == date2.getDate() && date1.getMonth() == date2.getMonth()
+     && date1.getFullYear() == date2.getFullYear());
 }
 
 function display(searchTerm){
@@ -84,16 +96,38 @@ function display(searchTerm){
         //console.log(itemText);
         const itemTypeRow = (item.getElementsByTagName("tr")[2]);
         const itemType = itemTypeRow.querySelector('.value').textContent;
-        if(type=="All" && filterType==2 && itemType!="Online"){
+        const classDate = item.getElementsByTagName("tr")[4];
+        const classDateVal = new Date((classDate.querySelector('.value')).textContent);
+
+        const datePickerVal = new Date(datePicker.value);
+
+        if(!showClass(filterType, itemType))
             item.parentNode.style.display = 'none';
-        }
-        else if(type=="All" && filterType==3 && itemType!="Offline"){
-            item.parentNode.style.display = 'none';
-        }
-        else if ((itemText.indexOf(searchTerm) !== -1 || searchTerm=="")  && (itemType == type || type=="All")) {
+        else if ((IsEqual(classDateVal, datePickerVal) || datePicker.value == "") && (itemText.indexOf(searchTerm) !== -1 || searchTerm=="")  && (itemType == type || type=="All")) 
             item.parentNode.style.display = 'list-item';
-        } else {
+        else 
             item.parentNode.style.display = 'none';
-        }
     });
 }
+
+
+
+
+
+// function padTo2Digits(num) {
+//     return num.toString().padStart(2, '0');
+//   }
+
+function formatDate(date = new Date()) {
+    return [
+      date.getFullYear(),
+      padTo2Digits(date.getMonth() + 1),
+      padTo2Digits(date.getDate()),
+    ].join('-');
+  }
+
+//   datePicker.value = formatDate();
+  
+  datePicker.addEventListener("change", (event) => {
+      display(searchbarContent);
+});
