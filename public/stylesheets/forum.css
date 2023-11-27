@@ -217,6 +217,31 @@ label.error
     font-size: 13px;
 }
 
+
+.option-buttons .delete-button {
+    width: 60px;
+    height: 27px;
+    border-radius: 5px;
+    background-color: whitesmoke;
+    border-color: #a31a1a;
+    border-width: 15px;
+    color: #a31a1a;
+    margin-top: 5px;
+    cursor: pointer;
+    border: 1.5px solid #a31a1a !important;
+    transition: background-color 0.3s;
+  }
+  
+  .option-buttons.hidden {
+    display: none;
+  }
+  
+  .option-buttons .delete-button:hover {
+    background-color: #cc0000; /* Change to the desired color on hover */
+    color: #ffffff; /* Optionally, you can change the text color on hover */
+  }
+  
+
 #postComment
 {
     display: flex;

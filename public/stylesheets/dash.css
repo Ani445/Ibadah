@@ -57,8 +57,33 @@ body {
     /* background: rgb(236, 236, 254); */
     background: linear-gradient(to right, #9dcad9, #b3dde0);
     margin: 0px 60px 0px 60px;
+    text-align-last: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     /* align-self: center; */
 
+}
+
+.light-pink {
+    /* background: rgb(236, 236, 254); */
+    background: linear-gradient(to right, #40b0a6 0%, #73c5be 80%);
+    margin: 0px 5px 0px 10px;
+    text-align-last: center;
+    /* align-self: center; */
+    height: 100px;
+    width: 180px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+}
+.light-now{
+    /* background: linear-gradient(to right, #bce3e0 0%, #cfebe9 80%); */
+    background: linear-gradient(to right, #a9dbd7 0%, #b3dfdb 80%);
+
+    margin: 0px 5px 0px 10px;
+    text-align-last: center;
+    /* align-self: center; */
+    height: 100px;
+    width: 180px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 header {
@@ -106,12 +131,32 @@ body, h1, h2, h3, p, ul, li {
     flex-wrap: wrap;
     gap: 3rem;
 }
+.wrapped{
+    align-items: center; 
+    /* padding: 0 100px 0 0; */
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+
+}
 .card-detail{
     /* padding: 30px; */
     /* background: white; */
     color: #004e7f;
-    padding: 1rem;
+    padding: 0.5rem;
     font-size: 22px;
+    text-decoration-line: underline;
+    text-decoration-color: #004e7f ;
+    /* border-radius: 5px;  */
+    /* background: linear-gradient(to right, #8cb8d4, #b2dfe0); */
+
+}
+.card-detail1{
+    /* padding: 30px; */
+    /* background: white; */
+    color: #004e7f;
+    padding: 0.2rem;
+    font-size: 20px;
     text-decoration-line: underline;
     text-decoration-color: #004e7f ;
     /* border-radius: 5px;  */

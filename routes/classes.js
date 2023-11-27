@@ -9,7 +9,8 @@ router.get('/classes', (req, res) => {
         return res.redirect('/login');
     }
     database.loadClasses((results) => {
-        res.render('classes', {data: results});
+        res.render('classes', {data: results, currentUserID: req.session.user.userID});
+        console.log(req.session.user.userID)
     });
 });
 
@@ -39,6 +40,17 @@ router.post('/new-class', (req, res) => {
             });
         });
 });
+
+router.post('/delete-class/:id', (req, res) => {
+    if(!req.session.user) return;
+
+    database.deleteCLass(req.params.id, (isSuccess) => {
+            httpMsg.sendJSON(req, res, {
+                success: isSuccess,
+            });
+        });
+});
+
 
 //export the router.
 //It will be used in 'app.js'

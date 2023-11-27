@@ -53,4 +53,15 @@ $(() => {
             return false; // required to block normal submit since you used ajax
         },
     });
+    
+    $(".option-buttons .delete-button").each(function (index, button) {
+        $(button).click(function () {
+            let li = $(button).parent().parent().parent();
+            let id = li.attr("id");
+            li.remove();
+            $.post(`/delete-post/${id}`, function (response) {
+                console.log("class deleted");
+            })
+        })
+    });
 })

@@ -140,16 +140,16 @@ function updateEmail(userID, email, callback) {
 }
 
 function loadClasses(callback) {
-    const sql = `SELECT post_id,
-                        topic,
-                        teacher,
-                        DATE_FORMAT(date, '%M %d, %Y') as date,
-                        TIME_FORMAT(time, '%h:%i %p')  as time,
-                        online,
-                        address
-                 FROM classes
-                 order by post_id desc`;
-
+    const sql = `SELECT POST_ID,
+                        USER_ID,
+                        TOPIC,
+                        TEACHER,
+                        DATE_FORMAT(DATE, '%M %D, %Y') AS DATE,
+                        TIME_FORMAT(TIME, '%h:%i %p')  AS TIME,
+                        ONLINE,
+                        ADDRESS
+                 FROM CLASSES
+                 ORDER BY DATE, TIME`;
 
     pool.query(sql, (err, results) => {
         if (err) {
@@ -160,24 +160,15 @@ function loadClasses(callback) {
     });
 }
 
-function loadDashClasses(callback) {
-    const sql = `SELECT * FROM(SELECT post_id,
-                        topic,
-                        teacher,
-                        DATE_FORMAT(date, '%M %d, %Y') as date,
-                        TIME_FORMAT(time, '%h:%i %p')  as time,
-                        online,
-                        address
-                 FROM classes
-                 order by date asc, time asc LIMIT 2)`;
+function deleteCLass(postID, callback) {
+    const sql = `DELETE FROM CLASSES WHERE POST_ID = ${pool.escape(postID)}`;
 
-
-    pool.query(sql, (err, results) => {
+    pool.query(sql, (err) => {
         if (err) {
             console.log(err.sqlMessage + '\n' + err.sql);
             callback(0);
         }
-        callback(results);
+        callback(1);
     });
 }
 
@@ -189,7 +180,7 @@ function loadDuas(callback) {
                         source
                  FROM dua
                  where cat_id = 2
-                 order by dua_id asc`;
+                 order by dua_id`;
 
 
     pool.query(sql, (err, results) => {
@@ -275,18 +266,18 @@ function loadPosts(callback) {
                     });
                 }
             }
-
             callback(posts);
         }
     });
 }
 
 
-function insertNewClasses(topic, teacher, medium, address, date, time, callback) {
+function insertNewClasses(userID, topic, teacher, medium, address, date, time, callback) {
     if (medium === "Online") medium = 1; else medium = 0;
 
-    const sql = `INSERT INTO classes(topic, teacher, online, address, date, time)
-                 VALUES (${pool.escape(topic)}, ${pool.escape(teacher)}, ${pool.escape(medium)},
+    const sql = `INSERT INTO classes(user_id, topic, teacher, online, address, date, time)
+                 VALUES (${pool.escape(userID)}, ${pool.escape(topic)}, ${pool.escape(teacher)},
+                         ${pool.escape(medium)},
                          ${pool.escape(address)}, ${pool.escape(date)}, ${pool.escape(time)})`;
     pool.query(sql, (err) => {
         if (err) {
@@ -439,13 +430,46 @@ function insertNewNotification(userID, notificationType, callback) {
     const query = `INSERT INTO notifications(USER_ID, WHAT_FOR, TIME)
                    VALUES (${pool.escape(userID)}, ${pool.escape(notificationType)}, NOW())`;
     let x = pool.query(query, (err, results) => {
-        console.log(x.sql)
+        // console.log(x.sql)
         if (err) {
             console.error('Database query error: ' + err);
             callback(null);
         } else {
             callback(results);
         }
+    });
+}
+
+function loadDashClasses(callback) {
+    const sql = `SELECT post_id,
+                        topic,
+                        teacher,
+                        DATE_FORMAT(date, '%M %d, %Y') as date,
+                        TIME_FORMAT(time, '%h:%i %p')  as time,
+                        online,
+                        address
+                 FROM classes order by time asc, date asc limit 2`;
+
+
+    pool.query(sql, (err, results) => {
+        if (err) {
+            console.log(err.sqlMessage + '\n' + err.sql);
+            callback(0);
+        }
+        // console.log(results);
+        callback(results);
+    });
+}
+
+function deletePost(postID, callback) {
+    const sql = `DELETE FROM POSTS WHERE POST_ID = ${pool.escape(postID)}`;
+
+    pool.query(sql, (err) => {
+        if (err) {
+            console.log(err.sqlMessage + '\n' + err.sql);
+            callback(0);
+        }
+        callback(1);
     });
 }
 
@@ -469,5 +493,7 @@ module.exports = {
     loadNotifications,
     verifyNotification,
     insertNewNotification,
-    loadDashClasses
+    deleteCLass,
+    loadDashClasses,
+    deletePost
 }

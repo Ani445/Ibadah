@@ -10,7 +10,8 @@ router.get('/forum', (req, res) => {
         return res.redirect('/login');
     }
     database.loadPosts((results) => {
-        res.render('forum', {data: results});
+        res.render('forum', {data: results, currentUserID: req.session.user.userID});
+        console.log(req.session.user.userID)
     });
 });
 
@@ -35,6 +36,16 @@ router.post('/new-comment/:id', (req, res) => {
             success: isSuccess,
         });
     });
+});
+
+router.post('/delete-post/:id', (req, res) => {
+    if(!req.session.user) return;
+
+    database.deletePost(req.params.id, (isSuccess) => {
+            httpMsg.sendJSON(req, res, {
+                success: isSuccess,
+            });
+        });
 });
 
 

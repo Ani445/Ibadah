@@ -37,40 +37,49 @@
 
         <ul style="list-style: none;">
             <% data.forEach(element => { %>
-                <li>
+                <li id="<%= element.POST_ID %>">
                     <div class="class-list-item">
                         <table class="info-table">
                             <tr>
                                 <td class="key">Topic</td>
-                                <td class="value"><%= element.topic %></td>
+                                <td class="value"><%= element.TOPIC %></td>
                             </tr>
                             <tr>
                                 <td class="key">Teacher</td>
-                                <td class="value"><%= element.teacher %></td>
+                                <td class="value"><%= element.TEACHER %></td>
                             </tr>
                             <tr>
                                 <td class="key">Medium</td>
-                                <td class="value"><%= element.online === 1 ? "Online" : "Offline" %></td>
+                                <td class="value"><%= element.ONLINE === 1 ? "Online" : "Offline" %></td>
                             </tr>
                             <tr>
-                                <td class="key"><%= element.online === 1 ? "Link" : "Address" %></td>
+                                <td class="key"><%= element.ONLINE === 1 ? "Link" : "Address" %></td>
                                 <td class="value">
-                                    <% if (element.online === 1) { %>
-                                    <a href="<%= element.address %>" target="_blank"><%= element.address %></a>
+                                    <% if (element.ONLINE === 1) { %>
+                                    <a href="<%= element.address %>" target="_blank"><%= element.ADDRESS %></a>
                                     <% } else { %>
-                                        <%= element.address %>
+                                        <%= element.ADDRESS %>
                                     <% } %>
                                 </td>
                             </tr>
                             <tr>
                                 <td class="key">Date</td>
-                                <td class="value"><%= element.date %></td>
+                                <td class="value"><%= element.DATE %></td>
                             </tr>
                             <tr>
                                 <td class="key">Time</td>
-                                <td class="value"><%= element.time %></td>
+                                <td class="value"><%= element.TIME %></td>
                             </tr>
                         </table>
+                        <div
+                        <% if(currentUserID !== element.USER_ID) { %>
+                            class="option-buttons hidden"
+                        <% } else { %>
+                            class="option-buttons"
+                                <% } %>
+                        >
+                            <button class="delete-button">Delete</button>
+                        </div>
                     </div>
                 </li>
             <% }) %>
