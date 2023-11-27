@@ -430,7 +430,7 @@ function insertNewNotification(userID, notificationType, callback) {
     const query = `INSERT INTO notifications(USER_ID, WHAT_FOR, TIME)
                    VALUES (${pool.escape(userID)}, ${pool.escape(notificationType)}, NOW())`;
     let x = pool.query(query, (err, results) => {
-        console.log(x.sql)
+        // console.log(x.sql)
         if (err) {
             console.error('Database query error: ' + err);
             callback(null);
