@@ -144,7 +144,7 @@ function loadClasses(callback) {
                         USER_ID,
                         TOPIC,
                         TEACHER,
-                        DATE_FORMAT(DATE, '%M %D, %Y') AS DATE,
+                        DATE_FORMAT(DATE, '%M %d, %Y') AS DATE,
                         TIME_FORMAT(TIME, '%h:%i %p')  AS TIME,
                         ONLINE,
                         ADDRESS

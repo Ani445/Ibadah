@@ -101,6 +101,9 @@ function display(searchTerm){
 
         const datePickerVal = new Date(datePicker.value);
 
+        console.log(classDateVal);
+        console.log(datePickerVal);
+
         if(!showClass(filterType, itemType))
             item.parentNode.style.display = 'none';
         else if ((IsEqual(classDateVal, datePickerVal) || datePicker.value == "") && (itemText.indexOf(searchTerm) !== -1 || searchTerm=="")  && (itemType == type || type=="All")) 
