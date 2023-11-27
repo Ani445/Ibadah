@@ -13,3 +13,18 @@
     margin-top: 15px;
     margin-bottom: 15px;
 }
+
+
+.option-buttons .delete-button {
+    width: 60px;
+    height: 27px;
+    border-radius: 5px;
+    background-color: red;
+    color: whitesmoke;
+    margin-top: 5px;
+    cursor: pointer;
+}
+
+.option-buttons.hidden {
+    display: none;
+}

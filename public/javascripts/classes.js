@@ -31,8 +31,19 @@ $(document).ready(function () {
         event.stopPropagation();
     });
     $(document).keydown(function (event) {
-        if(event.key === "Escape") {
+        if (event.key === "Escape") {
             closeModal()
         }
     })
+
+    $(".option-buttons .delete-button").each(function (index, button) {
+        $(button).click(function () {
+            let li = $(button).parent().parent().parent();
+            let id = li.attr("id");
+            li.remove();
+            $.post(`/delete-class/${id}`, function (response) {
+                console.log("class deleted");
+            })
+        })
+    });
 });
