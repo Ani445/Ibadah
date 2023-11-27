@@ -1,13 +1,13 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap");
 
-* {
+/* * {
     margin: 0;
     padding: 0;
     border: none;
     outline: none;
     box-sizing: border-box;
     font-family: "Segoe UI", sans-serif;
-}
+} */
 
 body {
     display: flex;
@@ -54,5 +54,76 @@ body {
 }
 
 .light-blue {
-    background: rgb(236, 236, 254);
+    /* background: rgb(236, 236, 254); */
+    background: linear-gradient(to right, #9dcad9, #b3dde0);
+    margin: 0px 60px 0px 60px;
+    /* align-self: center; */
+
 }
+
+header {
+    background-color: #408bb6;
+    color: #fff;
+    padding: 10px;
+    text-align: center;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f5f5f5;
+}
+body, h1, h2, h3, p, ul, li {
+    margin: 0;
+    padding: 0;
+}
+
+.main--content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    background: #d5e3ec;
+    text-align-last: center;
+}
+/* 
+.doa-arab
+{
+    font-size: 90 px !important;
+    font-weight: 900;
+} */
+
+.doa{
+    text-align-last: center;
+}
+.dua-today{
+    margin-bottom: 20px;
+    color: #004e7f;
+}
+.card-wrapper{
+    /* display: flex; */
+    align-items: center; 
+    /* padding: 0 100px 0 0; */
+    display: flex;
+    flex-wrap: wrap;
+    gap: 3rem;
+}
+.card-detail{
+    /* padding: 30px; */
+    /* background: white; */
+    color: #004e7f;
+    padding: 1rem;
+    font-size: 22px;
+    text-decoration-line: underline;
+    text-decoration-color: #004e7f ;
+    /* border-radius: 5px;  */
+    /* background: linear-gradient(to right, #8cb8d4, #b2dfe0); */
+
+}
+.main-title{
+    margin-bottom: 20px;
+    margin-top: 20px;
+    color: #004e7f;
+}
+/* .card-blue{
+    background: linear-gradient(to right, #8cb8d4, #b2dfe0);
+
+} */

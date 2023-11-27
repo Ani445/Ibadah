@@ -160,6 +160,27 @@ function loadClasses(callback) {
     });
 }
 
+function loadDashClasses(callback) {
+    const sql = `SELECT * FROM(SELECT post_id,
+                        topic,
+                        teacher,
+                        DATE_FORMAT(date, '%M %d, %Y') as date,
+                        TIME_FORMAT(time, '%h:%i %p')  as time,
+                        online,
+                        address
+                 FROM classes
+                 order by date asc, time asc LIMIT 2)`;
+
+
+    pool.query(sql, (err, results) => {
+        if (err) {
+            console.log(err.sqlMessage + '\n' + err.sql);
+            callback(0);
+        }
+        callback(results);
+    });
+}
+
 function loadDuas(callback) {
     const sql = `SELECT dua_id,
                         title,
@@ -447,5 +468,6 @@ module.exports = {
     deleteTask,
     loadNotifications,
     verifyNotification,
-    insertNewNotification
+    insertNewNotification,
+    loadDashClasses
 }

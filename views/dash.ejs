@@ -17,29 +17,28 @@
 
             <%- include('header-wrapper.ejs',{name: "Dashboard" }) %>
 
-                <div class="card--container">
-                    <h3 class="main--title">Today's Ibadah</h3>
-                    <div class="card--wrapper">
-                        <a href="/prayer-times" style="text-decoration: none;">
+                <div class="card--container" style=" background: #d5e3ec;">
+                    <div class="doa">
+                        <h3 class="dua-today">Today's Du'a</h3>
+                        <h2 class="doa-arab">رَبَّنَآ ءَاتِنَا فِي ٱلدُّنۡيَا حَسَنَةٗ وَفِي ٱلۡأٓخِرَةِ حَسَنَةٗ
+                            وَقِنَا عَذَابَ ٱلنَّارِ</h2>
+                        <div class="doa-meaning">Our Lord, give us in this world [that which is] good and in the
+                            Hereafter
+                            [that which is] good and protect us from the punishment of the Fire.</div>
+                        <div class="doa-src">[Sura Baqara, Ayat 201]</div>
+                    </div>
+
+
+                    <h3 class="main-title">Upcoming Classes</h3>
+                    <div class="card-wrapper">
+                        <% data.forEach(element => { %>
                             <div class="card light-blue">
-                                <span class="card--detail">Prayer times</span>
+                                <span class="card-detail">Prayer times</span>
                             </div>
-                        </a>
-                        <a href="" style="text-decoration: none;">
                             <div class="card light-blue">
-                                <span class="card--detail">Today's Challenge</span>
+                                <span class="card-detail">Today's Challenge</span>
                             </div>
-                        </a>
-                        <a href="" style="text-decoration: none;">
-                            <div class="card light-blue">
-                                <span class="card--detail">Today's plan</span>
-                            </div>
-                        </a>
-                        <a href="/classes" style="text-decoration: none;">
-                            <div class="card light-blue">
-                                <span class="card--detail">Events</span>
-                            </div>
-                        </a>
+                        
                     </div>
                 </div>
         </div>

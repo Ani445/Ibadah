@@ -4,13 +4,23 @@ const router = express.Router(); // Create an Express.js app
 const httpMsg = require('http-msgs')
 const axios = require("axios");
 
+// router.get('/home', (req, res) => {
+//     if (req.session.user) {
+//         res.render('dash');
+//     } else {
+//         res.redirect('/login');
+//     }
+// });
+
 router.get('/home', (req, res) => {
-    if (req.session.user) {
-        res.render('dash');
-    } else {
-        res.redirect('/login');
+    if (!req.session.user) {
+        return res.redirect('/login');
     }
+    database.loadDashClasses((results) => {
+        res.render('dash', {data: results});
+    });
 });
+
 
 router.get('/logout', (req, res) => {
     if (req.session.user) {
