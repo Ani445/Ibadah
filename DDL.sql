@@ -23,16 +23,19 @@ CREATE TABLE PROFILE
         ON UPDATE CASCADE
 );
 
+drop table classes;
 CREATE TABLE CLASSES
 (
     POST_ID BIGINT AUTO_INCREMENT,
+    USER_ID BIGINT,
     TOPIC   VARCHAR(100),
     TEACHER VARCHAR(100),
     DATE    DATE,
     TIME    TIME,
     ONLINE  TINYINT, #ONLY 0 OR 1
     ADDRESS VARCHAR(100),
-    CONSTRAINT CLASSES_PK PRIMARY KEY (POST_ID)
+    CONSTRAINT CLASSES_PK PRIMARY KEY (POST_ID),
+    CONSTRAINT CLASSES_FK_USER FOREIGN KEY (USER_ID) REFERENCES PROFILE(USER_ID)
 );
 
 /* user's daily tasks*/
@@ -51,13 +54,6 @@ CREATE TABLE DAILY_PLANS
         ON DELETE CASCADE
 );
 
-
-insert into daily_plans (user_id, task_name, date, start_time, end_time)
-values (1, 'homework', date(now()), time(now()), time(now()));
-insert into daily_plans (user_id, task_name, date, start_time, end_time)
-values (1, 'read quran', date(now()), time(now()), time(now()));
-insert into daily_plans (user_id, task_name, date, start_time, end_time)
-values (1, 'read hadith', date(now()), time(now()), time(now()));
 
 CREATE TABLE POSTS
 (

@@ -9,7 +9,8 @@ router.get('/classes', (req, res) => {
         return res.redirect('/login');
     }
     database.loadClasses((results) => {
-        res.render('classes', {data: results});
+        console.log(results);
+        res.render('classes', {data: results, currentUserID: req.session.user.userID});
     });
 });
 
@@ -25,6 +26,8 @@ router.get('/class-list', (req, res) => {
 });
 
 router.post('/new-class', (req, res) => {
+    if(!req.session.user) return;
+
     let addressOrLink;
     if (req.body["medium"] === "Online") {
         addressOrLink = req.body.link;
@@ -32,8 +35,18 @@ router.post('/new-class', (req, res) => {
         addressOrLink = req.body.address;
     }
 
-    database.insertNewClasses(req.body["topic"], req.body["teacher"], req.body["medium"],
+    database.insertNewClasses(req.session.user.userID, req.body["topic"], req.body["teacher"], req.body["medium"],
         addressOrLink, req.body["classDate"], req.body["classTime"], (isSuccess) => {
+            httpMsg.sendJSON(req, res, {
+                success: isSuccess,
+            });
+        });
+});
+
+router.post('/delete-class/:id', (req, res) => {
+    if(!req.session.user) return;
+
+    database.deleteCLass(req.params.id, (isSuccess) => {
             httpMsg.sendJSON(req, res, {
                 success: isSuccess,
             });
