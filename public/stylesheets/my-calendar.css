@@ -168,3 +168,8 @@
     transform: translateY(-50%);
 }
 
+.important-days{
+    font-size: small;
+    /* overflow: hidden;
+    word-break: break-all; */
+}
