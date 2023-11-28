@@ -1,6 +1,6 @@
 let selectedElement;
 document.addEventListener('DOMContentLoaded', function () {
-    
+
     let currentDate = document.querySelector('.Today >.en');
     const todayDate = new Date().getDate();
     const todayMonth = new Date().getMonth();
@@ -230,7 +230,7 @@ document.addEventListener('DOMContentLoaded', function () {
             $(task).attr("id", `${tasks[i].TASK_ID}`)
             $(task).find(".task-name").html(`${tasks[i].TASK_NAME}`);
             $(task).find(".task-time").html(`${tasks[i].START_TIME} - ${tasks[i].END_TIME}`);
-            if(tasks[i].DESCRIPTION) $(task).find(".task-description-text").html(`${tasks[i].DESCRIPTION}`);
+            if (tasks[i].DESCRIPTION) $(task).find(".task-description-text").html(`${tasks[i].DESCRIPTION}`);
             taskList.append(task);
         }
 
@@ -249,7 +249,6 @@ document.addEventListener('DOMContentLoaded', function () {
         });
         let planDescriptionModal;
         $(".planned-events-item").hover(function () {
-                console.log($(this).outerWidth())
                 planDescriptionModal = $(this).find('.task-description');
                 $(planDescriptionModal).css("right", $(this).outerWidth() * 1.25);
                 $(planDescriptionModal).addClass('active');
@@ -259,16 +258,16 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         );
     }
-    
+
     function setDefault(element) {
         if (element.classList.contains('previous-month') || element.classList.contains('next-month')) {
             element.style.backgroundColor = "inherit";
         } else if (element.classList.contains('current-date') == false)
-        element.style.backgroundColor = "#3c3a3a13";
-        
+            element.style.backgroundColor = "#3c3a3a13";
+
     }
-    
-    
+
+
     function openModal(year, month, date) {
         let newEvent = document.querySelector("#new-event");
         let overlayInNewEvent = document.querySelector("#overlay-in-new-event");
@@ -279,13 +278,29 @@ document.addEventListener('DOMContentLoaded', function () {
         $(newEvent).css("display", "block");
         $(overlayInNewEvent).css("display", "block");
     }
-    
-    function markImportantDays(cell, cellMonth, dateVal){
+
+    function markImportantDays(cell, cellMonth, dateVal) {
         let Hijri = new HijrahDate(new Date(todayYear, cellMonth, dateVal));
         let HDate = Hijri.getDate();
         let HMonth = hijriMonthNumberToName[Hijri.getMonth()];
-        if(importantDays[HMonth + ' ' + HDate] != null){   
-            cell.innerHTML += "<span class=\"important-days\">" + importantDays[HMonth + ' ' + HDate] + "</span>";
+        if (importantDays[HMonth + ' ' + HDate] != null) {
+            cell.innerHTML += `
+                                <span class="important-days hidden">${importantDays[HMonth + ' ' + HDate]}</span>
+                                <span class="important-days-mark" 
+                                style="color: red; position: absolute; font-size: x-large; font-weight: bold;
+                                transform: translate(15px, -65px)"
+                                >*</span>
+<!--                                <div class="arrow"></div>-->
+                            `;
+            let importantDay;
+
+            $(cell).hover(function () {
+                importantDay = $(this).find(".important-days");
+                importantDay.css("top", $(this).position().top - $(this).outerHeight() / 2);
+                $(importantDay).removeClass("hidden");
+            }, function () {
+                $(importantDay).addClass("hidden");
+            })
         }
     }
 
@@ -304,16 +319,16 @@ var importantDays = {
 }
 
 var hijriMonthNumberToName = {
-    0:"Muharram",
-    1:"Safar",
-    2:"Rabiʻ I",
-    3:"Rabiʻ II",
-    4:"Jumada I",
-    5:"Jumada II",
-    6:"Rajab",
-    7:"Shaʻban",
-    8:"Ramadan",
-    9:"Shawwal",
-    10:"Dhuʻl-Qiʻdah",
-    11:"Dhuʻl-Hijjah"
+    0: "Muharram",
+    1: "Safar",
+    2: "Rabiʻ I",
+    3: "Rabiʻ II",
+    4: "Jumada I",
+    5: "Jumada II",
+    6: "Rajab",
+    7: "Shaʻban",
+    8: "Ramadan",
+    9: "Shawwal",
+    10: "Dhuʻl-Qiʻdah",
+    11: "Dhuʻl-Hijjah"
 }

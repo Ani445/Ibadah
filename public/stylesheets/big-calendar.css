@@ -81,7 +81,6 @@
     width: 30px;
     height: 100px;
     /* vertical-align: top; */
-    text-align: left;
     cursor: pointer;
     padding-top: 5px;
     text-align: center;
@@ -104,12 +103,10 @@
 }
 
 .mini-calendar .date-cell{
-    font-family: "Poppins", Times, sans-serif !important;
+    font-family: "Segoe UI", Times, sans-serif !important;
 }
 
 .mini-calendar .date-cell.current-month {
-
-    font-family: "Poppins", Times, sans-serif  !important;
     background-color: #3c3a3a13;
 }
 
@@ -119,16 +116,14 @@
     /* color: rgb(99, 65, 209); */
 }
 
-.mini-calendar .date-cell.previous-month, .date-cell.next-month {
-    -webkit-text-fill-color: #868686;
+.mini-calendar .date-cell.previous-month:not(:last-child), .date-cell.next-month:not(:last-child) {
+    color: #868686;
 }
 
 .mini-calendar .date-cell.current-date {
     background-color: rgba(161, 188, 195, 0.9) !important;
     font-weight: bold;
     color: rgb(00, 104, 133);
-    /* border-style:solid ;
-    border-width: 2px; */
 }
 
 .month-picker-container {

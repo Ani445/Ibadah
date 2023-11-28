@@ -169,8 +169,25 @@
     transform: translateY(-50%);
 }
 
-.important-days{
-    font-size: small;
-    /* overflow: hidden;
-    word-break: break-all; */
+.important-days.hidden{
+    display: none;
 }
+
+.important-days {
+    --imporant-day-color: #c7fafa;
+    font-size: 14px;
+    pointer-events: none;
+    z-index: 5;
+    position: absolute;
+    background-color: var(--imporant-day-color);
+    width: 130px;
+    height: 70px;
+    overflow-wrap: break-word;
+    object-fit: scale-down;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    padding: 5px 5px;
+}
+
