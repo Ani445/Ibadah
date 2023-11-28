@@ -14,13 +14,13 @@
 
 .searchTerm {
   width: 400px;
-  border: 3px solid #d0baf8;
+  border: 3px solid #007e9c;
   border-right: none;
   padding: 5px;
   height: 35px;
   border-radius: 5px 0 0 5px;
   outline: none;
-  color: #805ca4;
+  color: #006e9e;
   font-size: 15px;
 }
 
@@ -58,7 +58,7 @@
   padding: 0 0 0 10px;
   border-style: solid;
   border-width: 2px;
-  border-color: #d0baf8;
+  border-color: #007e9c;
   border-radius: 5px;
   width: 200px;
   height: 35px;

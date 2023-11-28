@@ -126,18 +126,18 @@ body{
 }
 
 
-.card--wrapper{
+/* .card--wrapper{
     padding: 0 100px 0 0;
     display: flex;
     flex-wrap: wrap;
     gap: 1rem;
-}
-.card--container{
+} */
+/* .card--container{
     background: white;
     /* background: rgb(204, 204, 215); */
-    padding: 2rem;
+    /* padding: 2rem;
     border-radius: 10px; 
-}
+} */ */
 
 .hamburger {
     height: 50px;

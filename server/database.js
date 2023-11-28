@@ -160,7 +160,6 @@ function loadClasses(callback) {
     });
 }
 
-
 function deleteCLass(postID, callback) {
     const sql = `DELETE
                  FROM CLASSES
@@ -435,13 +434,46 @@ function insertNewNotification(notificationType, callback) {
     `;
 
     let x = pool.query(query, (err, results) => {
-        console.log(x.sql)
+        // console.log(x.sql)
         if (err) {
             console.error('Database query error: ' + err);
             callback(null);
         } else {
             callback(results);
         }
+    });
+}
+
+function loadDashClasses(callback) {
+    const sql = `SELECT post_id,
+                        topic,
+                        teacher,
+                        DATE_FORMAT(date, '%M %d, %Y') as date,
+                        TIME_FORMAT(time, '%h:%i %p')  as time,
+                        online,
+                        address
+                 FROM classes order by time asc, date asc limit 2`;
+
+
+    pool.query(sql, (err, results) => {
+        if (err) {
+            console.log(err.sqlMessage + '\n' + err.sql);
+            callback(0);
+        }
+        // console.log(results);
+        callback(results);
+    });
+}
+
+function deletePost(postID, callback) {
+    const sql = `DELETE FROM POSTS WHERE POST_ID = ${pool.escape(postID)}`;
+
+    pool.query(sql, (err) => {
+        if (err) {
+            console.log(err.sqlMessage + '\n' + err.sql);
+            callback(0);
+        }
+        callback(1);
     });
 }
 
@@ -465,5 +497,7 @@ module.exports = {
     loadNotifications,
     verifyNotification,
     insertNewNotification,
-    deleteCLass
+    deleteCLass,
+    loadDashClasses,
+    deletePost
 }

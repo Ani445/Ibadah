@@ -9,8 +9,8 @@ router.get('/classes', (req, res) => {
         return res.redirect('/login');
     }
     database.loadClasses((results) => {
-        console.log(results);
         res.render('classes', {data: results, currentUserID: req.session.user.userID});
+        // console.log(req.session.user.userID)
     });
 });
 
@@ -53,6 +53,6 @@ router.post('/delete-class/:id', (req, res) => {
         });
 });
 
-//export the router.
+//Export the router.
 //It will be used in 'app.js'
 module.exports = router

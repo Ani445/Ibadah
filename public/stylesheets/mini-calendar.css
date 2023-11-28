@@ -75,7 +75,7 @@
 .mini-calendar .date-cell.current-month {
     border-color: inherit;
     font-family: "Times New Roman", Times, serif !important;
-    background-color: #cce0ec;
+    background-color: #a3cfdb;
 }
 
 .mini-calendar .date-cell:hover {

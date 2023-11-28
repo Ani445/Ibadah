@@ -33,7 +33,7 @@ async function checkPrayerTimes(req) {
 
         for (let i = 0; i < prayerTimes.length; i++) {
             timeLeft = compareTimes(prayerTimes[i]["time"]);
-            console.log(timeLeft)
+            // console.log(timeLeft)
             if (-2 <= timeLeft && timeLeft <= 0) {
                 notificationType = `prayer-${prayerTimes[i]["waqt"]}-started`;
                 newNotificationCame = true;
