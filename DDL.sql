@@ -127,3 +127,20 @@ WHERE USER_ID = 1
   AND date(TIME) = date('2023-11-26')
 ORDER BY TIME DESC;
 
+
+create table important_dates(
+arab_date varchar2(50),
+significance varchar2(100)
+);
+enter into important_dates values( '1 Muharram', 'Islamic New Year');
+enter into important_dates values( '10 Muharram', 'Day of Ashura');
+enter into important_dates values( '12 Rabi' I', 'Birth of Prophet(SM)');
+enter into important_dates values( '27 Rajab', 'Isra and Miraj');
+enter into important_dates values( '12 Rabiʻ I', 'Birth of Prophet(SM)');
+enter into important_dates values( '15 Shaʻban', 'Mid Shaʻban or Night of Forgiveness');
+enter into important_dates values( '1 Ramadan', 'First Day of Saom');
+enter into important_dates values( '27 Ramadan', 'Start of revelation of Qur'an, Laylatul Qadr');
+enter into important_dates values( '1 Shawwal', 'Eid ul Fitr');
+enter into important_dates values( '8-13 Dhuʻl-Hijjah', 'Hajj');
+enter into important_dates values( '9 Dhuʻl-Hijjah', 'Day of Arafah');
+enter into important_dates values( '10 Dhuʻl-Hijjah', 'Eid ul Azha');

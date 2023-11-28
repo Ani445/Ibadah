@@ -1,7 +1,7 @@
 
 filter = 0; // 0: topic, 1: teacher, 2: link etc
 type = "All";
-filterType = 0;
+var filterType = 0;
 searchFilter = document.querySelector('.search-filter');
 select = searchFilter.querySelector('select');
 radioButton = document.querySelector('.online-offline-filter');
@@ -78,11 +78,7 @@ function applyType(){
     
 }
 
-function showClass(filterType, itemType){
-    if(filterType==2 && itemType!="Online") return false;
-    if(filterType==3 && itemType!="Offline") return false;
-    return true;
-}
+
 function IsEqual(date1, date2){
     return (date1.getDate() == date2.getDate() && date1.getMonth() == date2.getMonth()
      && date1.getFullYear() == date2.getFullYear());
@@ -90,21 +86,23 @@ function IsEqual(date1, date2){
 
 function display(searchTerm){
     listItems.forEach(function (item) {
+        
         const itemRow = item.getElementsByTagName("tr")[filter];
         const itemData = itemRow.querySelector('.value');
         const itemText = itemData.textContent.toLowerCase();
         //console.log(itemText);
         const itemTypeRow = (item.getElementsByTagName("tr")[2]);
-        const itemType = itemTypeRow.querySelector('.value').textContent;
+        let itemType = itemTypeRow.querySelector('.value').textContent;
         const classDate = item.getElementsByTagName("tr")[4];
         const classDateVal = new Date((classDate.querySelector('.value')).textContent);
-
+        
         const datePickerVal = new Date(datePicker.value);
-
-        console.log(classDateVal);
-        console.log(datePickerVal);
-
-        if(!showClass(filterType, itemType))
+        
+        itemType = itemType.trim();
+ 
+        if(type == "All" && filterType==2 && itemType!="Online")
+            item.parentNode.style.display = 'none';
+        else if(type == "All" && filterType==3 && itemType!="Offline")
             item.parentNode.style.display = 'none';
         else if ((IsEqual(classDateVal, datePickerVal) || datePicker.value == "") && (itemText.indexOf(searchTerm) !== -1 || searchTerm=="")  && (itemType == type || type=="All")) 
             item.parentNode.style.display = 'list-item';
