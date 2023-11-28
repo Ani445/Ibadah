@@ -160,8 +160,11 @@ function loadClasses(callback) {
     });
 }
 
+
 function deleteCLass(postID, callback) {
-    const sql = `DELETE FROM CLASSES WHERE POST_ID = ${pool.escape(postID)}`;
+    const sql = `DELETE
+                 FROM CLASSES
+                 WHERE POST_ID = ${pool.escape(postID)}`;
 
     pool.query(sql, (err) => {
         if (err) {
@@ -407,16 +410,14 @@ function loadNotifications(userID, callback) {
     });
 }
 
-function verifyNotification(userID, date, notificationType, callback) {
-    console.log(`${utility.formattedDate(date)}`);
+function verifyNotification(date, notificationType, callback) {
     const query = `SELECT EXISTS(SELECT *
                                  FROM NOTIFICATIONS
-                                 WHERE USER_ID = ${pool.escape(userID)}
-                                   AND DATE(TIME) = DATE(${pool.escape(utility.formattedDate(date))})
+                                 WHERE DATE(TIME) = DATE(${pool.escape(utility.formattedDate(date))})
                                    AND WHAT_FOR = ${pool.escape(notificationType)}
                                  ORDER BY TIME DESC) AS FOUND`;
     let x = pool.query(query, (err, results) => {
-        // console.log(x.sql)
+        console.log(x.sql)
         if (err) {
             console.error('Database query error: ' + err);
             callback(null);
@@ -426,11 +427,15 @@ function verifyNotification(userID, date, notificationType, callback) {
     });
 }
 
-function insertNewNotification(userID, notificationType, callback) {
-    const query = `INSERT INTO notifications(USER_ID, WHAT_FOR, TIME)
-                   VALUES (${pool.escape(userID)}, ${pool.escape(notificationType)}, NOW())`;
+function insertNewNotification(notificationType, callback) {
+    const query = `
+        INSERT INTO notifications (USER_ID, WHAT_FOR, TIME)
+        SELECT USER_ID, ${pool.escape(notificationType)}, NOW()
+        FROM PROFILE;
+    `;
+
     let x = pool.query(query, (err, results) => {
-        // console.log(x.sql)
+        console.log(x.sql)
         if (err) {
             console.error('Database query error: ' + err);
             callback(null);

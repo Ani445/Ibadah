@@ -5,7 +5,7 @@ const router = express.Router(); // Create an Express.js app
 const httpMsg = require('http-msgs')
 const axios = require("axios");
 
-async function checkPrayerTimes(req, res) {
+async function checkPrayerTimes(req) {
     //Send a notification for prayer-time
     let prayerTimes;
     try {
@@ -26,38 +26,35 @@ async function checkPrayerTimes(req, res) {
             ];
         }
         let timeLeft = 0;
-        let currentWaqt = -1;
         let notificationType;
         let newNotificationCame = false;
 
-        prayerTimes[4]["time"] = "01:32 AM";
+        prayerTimes[0]["time"] = "12:59 AM";
 
         for (let i = 0; i < prayerTimes.length; i++) {
             timeLeft = compareTimes(prayerTimes[i]["time"]);
-            if (timeLeft > 0) break;
-            else currentWaqt = i;
-        }
-        if (currentWaqt == -1) currentWaqt = 4;
-
-        timeLeft = compareTimes(prayerTimes[currentWaqt]["time"]);
-        if (-2 <= timeLeft && timeLeft <= 0) {
-            notificationType = `prayer-${prayerTimes[currentWaqt]["waqt"]}-started`;
-            newNotificationCame = true;
-        } else if (timeLeft === 30) {
-            notificationType = `prayer-${prayerTimes[currentWaqt]["waqt"]}-${timeLeft}`;
-            newNotificationCame = true;
-        } else if (timeLeft === 15) {
-            notificationType = `prayer-${prayerTimes[currentWaqt]["waqt"]}-${timeLeft}`;
-            newNotificationCame = true;
+            console.log(timeLeft)
+            if (-2 <= timeLeft && timeLeft <= 0) {
+                notificationType = `prayer-${prayerTimes[i]["waqt"]}-started`;
+                newNotificationCame = true;
+                break;
+            } else if (timeLeft === 30) {
+                notificationType = `prayer-${prayerTimes[i]["waqt"]}-30`;
+                newNotificationCame = true;
+                break;
+            } else if (15 === timeLeft) {
+                notificationType = `prayer-${prayerTimes[i]["waqt"]}-15`;
+                newNotificationCame = true;
+                break;
+            }
         }
 
         if(!newNotificationCame) return;
 
-        database.verifyNotification(req.session.user.userID, new Date(),
+        database.verifyNotification(new Date(),
             notificationType, function (found) {
                 if (!found) {
-                    database.insertNewNotification(req.session.user.userID,
-                        notificationType, function () {
+                    database.insertNewNotification(notificationType, function () {
 
                         });
                 }
@@ -68,12 +65,30 @@ async function checkPrayerTimes(req, res) {
     }
 }
 
+async function checkPlans(){
+    let newNotificationCame = false;
+    let notificationType;
+
+    
+
+    if(!newNotificationCame) return;
+
+    database.verifyNotification(new Date(),
+        notificationType, function (found) {
+            if (!found) {
+                database.insertNewNotification(notificationType, function () {
+
+                });
+            }
+        });
+}
+
 router.post('/check-for-notifications', async (req, res) => {
     try {
         if (!req.session.user) {
             return;
         }
-        checkPrayerTimes(req, res);
+        checkPrayerTimes(req);
         database.loadNotifications(req.session.user.userID, function (notifications) {
             // console.log(notifications);
             res.send({data: notifications});
@@ -90,9 +105,12 @@ function compareTimes(timeStr) {
     let currentMinute = new Date().getMinutes();
     let currentTime = currentHour * 60 + currentMinute;
 
+    let amPM = timeStr.toString().substring(6, 8);
+
     let givenHour = parseInt(timeStr.toString().substring(0, 2));
+    if(givenHour === 12 && amPM === "AM") givenHour = 0;
     let givenMinute = parseInt(timeStr.toString().substring(3, 5));
-    let add12h = (timeStr.toString().substring(6, 8) == 'AM') ? 0 : 12;
+    let add12h = (amPM === 'AM') ? 0 : 12;
     let givenTime = (givenHour + add12h) * 60 + givenMinute;
 
     return (givenTime - currentTime);
