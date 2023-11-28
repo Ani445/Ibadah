@@ -1,6 +1,6 @@
 let selectedElement;
 document.addEventListener('DOMContentLoaded', function () {
-
+    
     let currentDate = document.querySelector('.Today >.en');
     let todayDate = new Date().getDate();
     let todayMonth = new Date().getMonth();
@@ -27,9 +27,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     for (let i = 0; i < dateCells.length; i++) {
         dateCells[i].addEventListener('click', function (event) {
-
-            let {year, month, date} = determineDateFromCalendar(event)
-            getCalendarEvents(year, month, date);
+            let {year, month, date} = determineDateFromCalendar(event);
 
             currentDate.innerHTML = "<span>" + date + " " + months[month].substring(0, 3) + " " + year + "</span>";
 
@@ -129,6 +127,7 @@ document.addEventListener('DOMContentLoaded', function () {
             j--;
             dateCells[i].classList.add('previous-month')
             setDefault(dateCells[i]);
+            markImportantDays(dateCells[i], monthNameToNumber[monthButton.value] - 1, j);
         }
 
         i = start
@@ -144,14 +143,16 @@ document.addEventListener('DOMContentLoaded', function () {
                 dateCells[i].classList.add('current-date');
                 selectedElement = dateCells[i];
             }
+            markImportantDays(dateCells[i], monthNameToNumber[monthButton.value], j);
         }
 
         j = 0
         for (; i < dateCells.length; i++) {
             j++;
-            dateCells[i].innerHTML = dateCellContent(monthNameToNumber[monthButton.value], j);
+            dateCells[i].innerHTML = dateCellContent(monthNameToNumber[monthButton.value] + 1, j);
             dateCells[i].classList.add('next-month')
             setDefault(dateCells[i]);
+            markImportantDays(dateCells[i], monthNameToNumber[monthButton.value] + 1, j);
         }
     }
 
@@ -261,38 +262,61 @@ document.addEventListener('DOMContentLoaded', function () {
             );
         });
     }
-})
-
-function setDefault(element) {
-    if (element.classList.contains('previous-month') || element.classList.contains('next-month')) {
-        element.style.backgroundColor = "inherit";
-    } else if (element.classList.contains('current-date') == false)
+    
+    function setDefault(element) {
+        if (element.classList.contains('previous-month') || element.classList.contains('next-month')) {
+            element.style.backgroundColor = "inherit";
+        } else if (element.classList.contains('current-date') == false)
         element.style.backgroundColor = "#3c3a3a13";
+        
+    }
+    
+    
+    function openModal(year, month, date) {
+        let newEvent = document.querySelector("#new-event");
+        let overlayInNewEvent = document.querySelector("#overlay-in-new-event");
+        let eventDate = document.querySelector("#event-date");
+        eventDate.textContent = date + " " + months[month] + ", " + year;
+        let inputDate = document.querySelector(".hidden-date");
+        inputDate.value = year + "-" + (month + 1) + "-" + date;
+        $(newEvent).css("display", "block");
+        $(overlayInNewEvent).css("display", "block");
+    }
+    
+    function markImportantDays(cell, cellMonth, dateVal){
+        let Hijri = new HijrahDate(new Date(todayYear, cellMonth, dateVal));
+        let HDate = Hijri.getDate();
+        let HMonth = hijriMonthNumberToName[Hijri.getMonth()];
+        if(importantDays[HMonth + ' ' + HDate] != null){   
+            cell.innerHTML += "<span class=\"important-days\">" + importantDays[HMonth + ' ' + HDate] + "</span>";
+        }
+    }
 
-}
-
-
-function openModal(year, month, date) {
-    let newEvent = document.querySelector("#new-event");
-    let overlayInNewEvent = document.querySelector("#overlay-in-new-event");
-    let eventDate = document.querySelector("#event-date");
-    eventDate.textContent = date + " " + months[month] + ", " + year;
-    let inputDate = document.querySelector(".hidden-date");
-    inputDate.value = year + "-" + (month + 1) + "-" + date;
-    $(newEvent).css("display", "block");
-    $(overlayInNewEvent).css("display", "block");
-}
-
-importantDays = {
+})
+var importantDays = {
     'Muharram 1': 'Islamic New Year',
     'Muharram 10': 'Day of Ashura',
-    "Rabi' I 12": 'Birth of Prophet(SM)',
+    "Rabiʻ I 12": 'Birth of Prophet(SM)',
     'Rajab 27': 'Isra and Miraj',
-    "Rabi' I 12": 'Birth of Prophet(SM)',
-    "Sha'ban 15": 'Mid Shaʻban or Night of Forgiveness',
+    "Shaʻban 15": 'Mid Shaʻban or Night of Forgiveness',
     'Ramadan 1': 'First Day of Saom',
     'Ramadan 27': "Start of revelation of Qur'an, Laylatul Qadr",
     'Shawwal 1': 'Eid ul Fitr',
-    "Dhu'l-Hijjah 9": 'Day of Arafah',
-    "Dhu'l-Hijjah 10": 'Eid ul Azha',
+    "Dhuʻl-Hijjah 9": 'Day of Arafah',
+    "Dhuʻl-Hijjah 10": 'Eid ul Azha',
+}
+
+var hijriMonthNumberToName = {
+    0:"Muharram",
+    1:"Safar",
+    2:"Rabiʻ I",
+    3:"Rabiʻ II",
+    4:"Jumada I",
+    5:"Jumada II",
+    6:"Rajab",
+    7:"Shaʻban",
+    8:"Ramadan",
+    9:"Shawwal",
+    10:"Dhuʻl-Qiʻdah",
+    11:"Dhuʻl-Hijjah"
 }
