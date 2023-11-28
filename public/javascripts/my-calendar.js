@@ -237,7 +237,7 @@ document.addEventListener('DOMContentLoaded', function () {
         $(taskList).find(".delete-task-button").each(function (index, button) {
             $(button).click(function (event) {
                 $(event.target).parent().parent().remove();
-                $('.description-modal').removeClass("active");
+                $('.task-description').removeClass("active");
                 $.post(`/delete-planned-event/${$(event.target).parent().parent().attr("id")}`, function (response) {
                     if (response.success) {
                         console.log("ok")
@@ -246,17 +246,18 @@ document.addEventListener('DOMContentLoaded', function () {
                     }
                 });
             })
-            let planDescriptionModal;
-            $(button).parent().parent().hover(function () {
-                    planDescriptionModal = $(this).find('.description-modal')
-                    $(planDescriptionModal).find('.task-description-text').html($(this).find(".task-description").html());
-                    $(planDescriptionModal).addClass('active');
-                },
-                function () {
-                    $(planDescriptionModal).removeClass('active');
-                }
-            );
         });
+        let planDescriptionModal;
+        $(".planned-events-item").hover(function () {
+                console.log($(this).outerWidth())
+                planDescriptionModal = $(this).find('.task-description');
+                $(planDescriptionModal).css("right", $(this).outerWidth() * 1.25);
+                $(planDescriptionModal).addClass('active');
+            },
+            function () {
+                $(planDescriptionModal).removeClass('active');
+            }
+        );
     }
     
     function setDefault(element) {

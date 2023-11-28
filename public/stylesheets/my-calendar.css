@@ -138,11 +138,10 @@
     /* margin: 0 auto; */
 }
 
-.planned--events .description-modal {
+.planned--events .task-description {
     --modal-color: #c2e5e4;
     display: none;
     position: absolute;
-    left: 50%;
     background-color: var(--modal-color);
     border: 1px solid var(--modal-color);;
     padding: 10px;
@@ -154,7 +153,7 @@
     overflow-wrap: break-word;
 }
 
-.planned--events .description-modal.active {
+.planned--events .task-description.active {
     display: block;
 }
 
