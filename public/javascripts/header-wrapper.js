@@ -47,24 +47,25 @@ $(() => {
         })
     }
 
-    setInterval(checkForNotifications, 2000);
+    setInterval(checkForNotifications, 3500000);
     checkForNotifications();
 
     let profileButton = document.querySelector("#profile-button")
     let profileMenu = document.querySelector("#profile-menu")
 
-    $(profileButton).mousedown(function (event) {
+    $(profileButton).click(function (event) {
         if (event.which !== 1) return
-        profileButton.classList.add('pressed')
         if (profileMenu.style.display !== "none") {
             profileMenu.style.display = "none"
         } else {
             profileMenu.style.display = "block"
+            $(profileMenu).css("top", $(this).position().top + $(this).height() * 1.25);
+            $(profileMenu).css("left", $(this).position().left * .80);
+            console.log($(this).position())
+            console.log($(profileMenu).position())
         }
     })
-    $(profileButton).mouseup(function () {
-        profileButton.classList.remove('pressed')
-    })
+
     document.addEventListener("click", function (event) {
         let eventSource = event.target
         if (!(eventSource.id === profileButton.id || eventSource.id === profileMenu.id)) {

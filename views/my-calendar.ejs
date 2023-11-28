@@ -15,7 +15,7 @@
 <body>
 <%- include('sidebar.ejs') %>
 <div class="mycalendar--main--content">
-    <!-- include('header-wrapper.ejs',name:"Calendar") -->
+    <%- include('header-wrapper.ejs', {name:"Calendar"}) %>
     <!-- <div class="calendar--card--container"> -->
     <%- include('big-calendar.ejs') %>
     <!-- </div> -->
@@ -43,7 +43,7 @@
                         </div>
                         <div class="task-description">
                             <div class="modal-arrow"></div>
-                            <p class="task-description-text">No description</p>
+                            <p class="task-description-text"><span style="color: #717272">No description</span></p>
                         </div>
                     </div>
                     <div class="delete-task-button">

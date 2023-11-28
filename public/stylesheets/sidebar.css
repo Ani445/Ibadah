@@ -23,12 +23,7 @@ body{
     padding: 0 1.7rem;
     color: #fff;
     overflow: hidden;
-    /* transition: all 0.5s linear; */
-    /* background: rgba(113, 99, 186, 255); */
-    /* background:  #5908d3; */
     background: linear-gradient(to top, #009499 0%, #00629F 80%);
-    
-    /* background: linear-gradient(to top, #8a52dd 0%, #5b57b1 80%); */
 }
 
 .main--content{
@@ -41,15 +36,6 @@ body{
 
 }
 
-/* .sidebar .open{
-    width: 240px;
-    transition: 0.5s;
-} */
-
-/* .sidebar:hover{
-    width: 240px;
-    transition: 0.5s;
-} */
 
 .logo{
     height: 80px;
@@ -92,12 +78,6 @@ body{
     font-size: 1.2rem;
 }
 
-.logout{
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-}
 
 /******main content*******/
 
@@ -125,19 +105,6 @@ body{
     font-size: 15px;
 }
 
-
-/* .card--wrapper{
-    padding: 0 100px 0 0;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1rem;
-} */
-/* .card--container{
-    background: white;
-    /* background: rgb(204, 204, 215); */
-    /* padding: 2rem;
-    border-radius: 10px; 
-} */
 
 .hamburger {
     height: 50px;
