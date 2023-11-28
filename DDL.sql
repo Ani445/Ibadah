@@ -35,10 +35,11 @@ CREATE TABLE CLASSES
     ONLINE  TINYINT, #ONLY 0 OR 1
     ADDRESS VARCHAR(100),
     CONSTRAINT CLASSES_PK PRIMARY KEY (POST_ID),
-    CONSTRAINT CLASSES_FK_USER FOREIGN KEY (USER_ID) REFERENCES PROFILE(USER_ID)
+    CONSTRAINT CLASSES_FK_USER FOREIGN KEY (USER_ID) REFERENCES PROFILE (USER_ID)
 );
 
 /* user's daily tasks*/
+DROP TABLE DAILY_PLANS;
 CREATE TABLE DAILY_PLANS
 (
     TASK_ID     BIGINT AUTO_INCREMENT,
@@ -47,7 +48,7 @@ CREATE TABLE DAILY_PLANS
     START_TIME  TIME,
     END_TIME    TIME,
     TASK_NAME   VARCHAR(50),
-    DESCRIPTION MEDIUMBLOB,
+    DESCRIPTION TEXT,
     CONSTRAINT DAILY_TASKS_PK PRIMARY KEY (TASK_ID),
     CONSTRAINT DAILY_TASKS_FK FOREIGN KEY (USER_ID) REFERENCES CREDENTIALS (USER_ID)
         ON UPDATE CASCADE
@@ -114,33 +115,3 @@ CREATE TABLE NOTIFICATIONS
     CONSTRAINT NOTIFICATION_PK PRIMARY KEY (NOTIFICATION_ID),
     CONSTRAINT NOTIFICATION_FK_USER FOREIGN KEY (USER_ID) REFERENCES CREDENTIALS (USER_ID)
 );
-
-insert into notifications values (1, 1, 'prayer-asr-started', now());
-insert into notifications values (2, 1, 'prayer-maghrib-30', now());
-insert into notifications values (3, 1, 'prayer-asr-started', '2023-10-10');
-insert into notifications values (4, 1, 'prayer-maghrib-30', '2023-11-25');
-
-
-SELECT *
-FROM NOTIFICATIONS
-WHERE USER_ID = 1
-  AND date(TIME) = date('2023-11-26')
-ORDER BY TIME DESC;
-
-
-create table important_dates(
-arab_date varchar2(50),
-significance varchar2(100)
-);
-insert into important_dates values( '1 Muharram', 'Islamic New Year');
-insert into important_dates values( '10 Muharram', 'Day of Ashura');
-insert into important_dates values( '12 Rabi''I', 'Birth of Prophet(SM)');
-insert into important_dates values( '27 Rajab', 'Isra and Miraj');
-insert into important_dates values( '12 Rabi''I', 'Birth of Prophet(SM)');
-insert into important_dates values( '15 Sha''ban', 'Mid Sha''ban or Night of Forgiveness');
-insert into important_dates values( '1 Ramadan', 'First Day of Saom');
-insert into important_dates values( '27 Ramadan', 'Start of revelation of Qur''an, Laylatul Qadr');
-insert into important_dates values( '1 Shawwal', 'Eid ul Fitr');
-insert into important_dates values( '8-13 Dhu''l-Hijjah', 'Hajj');
-insert into important_dates values( '9 Dhu''l-Hijjah', 'Day of Arafah');
-insert into important_dates values( '10 Dhu''l-Hijjah', 'Eid ul Azha');
