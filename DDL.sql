@@ -132,15 +132,15 @@ create table important_dates(
 arab_date varchar2(50),
 significance varchar2(100)
 );
-enter into important_dates values( '1 Muharram', 'Islamic New Year');
-enter into important_dates values( '10 Muharram', 'Day of Ashura');
-enter into important_dates values( '12 Rabi' I', 'Birth of Prophet(SM)');
-enter into important_dates values( '27 Rajab', 'Isra and Miraj');
-enter into important_dates values( '12 Rabiʻ I', 'Birth of Prophet(SM)');
-enter into important_dates values( '15 Shaʻban', 'Mid Shaʻban or Night of Forgiveness');
-enter into important_dates values( '1 Ramadan', 'First Day of Saom');
-enter into important_dates values( '27 Ramadan', 'Start of revelation of Qur'an, Laylatul Qadr');
-enter into important_dates values( '1 Shawwal', 'Eid ul Fitr');
-enter into important_dates values( '8-13 Dhuʻl-Hijjah', 'Hajj');
-enter into important_dates values( '9 Dhuʻl-Hijjah', 'Day of Arafah');
-enter into important_dates values( '10 Dhuʻl-Hijjah', 'Eid ul Azha');
+insert into important_dates values( '1 Muharram', 'Islamic New Year');
+insert into important_dates values( '10 Muharram', 'Day of Ashura');
+insert into important_dates values( '12 Rabi''I', 'Birth of Prophet(SM)');
+insert into important_dates values( '27 Rajab', 'Isra and Miraj');
+insert into important_dates values( '12 Rabi''I', 'Birth of Prophet(SM)');
+insert into important_dates values( '15 Sha''ban', 'Mid Sha''ban or Night of Forgiveness');
+insert into important_dates values( '1 Ramadan', 'First Day of Saom');
+insert into important_dates values( '27 Ramadan', 'Start of revelation of Qur''an, Laylatul Qadr');
+insert into important_dates values( '1 Shawwal', 'Eid ul Fitr');
+insert into important_dates values( '8-13 Dhu''l-Hijjah', 'Hajj');
+insert into important_dates values( '9 Dhu''l-Hijjah', 'Day of Arafah');
+insert into important_dates values( '10 Dhu''l-Hijjah', 'Eid ul Azha');
