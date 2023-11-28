@@ -224,10 +224,11 @@ document.addEventListener('DOMContentLoaded', function () {
 
         for (let i = 0; i < tasks.length; i++) {
             let task = demoTaskHtml.clone(); //make a copy of it, otherwise it takes reference
-            task.removeClass("hidden");
-            task.attr("id", `${tasks[i].TASK_ID}`)
-            task.find(".task-name").html(`${tasks[i].TASK_NAME}`);
-            task.find(".task-time").html(`${tasks[i].START_TIME} - ${tasks[i].END_TIME}`);
+            $(task).removeClass("hidden");
+            $(task).attr("id", `${tasks[i].TASK_ID}`)
+            $(task).find(".task-name").html(`${tasks[i].TASK_NAME}`);
+            $(task).find(".task-time").html(`${tasks[i].START_TIME} - ${tasks[i].END_TIME}`);
+            if(tasks[i].DESCRIPTION) $(task).find(".task-description-text").html(`${tasks[i].DESCRIPTION}`);
             taskList.append(task);
         }
 
@@ -243,21 +244,14 @@ document.addEventListener('DOMContentLoaded', function () {
                     }
                 });
             })
-
-            const planDescriptionModal = $('.description-modal');
+            let planDescriptionModal;
             $(button).parent().parent().hover(function () {
-                    const liOffset = $(this).offset();
-                    const liWidth = $(this).outerWidth();
-                    const modalWidth = planDescriptionModal.outerWidth();
-
-                    const modalLeft = liOffset.left - modalWidth - 10; // Adjust as needed
-                    const modalTop = liOffset.top;
-
-                    planDescriptionModal.css({left: modalLeft, top: modalTop});
-                    planDescriptionModal.addClass('active');
+                    planDescriptionModal = $(this).find('.description-modal')
+                    $(planDescriptionModal).find('.task-description-text').html($(this).find(".task-description").html());
+                    $(planDescriptionModal).addClass('active');
                 },
                 function () {
-                    planDescriptionModal.removeClass('active');
+                    $(planDescriptionModal).removeClass('active');
                 }
             );
         });

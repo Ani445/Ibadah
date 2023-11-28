@@ -19,11 +19,10 @@ router.post('/calendar-events', (req, res) => {
 });
 
 router.post('/new-planned-event', (req, res) => {
-    console.log(req.body.eventName);
-    console.log(req.body.eventStartTime);
-    console.log(req.body.eventDate);
-    database.insertNewTask(req.body.eventName,
-        " ",
+
+    database.insertNewTask(
+        req.body.eventName.trim(),
+        req.body.eventDescription.trim(),
         req.body.eventDate,
         req.body.eventStartTime,
         req.body.eventEndTime, (isSuccess) => {

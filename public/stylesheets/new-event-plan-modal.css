@@ -10,7 +10,7 @@
 }
 
 #new-event {
-    height: 400px;
+    height: 600px;
     width: 550px;
     overflow-x:hidden;
     overflow-y: hidden;
@@ -25,7 +25,6 @@
     border-radius: 5px;
     -webkit-box-shadow: 0 2px 3px rgba(10, 10, 10, 0.1), 0 0 0 1px rgba(10, 10, 10, 0.1);
     box-shadow: 0 10px 10px rgba(10, 10, 10, 0.1), 0 0 0 1px rgba(10, 10, 10, 0.1);
-
 }
 
 
@@ -98,18 +97,19 @@ input:-webkit-autofill:active{
 }
 
 
-.new-event-input textarea{
-    width: 80%; /* Adjust the width as needed */
-    height: 50%; /* Adjust the height as needed */
-    background: transparent;
+.new-event-input.input-description{
     border: none;
+}
+
+.new-event-input.input-description textarea{
+    width: 100%; /* Adjust the width as needed */
+    background: transparent;
+    border: 2px solid #b2b0b0;
     outline: none;
     font-size: 1em;
     color: #162938;
-    font-weight: 600;
     resize: none;
     padding: 5px 5px 5px 5px;
-    
 }
 
 .new-event-input input[id="event-name"]{

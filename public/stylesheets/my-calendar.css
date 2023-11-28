@@ -142,7 +142,7 @@
     --modal-color: #c2e5e4;
     display: none;
     position: absolute;
-    transform: translateY(8px);
+    left: 50%;
     background-color: var(--modal-color);
     border: 1px solid var(--modal-color);;
     padding: 10px;
@@ -150,6 +150,8 @@
     z-index: 3;
     text-align: center;
     vertical-align: middle;
+    width: 200px;
+    overflow-wrap: break-word;
 }
 
 .planned--events .description-modal.active {
