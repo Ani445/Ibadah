@@ -75,7 +75,7 @@
 .notification-panel {
     display: flex;
     flex-direction: column;
-    background-color: #e1ecfb;
+    background-color: rgb(179, 224, 224);
     width: 400px;
     height: 500px;
     margin-top: 10px;
@@ -105,7 +105,7 @@
 .notification-list li {
     width: 90%;
     min-height: 40px;
-    height: auto;
+    height: 50px;
     padding: 3px 10px;
     margin: 2px auto;
     border-radius: 5px;

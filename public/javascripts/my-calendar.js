@@ -33,7 +33,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
             currentDate.innerHTML = "<span>" + date + " " + months[month].substring(0, 3) + " " + year + "</span>";
 
-            currentArabicDate.innerHTML = "<span>" + new HijrahDate(new Date(year, month, date)).format('longDate', 'en') + "</span>"
+            let hijriDate = new HijrahDate(new Date(year, month, date)).format('longDate', 'en')
+            currentArabicDate.innerHTML = "<span>" + hijriDate + "</span>";
 
             if (selectedElement == dateCells[i]) return;
             if (selectedElement != null) setDefault(selectedElement);
@@ -280,4 +281,18 @@ function openModal(year, month, date) {
     inputDate.value = year + "-" + (month + 1) + "-" + date;
     $(newEvent).css("display", "block");
     $(overlayInNewEvent).css("display", "block");
+}
+
+importantDays = {
+    'Muharram 1': 'Islamic New Year',
+    'Muharram 10': 'Day of Ashura',
+    "Rabi' I 12": 'Birth of Prophet(SM)',
+    'Rajab 27': 'Isra and Miraj',
+    "Rabi' I 12": 'Birth of Prophet(SM)',
+    "Sha'ban 15": 'Mid Shaʻban or Night of Forgiveness',
+    'Ramadan 1': 'First Day of Saom',
+    'Ramadan 27': "Start of revelation of Qur'an, Laylatul Qadr",
+    'Shawwal 1': 'Eid ul Fitr',
+    "Dhu'l-Hijjah 9": 'Day of Arafah',
+    "Dhu'l-Hijjah 10": 'Eid ul Azha',
 }

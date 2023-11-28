@@ -11,7 +11,7 @@
 .Today{
     padding: 10px;
     padding-bottom: 60px;
-    height: 50px;   
+    height: 50px;
     width: 100%;
     border-radius: 1px;
     background-color: var(--color);
@@ -19,13 +19,13 @@
     border-bottom-style: solid;
     border-bottom-width: 1px;
     border-bottom-color: rgba(153, 149, 149, 0.828);
-    color: #867de3ed;
+    color: #008590;
     font-weight: 500;
-   
+
 }
 .Today .ar{
     font-weight: 600;
-    color: #7971e4;
+    color: #008590;
 }
 
 /*.Today .en{
@@ -50,7 +50,7 @@
     word-wrap: break-word;
     list-style: none;
 
-    background-color: #ddefff;
+    background-color: #aad4e1;
     box-shadow: -1px 1px 5px -1px #a5a4a4;
     margin-top: 8px;
     border-radius: 5px;
@@ -95,7 +95,7 @@
 .delete-task-button svg{
     width: 18px;
     height: 18px;
-    fill: red;
+    fill: #ad0f17;
     pointer-events: none;
 }
 .task-name {
@@ -112,7 +112,7 @@
 .event--card--container{
     background: #fff;
     padding: 2rem;
-    min-width: 10px;  
+    min-width: 10px;
     display: block;
     margin: 0 auto;
     width: 25rem;
@@ -126,7 +126,7 @@
 
 .mycalendar--main--content{
     /* background-color: #a09eca; */
-    background:  #c3cef1c6;
+    background:  #d5e3ec;
 
     /* display: flex;
     flex-direction: column; */
@@ -139,7 +139,7 @@
 }
 
 .planned--events .description-modal {
-    --modal-color: #9aadea;
+    --modal-color: #c2e5e4;
     display: none;
     position: absolute;
     transform: translateY(8px);
@@ -148,7 +148,6 @@
     padding: 10px;
     border-radius: 8px;
     z-index: 3;
-
     text-align: center;
     vertical-align: middle;
 }

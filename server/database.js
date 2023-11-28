@@ -223,6 +223,7 @@ function loadPost(callback) {
 function loadPosts(callback) {
     const sql = `
         SELECT p.post_id,
+               p.user_id,
                p.user_name                        AS post_user_name,
                p.topic,
                DATE_FORMAT(p.date, '%M %d, %Y')   AS post_date,
@@ -249,6 +250,7 @@ function loadPosts(callback) {
                     // Start a new post
                     currentPost = {
                         post_id: row.post_id,
+                        user_id: row.user_id,
                         user_name: row.post_user_name,
                         topic: row.topic,
                         date: row.post_date,
