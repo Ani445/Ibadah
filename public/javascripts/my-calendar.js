@@ -2,9 +2,9 @@ let selectedElement;
 document.addEventListener('DOMContentLoaded', function () {
     
     let currentDate = document.querySelector('.Today >.en');
-    let todayDate = new Date().getDate();
-    let todayMonth = new Date().getMonth();
-    let todayYear = new Date().getFullYear();
+    const todayDate = new Date().getDate();
+    const todayMonth = new Date().getMonth();
+    const todayYear = new Date().getFullYear();
 
     currentDate.innerHTML = "<span>" + todayDate + " " + months[todayMonth].substring(0, 3) + " " + todayYear + "</span>";
     let currentArabicDate = document.querySelector('.Today > .ar');
@@ -31,7 +31,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
             currentDate.innerHTML = "<span>" + date + " " + months[month].substring(0, 3) + " " + year + "</span>";
 
-            let hijriDate = new HijrahDate(new Date(year, month, date)).format('longDate', 'en')
+            let hijriDate = new HijrahDate(new Date(year, month, date)).format('longDate', 'en');
             currentArabicDate.innerHTML = "<span>" + hijriDate + "</span>";
 
             if (selectedElement == dateCells[i]) return;
@@ -40,6 +40,8 @@ document.addEventListener('DOMContentLoaded', function () {
                 dateCells[i].style.backgroundColor = "#e2e1f1df";
                 selectedElement = dateCells[i];
             }
+
+            getCalendarEvents(year, month, date);
 
         })
 
