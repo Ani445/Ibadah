@@ -1,11 +1,9 @@
 # Ibadah
 
-<p style = "text-align: center; width: 100%"> 
+<p align = "center"> 
 Ibadah is a web application for practicing Muslims to keep track of their ibadah.
 It was made as the Lab project for <br>CSE 4510: Software Development and Object-Oriented Design Lab.
-<p>
-
-
+</p>
 
 ## Team Members
 
@@ -13,7 +11,8 @@ It was made as the Lab project for <br>CSE 4510: Software Development and Object
 - [Anika Farzana](https://github.com/Ani445)
 - [Sayema Amin](https://github.com/SayemaSaj)
 
-##  Technologies Used
+## Technologies Used
+
 ### Frontend
 
 - EJS as view engine
@@ -26,3 +25,12 @@ It was made as the Lab project for <br>CSE 4510: Software Development and Object
 - Express.js
 - MySQL
 - axios
+
+
+### Install packages
+To install the necessary packages, run this commands:
+```
+npm init -y
+npm run package-installer
+```
+    
