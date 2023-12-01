@@ -53,7 +53,7 @@ $(() => {
             return false; // required to block normal submit since you used ajax
         },
     });
-    
+
     $(".option-buttons .delete-button").each(function (index, button) {
         $(button).click(function () {
             let li = $(button).parent().parent().parent();
@@ -64,4 +64,31 @@ $(() => {
             })
         })
     });
+
+    $(".delete-task-button").each(function (index, button) {
+        $(button).click(function () {
+            let li = $(button).parent().parent();
+            let id = li.attr("id");
+            console.log(id);
+            li.remove();
+            $.post(`/delete-comment/${id}`, function (response) {
+                console.log("comment deleted");
+            })
+        })
+    });
+
+    document.addEventListener("DOMContentLoaded", function() {
+        let showCommentsLabels = document.querySelectorAll('.show-comments');
+
+        showCommentsLabels.forEach(function(label) {
+            label.addEventListener('click', function() {
+                toggleComments(label.dataset.postid);
+            });
+        });
+    });
+
+    function toggleComments(postId) {
+        let commentList = document.getElementById("commentList" + postId);
+        commentList.classList.toggle("hidden-comments");
+    }
 })

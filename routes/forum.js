@@ -32,20 +32,32 @@ router.post('/new-comment/:id', (req, res) => {
     // console.log(postId);
     // if(req.body.commented!=''){
     database.insertNewComments(postId, req.body["commented"], (isSuccess) => {
-        httpMsg.sendJSON(req, res, {
-            success: isSuccess,
-        });
+        return res.redirect("/forum");
     });
 });
 
 router.post('/delete-post/:id', (req, res) => {
     if(!req.session.user) return;
 
+    console.log(req.params.id)
+
     database.deletePost(req.params.id, (isSuccess) => {
-            httpMsg.sendJSON(req, res, {
-                success: isSuccess,
-            });
+        httpMsg.sendJSON(req, res, {
+            success: isSuccess,
         });
+    });
+});
+
+router.post('/delete-comment/:id', (req, res) => {
+    if(!req.session.user) return;
+
+    console.log(req.params.id)
+
+    database.deleteComment(req.params.id, (isSuccess) => {
+        httpMsg.sendJSON(req, res, {
+            success: isSuccess,
+        });
+    });
 });
 
 

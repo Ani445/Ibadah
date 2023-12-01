@@ -115,12 +115,13 @@ body, h1, h2, h3, p, ul, li {
 
     /* background-image: url('../images/bg1.jpg'); */
     padding: 15px 19px 10px 10px ;
-    margin: 15px 5px 10px 0;   
+    margin: 15px 5px 10px 0;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
 }
 
 label {
-    font-weight: 70; 
+    font-weight: 70;
     cursor: pointer; /* Add cursor: pointer for better user experience */
     text-decoration: underline;
     /* margin-bottom: 10px; */
@@ -134,9 +135,7 @@ ul {
 }
 
 .dua{
-    width: 700px; /* Optional: Set the table width as needed */
-        /*min-width: 600px; !* Optional: Set the table width as needed *!*/
-        /*max-width: 600px;*/
+    width: 700px;
     border-radius: 9px;
     background-color: #ffffff;
     padding: 10px 10px 10px 10px ;
@@ -149,9 +148,7 @@ ul {
 }
 
 .comment{
-    width: 720px; /* Optional: Set the table width as needed */
-    /*min-width: 600px; !* Optional: Set the table width as needed *!*/
-    /*max-width: 600px;*/
+    width: 720px;
     border-radius: 5px;
     background-color: #d4e8ee;
     padding: 10px 10px 10px 10px ;
@@ -163,14 +160,9 @@ ul {
 }
 
 
-
 .post-id {
     font-weight: bold;
     color: #1b3852;
-    /* display: flex; */
-    /* padding: 1rem; */
-    /* margin: 8px 0; */
-    /* color: #007bff; Blue color */
 }
 .post-id i {
     margin-right: 8px; /* Adjust the spacing between icon and text */
@@ -194,8 +186,7 @@ ul {
 }
 .post-time {
     color: #777; /* Gray color */
-    margin-bottom: 15px;
-    font-size: 30 px;
+    margin-bottom: 5px;
 }
 #date_comment, #time_comment {
     color:#777;
@@ -204,7 +195,7 @@ ul {
 
 .post-content {
     margin-top: 10px;
-    font-size: 16px;
+    font-size: 17px;
     line-height: 1.4;
 }
 
@@ -218,7 +209,6 @@ label.error
 
 
 .option-buttons .delete-button {
-    display: block;
     width: 60px;
     height: 27px;
     border-radius: 5px;
@@ -228,17 +218,44 @@ label.error
     cursor: pointer;
     border: 1.5px solid #a31a1a !important;
     transition: background-color 0.3s;
-  }
-  
-  .option-buttons.hidden {
+}
+
+.option-buttons.hidden {
     display: none;
-  }
-  
-  .option-buttons .delete-button:hover {
-    background-color: #cc0000; /* Change to the desired color on hover */
-    color: #ffffff; /* Optionally, you can change the text color on hover */
-  }
-  
+}
+
+.option-buttons .delete-button:hover {
+    background-color: #cc0000;
+    color: #ffffff;
+}
+
+.delete-task-button {
+    width: 15%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    cursor: pointer;
+    margin-left: 90%;
+}
+
+.delete-task-button svg{
+    width: 18px;
+    height: 18px;
+    fill: #ad0f17;
+    pointer-events: none;
+}
+
+
+.delete-task-button.hidden {
+    display: none;
+}
+
+.line-under{
+    border-bottom: 2px solid #d2dcda;
+    margin-bottom: 20px;
+}
 
 #postComment
 {
@@ -247,11 +264,6 @@ label.error
     margin-top: 10px;
 }
 
-/* .dua_arabic
-{
-    font-size: 60 px !important;
-    font-weight: 900;
-} */
 
 .dua-cat-filter select {
     /* border:none;
@@ -266,20 +278,16 @@ label.error
     width: 200px;
     height: 35px;
     font-size: medium;
-  }
+}
 
-/* .dua-cat option:hover { 
-    background-color: #006699; /* Change to the desired hover color */
-    /* color: #e6f7ff; Change to the desired text color on hover */
-/* }  */
 
 .card--container{
     background-color: #000;
     padding: 2rem;
-    border-radius: 10px; 
+    border-radius: 10px;
     margin-top: 10px;
 }
-  .dua {
+.dua {
     margin-bottom: 20px; /* Add margin between each dua element */
     padding: 10px; /* Add padding to the entire dua element */
 }

@@ -228,6 +228,8 @@ function loadPosts(callback) {
                p.topic,
                DATE_FORMAT(p.date, '%M %d, %Y')   AS post_date,
                TIME_FORMAT(p.time, '%h:%i %p')    AS post_time,
+               com.User_ID                        AS comment_user_id,
+               com.Comment_ID                     AS comment_comment_id,
                com.user_name                      AS comment_user_name,
                com.comment_text,
                DATE_FORMAT(com.date, '%M %d, %Y') AS comment_date,
@@ -263,6 +265,8 @@ function loadPosts(callback) {
                 // Add the comment to the current post
                 if (row.comment_user_name) {
                     currentPost.comments.push({
+                        user_id: row.comment_user_id,
+                        comment_id: row.comment_comment_id,
                         user_name: row.comment_user_name,
                         comment_text: row.comment_text,
                         date: row.comment_date,
@@ -479,6 +483,18 @@ function deletePost(postID, callback) {
     });
 }
 
+function deleteComment(commentID, callback) {
+    const sql = `DELETE FROM Comments WHERE Comment_ID = ${pool.escape(commentID)}`;
+
+    pool.query(sql, (err) => {
+        if (err) {
+            console.log(err.sqlMessage + '\n' + err.sql);
+            callback(0);
+        }
+        callback(1);
+    });
+}
+
 module.exports = {
     checkCredentials,
     insertUser,
@@ -501,5 +517,6 @@ module.exports = {
     insertNewNotification,
     deleteCLass,
     loadDashClasses,
-    deletePost
+    deletePost,
+    deleteComment
 }

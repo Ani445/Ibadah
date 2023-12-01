@@ -18,7 +18,7 @@ function sendLocationToServer(location) {
 }
 function getCoordinates(callback) {
     let options = {
-        enableHighAccuracy: true,
+        enableHighAccuracy: false,
         timeout: 5000,
         maximumAge: 0
     };
